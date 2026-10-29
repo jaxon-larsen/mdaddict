@@ -1,0 +1,48 @@
+[project]
+name = "mdaddict"
+version = "0.1.0"
+description = "Offline-first files to Markdown with source locations and extraction issues"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = []
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Operating System :: Microsoft :: Windows",
+  "Operating System :: POSIX :: Linux",
+  "Operating System :: MacOS",
+]
+
+[project.urls]
+Source = "https://github.com/jaxon-larsen/mdaddict"
+Issues = "https://github.com/jaxon-larsen/mdaddict/issues"
+
+[project.optional-dependencies]
+pdf = ["pypdfium2==5.14.0", "pypdf==6.10.0", "Pillow==12.3.0"]
+pdf-pymupdf = ["pymupdf==1.28.2", "pymupdf4llm==0.0.27", "pypdf==6.10.0", "Pillow==12.3.0"]
+office = ["python-pptx==1.0.2", "openpyxl==3.1.5", "Pillow==12.3.0", "lxml==6.1.3"]
+images = ["Pillow==12.3.0"]
+html = ["markdownify==1.2.3"]
+extended = ["markitdown[xls,outlook]==0.1.9", "pandas==3.1.0", "xlrd==2.0.2", "olefile==0.47"]
+captions = ["pysubs2==1.9.0"]
+heif = ["Pillow==12.3.0", "pillow-heif==1.8.1"]
+online = ["youtube-transcript-api>=1.2,<1.3"]
+all = ["mdaddict[pdf,office,images,html,extended,captions]"]
+
+[project.scripts]
+mdaddict = "mdaddict.cli:main"
+
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/mdaddict"]
+
+[tool.hatch.build.targets.sdist]
+include = ["/src", "/tests", "/README.md", "/pyproject.toml", "/tools/verify_distribution.py"]
+
+[dependency-groups]
+dev = ["pytest>=9.1.1", "build>=1.2", "twine>=6"]

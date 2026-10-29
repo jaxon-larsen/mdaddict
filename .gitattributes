@@ -1,0 +1,3 @@
+# Preserve exact upstream bytes so the provenance hashes are portable.
+src/mdaddict/_vendor/omml2latex.py -text
+src/mdaddict/_vendor/licenses/omml2latex-LICENSE -text

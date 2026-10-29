@@ -1,0 +1,5 @@
+mdaddict includes omml2latex 0.1.1's omml2latex/_parser.py.
+Copyright 2026 INSEONG LEE.
+Licensed under the Apache License, Version 2.0; see licenses/omml2latex-LICENSE.
+The parser is copied without modifications. mdaddict's integration and validation
+are maintained separately in mdaddict/office_math.py.

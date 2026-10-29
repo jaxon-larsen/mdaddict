@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "mdaddict extraction result 1.0",
+  "description": "Python result serialized with dataclasses.asdict. CLI/cache envelopes omit markdown and supply an output path or adjacent Markdown file. Offsets are zero-based Unicode code-point indices with an exclusive end, in the final Markdown.",
+  "type": "object",
+  "required": ["schema_version", "sha256", "source_name", "extractor", "pages", "blocks", "issues", "status", "review_status"],
+  "properties": {
+    "schema_version": {"const": "1.0"},
+    "sha256": {"type": "string"},
+    "source_name": {"type": "string"},
+    "extractor": {"type": "string"},
+    "markdown": {"type": "string"},
+    "pages": {"type": "integer", "minimum": 0},
+    "status": {"enum": ["success", "partial", "failure"]},
+    "review_status": {"enum": ["not_reviewed", "needs_review", "reviewed"]},
+    "blocks": {"type": "array", "items": {"$ref": "#/$defs/block"}},
+    "issues": {"type": "array", "items": {"$ref": "#/$defs/issue"}},
+    "warnings": {"type": "array", "items": {"type": "string"}},
+    "metadata": {"type": "object"},
+    "usage": {"type": "object"},
+    "elapsed_ms": {"type": "number", "minimum": 0},
+    "cache_hit": {"type": "boolean"},
+    "cache_key": {"type": "string"}
+  },
+  "$defs": {
+    "source": {
+      "type": "object",
+      "required": ["unit", "index", "element"],
+      "properties": {
+        "unit": {"type": "string"},
+        "index": {"type": "integer", "minimum": 1},
+        "element": {"type": "string"}
+      },
+      "additionalProperties": false
+    },
+    "block": {
+      "type": "object",
+      "required": ["id", "kind", "source", "start", "end", "method"],
+      "properties": {
+        "id": {"type": "string", "minLength": 1},
+        "kind": {"type": "string"},
+        "source": {"$ref": "#/$defs/source"},
+        "start": {"type": "integer", "minimum": 0},
+        "end": {"type": "integer", "minimum": 0},
+        "method": {"enum": ["native", "ocr", "ai", "mixed"]}
+      },
+      "additionalProperties": false
+    },
+    "issue": {
+      "type": "object",
+      "required": ["code", "message", "source", "block_ids", "severity"],
+      "properties": {
+        "code": {"type": "string"},
+        "message": {"type": "string"},
+        "source": {"$ref": "#/$defs/source"},
+        "block_ids": {"type": "array", "items": {"type": "string"}},
+        "severity": {"enum": ["review", "unresolved", "informational"]}
+      },
+      "additionalProperties": false
+    }
+  }
+}

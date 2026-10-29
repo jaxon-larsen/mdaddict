@@ -1,0 +1,2769 @@
+{
+  "measurement_date": "2026-10-24",
+  "final_review_date": "2026-10-26",
+  "plan_sha256": "a7671a71eda0714d78dd0653569769d62bce424cbf22aece800dbd00fbef3518",
+  "scope": {
+    "pdf_pages": 29,
+    "office_images": 2,
+    "math_crops": 6
+  },
+  "profiles": {
+    "docling": {
+      "pdf": {
+        "inputs": 29,
+        "automatic_checks": 54,
+        "counts": {
+          "pass": 24,
+          "mismatch": 30
+        },
+        "by_kind": {
+          "coverage": {
+            "pass": 5,
+            "mismatch": 1
+          },
+          "matrix": {
+            "mismatch": 2
+          },
+          "text": {
+            "pass": 14,
+            "mismatch": 3
+          },
+          "table": {
+            "mismatch": 3,
+            "pass": 1
+          },
+          "order": {
+            "pass": 4
+          },
+          "math": {
+            "mismatch": 21
+          }
+        },
+        "input_status": {
+          "ok": 29
+        }
+      },
+      "office-image": {
+        "inputs": 2,
+        "automatic_checks": 8,
+        "counts": {
+          "pass": 3,
+          "mismatch": 5
+        },
+        "by_kind": {
+          "coverage": {},
+          "matrix": {},
+          "text": {
+            "pass": 3
+          },
+          "table": {},
+          "order": {
+            "mismatch": 1
+          },
+          "math": {
+            "mismatch": 4
+          }
+        },
+        "input_status": {
+          "ok": 2
+        }
+      },
+      "math-crop": {
+        "inputs": 0,
+        "automatic_checks": 0,
+        "counts": {},
+        "by_kind": {
+          "coverage": {},
+          "matrix": {},
+          "text": {},
+          "table": {},
+          "order": {},
+          "math": {}
+        },
+        "input_status": {}
+      },
+      "panel-pdf": {
+        "inputs": 9,
+        "automatic_checks": 15,
+        "counts": {
+          "pass": 6,
+          "mismatch": 9
+        },
+        "by_kind": {
+          "coverage": {
+            "mismatch": 1,
+            "pass": 1
+          },
+          "matrix": {
+            "mismatch": 1
+          },
+          "text": {
+            "pass": 2,
+            "mismatch": 1
+          },
+          "table": {
+            "mismatch": 3,
+            "pass": 1
+          },
+          "order": {
+            "pass": 2
+          },
+          "math": {
+            "mismatch": 3
+          }
+        },
+        "input_status": {
+          "ok": 9
+        }
+      },
+      "panel-office-image": {
+        "inputs": 2,
+        "automatic_checks": 8,
+        "counts": {
+          "pass": 3,
+          "mismatch": 5
+        },
+        "by_kind": {
+          "coverage": {},
+          "matrix": {},
+          "text": {
+            "pass": 3
+          },
+          "table": {},
+          "order": {
+            "mismatch": 1
+          },
+          "math": {
+            "mismatch": 4
+          }
+        },
+        "input_status": {
+          "ok": 2
+        }
+      }
+    },
+    "docling-formula": {
+      "pdf": {
+        "inputs": 3,
+        "automatic_checks": 5,
+        "counts": {
+          "execution_error": 3,
+          "pass": 2
+        },
+        "by_kind": {
+          "coverage": {
+            "pass": 1
+          },
+          "matrix": {},
+          "text": {},
+          "table": {
+            "pass": 1,
+            "execution_error": 1
+          },
+          "order": {},
+          "math": {
+            "execution_error": 2
+          }
+        },
+        "input_status": {
+          "timeout": 2,
+          "ok": 1
+        }
+      },
+      "office-image": {
+        "inputs": 1,
+        "automatic_checks": 5,
+        "counts": {
+          "pass": 3,
+          "mismatch": 2
+        },
+        "by_kind": {
+          "coverage": {},
+          "matrix": {},
+          "text": {
+            "pass": 3
+          },
+          "table": {},
+          "order": {
+            "mismatch": 1
+          },
+          "math": {
+            "mismatch": 1
+          }
+        },
+        "input_status": {
+          "ok": 1
+        }
+      },
+      "math-crop": {
+        "inputs": 0,
+        "automatic_checks": 0,
+        "counts": {},
+        "by_kind": {
+          "coverage": {},
+          "matrix": {},
+          "text": {},
+          "table": {},
+          "order": {},
+          "math": {}
+        },
+        "input_status": {}
+      },
+      "panel-pdf": {
+        "inputs": 3,
+        "automatic_checks": 5,
+        "counts": {
+          "execution_error": 3,
+          "pass": 2
+        },
+        "by_kind": {
+          "coverage": {
+            "pass": 1
+          },
+          "matrix": {},
+          "text": {},
+          "table": {
+            "pass": 1,
+            "execution_error": 1
+          },
+          "order": {},
+          "math": {
+            "execution_error": 2
+          }
+        },
+        "input_status": {
+          "timeout": 2,
+          "ok": 1
+        }
+      },
+      "panel-office-image": {
+        "inputs": 1,
+        "automatic_checks": 5,
+        "counts": {
+          "pass": 3,
+          "mismatch": 2
+        },
+        "by_kind": {
+          "coverage": {},
+          "matrix": {},
+          "text": {
+            "pass": 3
+          },
+          "table": {},
+          "order": {
+            "mismatch": 1
+          },
+          "math": {
+            "mismatch": 1
+          }
+        },
+        "input_status": {
+          "ok": 1
+        }
+      }
+    },
+    "doctr": {
+      "pdf": {
+        "inputs": 9,
+        "automatic_checks": 15,
+        "counts": {
+          "pass": 4,
+          "mismatch": 11
+        },
+        "by_kind": {
+          "coverage": {
+            "mismatch": 2
+          },
+          "matrix": {
+            "mismatch": 1
+          },
+          "text": {
+            "pass": 2,
+            "mismatch": 1
+          },
+          "table": {
+            "mismatch": 4
+          },
+          "order": {
+            "pass": 2
+          },
+          "math": {
+            "mismatch": 3
+          }
+        },
+        "input_status": {
+          "ok": 9
+        }
+      },
+      "office-image": {
+        "inputs": 2,
+        "automatic_checks": 8,
+        "counts": {
+          "pass": 4,
+          "mismatch": 4
+        },
+        "by_kind": {
+          "coverage": {},
+          "matrix": {},
+          "text": {
+            "pass": 3
+          },
+          "table": {},
+          "order": {
+            "pass": 1
+          },
+          "math": {
+            "mismatch": 4
+          }
+        },
+        "input_status": {
+          "ok": 2
+        }
+      },
+      "math-crop": {
+        "inputs": 0,
+        "automatic_checks": 0,
+        "counts": {},
+        "by_kind": {
+          "coverage": {},
+          "matrix": {},
+          "text": {},
+          "table": {},
+          "order": {},
+          "math": {}
+        },
+        "input_status": {}
+      },
+      "panel-pdf": {
+        "inputs": 9,
+        "automatic_checks": 15,
+        "counts": {
+          "pass": 4,
+          "mismatch": 11
+        },
+        "by_kind": {
+          "coverage": {
+            "mismatch": 2
+          },
+          "matrix": {
+            "mismatch": 1
+          },
+          "text": {
+            "pass": 2,
+            "mismatch": 1
+          },
+          "table": {
+            "mismatch": 4
+          },
+          "order": {
+            "pass": 2
+          },
+          "math": {
+            "mismatch": 3
+          }
+        },
+        "input_status": {
+          "ok": 9
+        }
+      },
+      "panel-office-image": {
+        "inputs": 2,
+        "automatic_checks": 8,
+        "counts": {
+          "pass": 4,
+          "mismatch": 4
+        },
+        "by_kind": {
+          "coverage": {},
+          "matrix": {},
+          "text": {
+            "pass": 3
+          },
+          "table": {},
+          "order": {
+            "pass": 1
+          },
+          "math": {
+            "mismatch": 4
+          }
+        },
+        "input_status": {
+          "ok": 2
+        }
+      }
+    },
+    "doctr-fast": {
+      "pdf": {
+        "inputs": 9,
+        "automatic_checks": 15,
+        "counts": {
+          "pass": 4,
+          "mismatch": 11
+        },
+        "by_kind": {
+          "coverage": {
+            "mismatch": 2
+          },
+          "matrix": {
+            "mismatch": 1
+          },
+          "text": {
+            "pass": 2,
+            "mismatch": 1
+          },
+          "table": {
+            "mismatch": 4
+          },
+          "order": {
+            "pass": 2
+          },
+          "math": {
+            "mismatch": 3
+          }
+        },
+        "input_status": {
+          "ok": 9
+        }
+      },
+      "office-image": {
+        "inputs": 2,
+        "automatic_checks": 8,
+        "counts": {
+          "mismatch": 5,
+          "pass": 3
+        },
+        "by_kind": {
+          "coverage": {},
+          "matrix": {},
+          "text": {
+            "mismatch": 1,
+            "pass": 2
+          },
+          "table": {},
+          "order": {
+            "pass": 1
+          },
+          "math": {
+            "mismatch": 4
+          }
+        },
+        "input_status": {
+          "ok": 2
+        }
+      },
+      "math-crop": {
+        "inputs": 0,
+        "automatic_checks": 0,
+        "counts": {},
+        "by_kind": {
+          "coverage": {},
+          "matrix": {},
+          "text": {},
+          "table": {},
+          "order": {},
+          "math": {}
+        },
+        "input_status": {}
+      },
+      "panel-pdf": {
+        "inputs": 9,
+        "automatic_checks": 15,
+        "counts": {
+          "pass": 4,
+          "mismatch": 11
+        },
+        "by_kind": {
+          "coverage": {
+            "mismatch": 2
+          },
+          "matrix": {
+            "mismatch": 1
+          },
+          "text": {
+            "pass": 2,
+            "mismatch": 1
+          },
+          "table": {
+            "mismatch": 4
+          },
+          "order": {
+            "pass": 2
+          },
+          "math": {
+            "mismatch": 3
+          }
+        },
+        "input_status": {
+          "ok": 9
+        }
+      },
+      "panel-office-image": {
+        "inputs": 2,
+        "automatic_checks": 8,
+        "counts": {
+          "mismatch": 5,
+          "pass": 3
+        },
+        "by_kind": {
+          "coverage": {},
+          "matrix": {},
+          "text": {
+            "mismatch": 1,
+            "pass": 2
+          },
+          "table": {},
+          "order": {
+            "pass": 1
+          },
+          "math": {
+            "mismatch": 4
+          }
+        },
+        "input_status": {
+          "ok": 2
+        }
+      }
+    },
+    "easyocr": {
+      "pdf": {
+        "inputs": 9,
+        "automatic_checks": 15,
+        "counts": {
+          "mismatch": 13,
+          "pass": 2
+        },
+        "by_kind": {
+          "coverage": {
+            "mismatch": 2
+          },
+          "matrix": {
+            "mismatch": 1
+          },
+          "text": {
+            "mismatch": 2,
+            "pass": 1
+          },
+          "table": {
+            "mismatch": 4
+          },
+          "order": {
+            "pass": 1,
+            "mismatch": 1
+          },
+          "math": {
+            "mismatch": 3
+          }
+        },
+        "input_status": {
+          "ok": 9
+        }
+      },
+      "office-image": {
+        "inputs": 2,
+        "automatic_checks": 8,
+        "counts": {
+          "mismatch": 7,
+          "pass": 1
+        },
+        "by_kind": {
+          "coverage": {},
+          "matrix": {},
+          "text": {
+            "mismatch": 2,
+            "pass": 1
+          },
+          "table": {},
+          "order": {
+            "mismatch": 1
+          },
+          "math": {
+            "mismatch": 4
+          }
+        },
+        "input_status": {
+          "ok": 2
+        }
+      },
+      "math-crop": {
+        "inputs": 0,
+        "automatic_checks": 0,
+        "counts": {},
+        "by_kind": {
+          "coverage": {},
+          "matrix": {},
+          "text": {},
+          "table": {},
+          "order": {},
+          "math": {}
+        },
+        "input_status": {}
+      },
+      "panel-pdf": {
+        "inputs": 9,
+        "automatic_checks": 15,
+        "counts": {
+          "mismatch": 13,
+          "pass": 2
+        },
+        "by_kind": {
+          "coverage": {
+            "mismatch": 2
+          },
+          "matrix": {
+            "mismatch": 1
+          },
+          "text": {
+            "mismatch": 2,
+            "pass": 1
+          },
+          "table": {
+            "mismatch": 4
+          },
+          "order": {
+            "pass": 1,
+            "mismatch": 1
+          },
+          "math": {
+            "mismatch": 3
+          }
+        },
+        "input_status": {
+          "ok": 9
+        }
+      },
+      "panel-office-image": {
+        "inputs": 2,
+        "automatic_checks": 8,
+        "counts": {
+          "mismatch": 7,
+          "pass": 1
+        },
+        "by_kind": {
+          "coverage": {},
+          "matrix": {},
+          "text": {
+            "mismatch": 2,
+            "pass": 1
+          },
+          "table": {},
+          "order": {
+            "mismatch": 1
+          },
+          "math": {
+            "mismatch": 4
+          }
+        },
+        "input_status": {
+          "ok": 2
+        }
+      }
+    },
+    "liteparse": {
+      "pdf": {
+        "inputs": 29,
+        "automatic_checks": 54,
+        "counts": {
+          "pass": 25,
+          "mismatch": 29
+        },
+        "by_kind": {
+          "coverage": {
+            "pass": 6
+          },
+          "matrix": {
+            "mismatch": 2
+          },
+          "text": {
+            "pass": 15,
+            "mismatch": 2
+          },
+          "table": {
+            "mismatch": 3,
+            "pass": 1
+          },
+          "order": {
+            "pass": 3,
+            "mismatch": 1
+          },
+          "math": {
+            "mismatch": 21
+          }
+        },
+        "input_status": {
+          "ok": 29
+        }
+      },
+      "office-image": {
+        "inputs": 2,
+        "automatic_checks": 8,
+        "counts": {
+          "pass": 2,
+          "mismatch": 6
+        },
+        "by_kind": {
+          "coverage": {},
+          "matrix": {},
+          "text": {
+            "pass": 2,
+            "mismatch": 1
+          },
+          "table": {},
+          "order": {
+            "mismatch": 1
+          },
+          "math": {
+            "mismatch": 4
+          }
+        },
+        "input_status": {
+          "ok": 2
+        }
+      },
+      "math-crop": {
+        "inputs": 0,
+        "automatic_checks": 0,
+        "counts": {},
+        "by_kind": {
+          "coverage": {},
+          "matrix": {},
+          "text": {},
+          "table": {},
+          "order": {},
+          "math": {}
+        },
+        "input_status": {}
+      },
+      "panel-pdf": {
+        "inputs": 9,
+        "automatic_checks": 15,
+        "counts": {
+          "pass": 8,
+          "mismatch": 7
+        },
+        "by_kind": {
+          "coverage": {
+            "pass": 2
+          },
+          "matrix": {
+            "mismatch": 1
+          },
+          "text": {
+            "pass": 3
+          },
+          "table": {
+            "mismatch": 3,
+            "pass": 1
+          },
+          "order": {
+            "pass": 2
+          },
+          "math": {
+            "mismatch": 3
+          }
+        },
+        "input_status": {
+          "ok": 9
+        }
+      },
+      "panel-office-image": {
+        "inputs": 2,
+        "automatic_checks": 8,
+        "counts": {
+          "pass": 2,
+          "mismatch": 6
+        },
+        "by_kind": {
+          "coverage": {},
+          "matrix": {},
+          "text": {
+            "pass": 2,
+            "mismatch": 1
+          },
+          "table": {},
+          "order": {
+            "mismatch": 1
+          },
+          "math": {
+            "mismatch": 4
+          }
+        },
+        "input_status": {
+          "ok": 2
+        }
+      }
+    },
+    "liteparse-scan": {
+      "pdf": {
+        "inputs": 29,
+        "automatic_checks": 54,
+        "counts": {
+          "mismatch": 43,
+          "pass": 11
+        },
+        "by_kind": {
+          "coverage": {
+            "pass": 4,
+            "mismatch": 2
+          },
+          "matrix": {
+            "mismatch": 2
+          },
+          "text": {
+            "mismatch": 10,
+            "pass": 7
+          },
+          "table": {
+            "mismatch": 4
+          },
+          "order": {
+            "mismatch": 4
+          },
+          "math": {
+            "mismatch": 21
+          }
+        },
+        "input_status": {
+          "ok": 29
+        }
+      },
+      "office-image": {
+        "inputs": 2,
+        "automatic_checks": 8,
+        "counts": {
+          "pass": 2,
+          "mismatch": 6
+        },
+        "by_kind": {
+          "coverage": {},
+          "matrix": {},
+          "text": {
+            "pass": 2,
+            "mismatch": 1
+          },
+          "table": {},
+          "order": {
+            "mismatch": 1
+          },
+          "math": {
+            "mismatch": 4
+          }
+        },
+        "input_status": {
+          "ok": 2
+        }
+      },
+      "math-crop": {
+        "inputs": 0,
+        "automatic_checks": 0,
+        "counts": {},
+        "by_kind": {
+          "coverage": {},
+          "matrix": {},
+          "text": {},
+          "table": {},
+          "order": {},
+          "math": {}
+        },
+        "input_status": {}
+      },
+      "panel-pdf": {
+        "inputs": 9,
+        "automatic_checks": 15,
+        "counts": {
+          "mismatch": 15
+        },
+        "by_kind": {
+          "coverage": {
+            "mismatch": 2
+          },
+          "matrix": {
+            "mismatch": 1
+          },
+          "text": {
+            "mismatch": 3
+          },
+          "table": {
+            "mismatch": 4
+          },
+          "order": {
+            "mismatch": 2
+          },
+          "math": {
+            "mismatch": 3
+          }
+        },
+        "input_status": {
+          "ok": 9
+        }
+      },
+      "panel-office-image": {
+        "inputs": 2,
+        "automatic_checks": 8,
+        "counts": {
+          "pass": 2,
+          "mismatch": 6
+        },
+        "by_kind": {
+          "coverage": {},
+          "matrix": {},
+          "text": {
+            "pass": 2,
+            "mismatch": 1
+          },
+          "table": {},
+          "order": {
+            "mismatch": 1
+          },
+          "math": {
+            "mismatch": 4
+          }
+        },
+        "input_status": {
+          "ok": 2
+        }
+      }
+    },
+    "rapidocr": {
+      "pdf": {
+        "inputs": 29,
+        "automatic_checks": 54,
+        "counts": {
+          "pass": 18,
+          "mismatch": 36
+        },
+        "by_kind": {
+          "coverage": {
+            "pass": 4,
+            "mismatch": 2
+          },
+          "matrix": {
+            "mismatch": 2
+          },
+          "text": {
+            "pass": 12,
+            "mismatch": 5
+          },
+          "table": {
+            "mismatch": 4
+          },
+          "order": {
+            "pass": 2,
+            "mismatch": 2
+          },
+          "math": {
+            "mismatch": 21
+          }
+        },
+        "input_status": {
+          "ok": 29
+        }
+      },
+      "office-image": {
+        "inputs": 2,
+        "automatic_checks": 8,
+        "counts": {
+          "pass": 4,
+          "mismatch": 4
+        },
+        "by_kind": {
+          "coverage": {},
+          "matrix": {},
+          "text": {
+            "pass": 3
+          },
+          "table": {},
+          "order": {
+            "pass": 1
+          },
+          "math": {
+            "mismatch": 4
+          }
+        },
+        "input_status": {
+          "ok": 2
+        }
+      },
+      "math-crop": {
+        "inputs": 0,
+        "automatic_checks": 0,
+        "counts": {},
+        "by_kind": {
+          "coverage": {},
+          "matrix": {},
+          "text": {},
+          "table": {},
+          "order": {},
+          "math": {}
+        },
+        "input_status": {}
+      },
+      "panel-pdf": {
+        "inputs": 9,
+        "automatic_checks": 15,
+        "counts": {
+          "pass": 3,
+          "mismatch": 12
+        },
+        "by_kind": {
+          "coverage": {
+            "mismatch": 2
+          },
+          "matrix": {
+            "mismatch": 1
+          },
+          "text": {
+            "pass": 2,
+            "mismatch": 1
+          },
+          "table": {
+            "mismatch": 4
+          },
+          "order": {
+            "pass": 1,
+            "mismatch": 1
+          },
+          "math": {
+            "mismatch": 3
+          }
+        },
+        "input_status": {
+          "ok": 9
+        }
+      },
+      "panel-office-image": {
+        "inputs": 2,
+        "automatic_checks": 8,
+        "counts": {
+          "pass": 4,
+          "mismatch": 4
+        },
+        "by_kind": {
+          "coverage": {},
+          "matrix": {},
+          "text": {
+            "pass": 3
+          },
+          "table": {},
+          "order": {
+            "pass": 1
+          },
+          "math": {
+            "mismatch": 4
+          }
+        },
+        "input_status": {
+          "ok": 2
+        }
+      }
+    },
+    "tesseract3": {
+      "pdf": {
+        "inputs": 29,
+        "automatic_checks": 54,
+        "counts": {
+          "pass": 19,
+          "mismatch": 35
+        },
+        "by_kind": {
+          "coverage": {
+            "pass": 4,
+            "mismatch": 2
+          },
+          "matrix": {
+            "mismatch": 2
+          },
+          "text": {
+            "pass": 11,
+            "mismatch": 6
+          },
+          "table": {
+            "mismatch": 4
+          },
+          "order": {
+            "pass": 4
+          },
+          "math": {
+            "mismatch": 21
+          }
+        },
+        "input_status": {
+          "ok": 29
+        }
+      },
+      "office-image": {
+        "inputs": 2,
+        "automatic_checks": 8,
+        "counts": {
+          "pass": 4,
+          "mismatch": 4
+        },
+        "by_kind": {
+          "coverage": {},
+          "matrix": {},
+          "text": {
+            "pass": 3
+          },
+          "table": {},
+          "order": {
+            "pass": 1
+          },
+          "math": {
+            "mismatch": 4
+          }
+        },
+        "input_status": {
+          "ok": 2
+        }
+      },
+      "math-crop": {
+        "inputs": 0,
+        "automatic_checks": 0,
+        "counts": {},
+        "by_kind": {
+          "coverage": {},
+          "matrix": {},
+          "text": {},
+          "table": {},
+          "order": {},
+          "math": {}
+        },
+        "input_status": {}
+      },
+      "panel-pdf": {
+        "inputs": 9,
+        "automatic_checks": 15,
+        "counts": {
+          "pass": 4,
+          "mismatch": 11
+        },
+        "by_kind": {
+          "coverage": {
+            "mismatch": 2
+          },
+          "matrix": {
+            "mismatch": 1
+          },
+          "text": {
+            "pass": 2,
+            "mismatch": 1
+          },
+          "table": {
+            "mismatch": 4
+          },
+          "order": {
+            "pass": 2
+          },
+          "math": {
+            "mismatch": 3
+          }
+        },
+        "input_status": {
+          "ok": 9
+        }
+      },
+      "panel-office-image": {
+        "inputs": 2,
+        "automatic_checks": 8,
+        "counts": {
+          "pass": 4,
+          "mismatch": 4
+        },
+        "by_kind": {
+          "coverage": {},
+          "matrix": {},
+          "text": {
+            "pass": 3
+          },
+          "table": {},
+          "order": {
+            "pass": 1
+          },
+          "math": {
+            "mismatch": 4
+          }
+        },
+        "input_status": {
+          "ok": 2
+        }
+      }
+    },
+    "tesseract6": {
+      "pdf": {
+        "inputs": 29,
+        "automatic_checks": 54,
+        "counts": {
+          "mismatch": 38,
+          "pass": 16
+        },
+        "by_kind": {
+          "coverage": {
+            "pass": 4,
+            "mismatch": 2
+          },
+          "matrix": {
+            "mismatch": 2
+          },
+          "text": {
+            "mismatch": 7,
+            "pass": 10
+          },
+          "table": {
+            "mismatch": 4
+          },
+          "order": {
+            "pass": 2,
+            "mismatch": 2
+          },
+          "math": {
+            "mismatch": 21
+          }
+        },
+        "input_status": {
+          "ok": 29
+        }
+      },
+      "office-image": {
+        "inputs": 2,
+        "automatic_checks": 8,
+        "counts": {
+          "pass": 4,
+          "mismatch": 4
+        },
+        "by_kind": {
+          "coverage": {},
+          "matrix": {},
+          "text": {
+            "pass": 3
+          },
+          "table": {},
+          "order": {
+            "pass": 1
+          },
+          "math": {
+            "mismatch": 4
+          }
+        },
+        "input_status": {
+          "ok": 2
+        }
+      },
+      "math-crop": {
+        "inputs": 0,
+        "automatic_checks": 0,
+        "counts": {},
+        "by_kind": {
+          "coverage": {},
+          "matrix": {},
+          "text": {},
+          "table": {},
+          "order": {},
+          "math": {}
+        },
+        "input_status": {}
+      },
+      "panel-pdf": {
+        "inputs": 9,
+        "automatic_checks": 15,
+        "counts": {
+          "mismatch": 13,
+          "pass": 2
+        },
+        "by_kind": {
+          "coverage": {
+            "mismatch": 2
+          },
+          "matrix": {
+            "mismatch": 1
+          },
+          "text": {
+            "mismatch": 2,
+            "pass": 1
+          },
+          "table": {
+            "mismatch": 4
+          },
+          "order": {
+            "pass": 1,
+            "mismatch": 1
+          },
+          "math": {
+            "mismatch": 3
+          }
+        },
+        "input_status": {
+          "ok": 9
+        }
+      },
+      "panel-office-image": {
+        "inputs": 2,
+        "automatic_checks": 8,
+        "counts": {
+          "pass": 4,
+          "mismatch": 4
+        },
+        "by_kind": {
+          "coverage": {},
+          "matrix": {},
+          "text": {
+            "pass": 3
+          },
+          "table": {},
+          "order": {
+            "pass": 1
+          },
+          "math": {
+            "mismatch": 4
+          }
+        },
+        "input_status": {
+          "ok": 2
+        }
+      }
+    },
+    "glm": {
+      "pdf": {
+        "inputs": 0,
+        "automatic_checks": 0,
+        "counts": {},
+        "by_kind": {
+          "coverage": {},
+          "matrix": {},
+          "text": {},
+          "table": {},
+          "order": {},
+          "math": {}
+        },
+        "input_status": {}
+      },
+      "office-image": {
+        "inputs": 0,
+        "automatic_checks": 0,
+        "counts": {},
+        "by_kind": {
+          "coverage": {},
+          "matrix": {},
+          "text": {},
+          "table": {},
+          "order": {},
+          "math": {}
+        },
+        "input_status": {}
+      },
+      "math-crop": {
+        "inputs": 2,
+        "automatic_checks": 2,
+        "counts": {
+          "execution_error": 1,
+          "mismatch": 1
+        },
+        "by_kind": {
+          "coverage": {},
+          "matrix": {},
+          "text": {},
+          "table": {},
+          "order": {},
+          "math": {
+            "execution_error": 1,
+            "mismatch": 1
+          }
+        },
+        "input_status": {
+          "timeout": 1,
+          "ok": 1
+        }
+      },
+      "panel-pdf": {
+        "inputs": 0,
+        "automatic_checks": 0,
+        "counts": {},
+        "by_kind": {
+          "coverage": {},
+          "matrix": {},
+          "text": {},
+          "table": {},
+          "order": {},
+          "math": {}
+        },
+        "input_status": {}
+      },
+      "panel-office-image": {
+        "inputs": 0,
+        "automatic_checks": 0,
+        "counts": {},
+        "by_kind": {
+          "coverage": {},
+          "matrix": {},
+          "text": {},
+          "table": {},
+          "order": {},
+          "math": {}
+        },
+        "input_status": {}
+      }
+    },
+    "granite": {
+      "pdf": {
+        "inputs": 0,
+        "automatic_checks": 0,
+        "counts": {},
+        "by_kind": {
+          "coverage": {},
+          "matrix": {},
+          "text": {},
+          "table": {},
+          "order": {},
+          "math": {}
+        },
+        "input_status": {}
+      },
+      "office-image": {
+        "inputs": 2,
+        "automatic_checks": 8,
+        "counts": {
+          "pass": 5,
+          "mismatch": 3
+        },
+        "by_kind": {
+          "coverage": {},
+          "matrix": {},
+          "text": {
+            "pass": 3
+          },
+          "table": {},
+          "order": {
+            "pass": 1
+          },
+          "math": {
+            "pass": 1,
+            "mismatch": 3
+          }
+        },
+        "input_status": {
+          "ok": 2
+        }
+      },
+      "math-crop": {
+        "inputs": 6,
+        "automatic_checks": 6,
+        "counts": {
+          "mismatch": 4,
+          "pass": 2
+        },
+        "by_kind": {
+          "coverage": {},
+          "matrix": {},
+          "text": {},
+          "table": {},
+          "order": {},
+          "math": {
+            "mismatch": 4,
+            "pass": 2
+          }
+        },
+        "input_status": {
+          "ok": 6
+        }
+      },
+      "panel-pdf": {
+        "inputs": 0,
+        "automatic_checks": 0,
+        "counts": {},
+        "by_kind": {
+          "coverage": {},
+          "matrix": {},
+          "text": {},
+          "table": {},
+          "order": {},
+          "math": {}
+        },
+        "input_status": {}
+      },
+      "panel-office-image": {
+        "inputs": 2,
+        "automatic_checks": 8,
+        "counts": {
+          "pass": 5,
+          "mismatch": 3
+        },
+        "by_kind": {
+          "coverage": {},
+          "matrix": {},
+          "text": {
+            "pass": 3
+          },
+          "table": {},
+          "order": {
+            "pass": 1
+          },
+          "math": {
+            "pass": 1,
+            "mismatch": 3
+          }
+        },
+        "input_status": {
+          "ok": 2
+        }
+      }
+    },
+    "lighton": {
+      "pdf": {
+        "inputs": 1,
+        "automatic_checks": 2,
+        "counts": {
+          "execution_error": 2
+        },
+        "by_kind": {
+          "coverage": {
+            "execution_error": 1
+          },
+          "matrix": {},
+          "text": {},
+          "table": {
+            "execution_error": 1
+          },
+          "order": {},
+          "math": {}
+        },
+        "input_status": {
+          "timeout": 1
+        }
+      },
+      "office-image": {
+        "inputs": 1,
+        "automatic_checks": 5,
+        "counts": {
+          "pass": 5
+        },
+        "by_kind": {
+          "coverage": {},
+          "matrix": {},
+          "text": {
+            "pass": 3
+          },
+          "table": {},
+          "order": {
+            "pass": 1
+          },
+          "math": {
+            "pass": 1
+          }
+        },
+        "input_status": {
+          "ok": 1
+        }
+      },
+      "math-crop": {
+        "inputs": 6,
+        "automatic_checks": 6,
+        "counts": {
+          "pass": 5,
+          "mismatch": 1
+        },
+        "by_kind": {
+          "coverage": {},
+          "matrix": {},
+          "text": {},
+          "table": {},
+          "order": {},
+          "math": {
+            "pass": 5,
+            "mismatch": 1
+          }
+        },
+        "input_status": {
+          "ok": 6
+        }
+      },
+      "panel-pdf": {
+        "inputs": 1,
+        "automatic_checks": 2,
+        "counts": {
+          "execution_error": 2
+        },
+        "by_kind": {
+          "coverage": {
+            "execution_error": 1
+          },
+          "matrix": {},
+          "text": {},
+          "table": {
+            "execution_error": 1
+          },
+          "order": {},
+          "math": {}
+        },
+        "input_status": {
+          "timeout": 1
+        }
+      },
+      "panel-office-image": {
+        "inputs": 1,
+        "automatic_checks": 5,
+        "counts": {
+          "pass": 5
+        },
+        "by_kind": {
+          "coverage": {},
+          "matrix": {},
+          "text": {
+            "pass": 3
+          },
+          "table": {},
+          "order": {
+            "pass": 1
+          },
+          "math": {
+            "pass": 1
+          }
+        },
+        "input_status": {
+          "ok": 1
+        }
+      }
+    },
+    "lighton3": {
+      "pdf": {
+        "inputs": 0,
+        "automatic_checks": 0,
+        "counts": {},
+        "by_kind": {
+          "coverage": {},
+          "matrix": {},
+          "text": {},
+          "table": {},
+          "order": {},
+          "math": {}
+        },
+        "input_status": {}
+      },
+      "office-image": {
+        "inputs": 0,
+        "automatic_checks": 0,
+        "counts": {},
+        "by_kind": {
+          "coverage": {},
+          "matrix": {},
+          "text": {},
+          "table": {},
+          "order": {},
+          "math": {}
+        },
+        "input_status": {}
+      },
+      "math-crop": {
+        "inputs": 2,
+        "automatic_checks": 2,
+        "counts": {
+          "execution_error": 2
+        },
+        "by_kind": {
+          "coverage": {},
+          "matrix": {},
+          "text": {},
+          "table": {},
+          "order": {},
+          "math": {
+            "execution_error": 2
+          }
+        },
+        "input_status": {
+          "timeout": 2
+        }
+      },
+      "panel-pdf": {
+        "inputs": 0,
+        "automatic_checks": 0,
+        "counts": {},
+        "by_kind": {
+          "coverage": {},
+          "matrix": {},
+          "text": {},
+          "table": {},
+          "order": {},
+          "math": {}
+        },
+        "input_status": {}
+      },
+      "panel-office-image": {
+        "inputs": 0,
+        "automatic_checks": 0,
+        "counts": {},
+        "by_kind": {
+          "coverage": {},
+          "matrix": {},
+          "text": {},
+          "table": {},
+          "order": {},
+          "math": {}
+        },
+        "input_status": {}
+      }
+    },
+    "paddlevl": {
+      "pdf": {
+        "inputs": 0,
+        "automatic_checks": 0,
+        "counts": {},
+        "by_kind": {
+          "coverage": {},
+          "matrix": {},
+          "text": {},
+          "table": {},
+          "order": {},
+          "math": {}
+        },
+        "input_status": {}
+      },
+      "office-image": {
+        "inputs": 0,
+        "automatic_checks": 0,
+        "counts": {},
+        "by_kind": {
+          "coverage": {},
+          "matrix": {},
+          "text": {},
+          "table": {},
+          "order": {},
+          "math": {}
+        },
+        "input_status": {}
+      },
+      "math-crop": {
+        "inputs": 2,
+        "automatic_checks": 2,
+        "counts": {
+          "execution_error": 2
+        },
+        "by_kind": {
+          "coverage": {},
+          "matrix": {},
+          "text": {},
+          "table": {},
+          "order": {},
+          "math": {
+            "execution_error": 2
+          }
+        },
+        "input_status": {
+          "timeout": 2
+        }
+      },
+      "panel-pdf": {
+        "inputs": 0,
+        "automatic_checks": 0,
+        "counts": {},
+        "by_kind": {
+          "coverage": {},
+          "matrix": {},
+          "text": {},
+          "table": {},
+          "order": {},
+          "math": {}
+        },
+        "input_status": {}
+      },
+      "panel-office-image": {
+        "inputs": 0,
+        "automatic_checks": 0,
+        "counts": {},
+        "by_kind": {
+          "coverage": {},
+          "matrix": {},
+          "text": {},
+          "table": {},
+          "order": {},
+          "math": {}
+        },
+        "input_status": {}
+      }
+    },
+    "pix": {
+      "pdf": {
+        "inputs": 0,
+        "automatic_checks": 0,
+        "counts": {},
+        "by_kind": {
+          "coverage": {},
+          "matrix": {},
+          "text": {},
+          "table": {},
+          "order": {},
+          "math": {}
+        },
+        "input_status": {}
+      },
+      "office-image": {
+        "inputs": 0,
+        "automatic_checks": 0,
+        "counts": {},
+        "by_kind": {
+          "coverage": {},
+          "matrix": {},
+          "text": {},
+          "table": {},
+          "order": {},
+          "math": {}
+        },
+        "input_status": {}
+      },
+      "math-crop": {
+        "inputs": 6,
+        "automatic_checks": 6,
+        "counts": {
+          "mismatch": 4,
+          "pass": 2
+        },
+        "by_kind": {
+          "coverage": {},
+          "matrix": {},
+          "text": {},
+          "table": {},
+          "order": {},
+          "math": {
+            "mismatch": 4,
+            "pass": 2
+          }
+        },
+        "input_status": {
+          "ok": 6
+        }
+      },
+      "panel-pdf": {
+        "inputs": 0,
+        "automatic_checks": 0,
+        "counts": {},
+        "by_kind": {
+          "coverage": {},
+          "matrix": {},
+          "text": {},
+          "table": {},
+          "order": {},
+          "math": {}
+        },
+        "input_status": {}
+      },
+      "panel-office-image": {
+        "inputs": 0,
+        "automatic_checks": 0,
+        "counts": {},
+        "by_kind": {
+          "coverage": {},
+          "matrix": {},
+          "text": {},
+          "table": {},
+          "order": {},
+          "math": {}
+        },
+        "input_status": {}
+      }
+    },
+    "rapid": {
+      "pdf": {
+        "inputs": 0,
+        "automatic_checks": 0,
+        "counts": {},
+        "by_kind": {
+          "coverage": {},
+          "matrix": {},
+          "text": {},
+          "table": {},
+          "order": {},
+          "math": {}
+        },
+        "input_status": {}
+      },
+      "office-image": {
+        "inputs": 0,
+        "automatic_checks": 0,
+        "counts": {},
+        "by_kind": {
+          "coverage": {},
+          "matrix": {},
+          "text": {},
+          "table": {},
+          "order": {},
+          "math": {}
+        },
+        "input_status": {}
+      },
+      "math-crop": {
+        "inputs": 6,
+        "automatic_checks": 6,
+        "counts": {
+          "mismatch": 5,
+          "pass": 1
+        },
+        "by_kind": {
+          "coverage": {},
+          "matrix": {},
+          "text": {},
+          "table": {},
+          "order": {},
+          "math": {
+            "mismatch": 5,
+            "pass": 1
+          }
+        },
+        "input_status": {
+          "ok": 6
+        }
+      },
+      "panel-pdf": {
+        "inputs": 0,
+        "automatic_checks": 0,
+        "counts": {},
+        "by_kind": {
+          "coverage": {},
+          "matrix": {},
+          "text": {},
+          "table": {},
+          "order": {},
+          "math": {}
+        },
+        "input_status": {}
+      },
+      "panel-office-image": {
+        "inputs": 0,
+        "automatic_checks": 0,
+        "counts": {},
+        "by_kind": {
+          "coverage": {},
+          "matrix": {},
+          "text": {},
+          "table": {},
+          "order": {},
+          "math": {}
+        },
+        "input_status": {}
+      }
+    },
+    "mineru-basic": {
+      "pdf": {
+        "inputs": 29,
+        "automatic_checks": 54,
+        "counts": {
+          "pass": 22,
+          "mismatch": 32
+        },
+        "by_kind": {
+          "coverage": {
+            "pass": 6
+          },
+          "matrix": {
+            "mismatch": 2
+          },
+          "text": {
+            "mismatch": 8,
+            "pass": 9
+          },
+          "table": {
+            "mismatch": 3,
+            "pass": 1
+          },
+          "order": {
+            "pass": 4
+          },
+          "math": {
+            "pass": 2,
+            "mismatch": 19
+          }
+        },
+        "input_status": {
+          "ok": 29
+        }
+      },
+      "office-image": {
+        "inputs": 2,
+        "automatic_checks": 8,
+        "counts": {
+          "mismatch": 3,
+          "pass": 5
+        },
+        "by_kind": {
+          "coverage": {},
+          "matrix": {},
+          "text": {
+            "pass": 3
+          },
+          "table": {},
+          "order": {
+            "pass": 1
+          },
+          "math": {
+            "mismatch": 3,
+            "pass": 1
+          }
+        },
+        "input_status": {
+          "ok": 2
+        }
+      },
+      "math-crop": {
+        "inputs": 0,
+        "automatic_checks": 0,
+        "counts": {},
+        "by_kind": {
+          "coverage": {},
+          "matrix": {},
+          "text": {},
+          "table": {},
+          "order": {},
+          "math": {}
+        },
+        "input_status": {}
+      },
+      "panel-pdf": {
+        "inputs": 9,
+        "automatic_checks": 15,
+        "counts": {
+          "pass": 7,
+          "mismatch": 8
+        },
+        "by_kind": {
+          "coverage": {
+            "pass": 2
+          },
+          "matrix": {
+            "mismatch": 1
+          },
+          "text": {
+            "mismatch": 2,
+            "pass": 1
+          },
+          "table": {
+            "mismatch": 3,
+            "pass": 1
+          },
+          "order": {
+            "pass": 2
+          },
+          "math": {
+            "pass": 1,
+            "mismatch": 2
+          }
+        },
+        "input_status": {
+          "ok": 9
+        }
+      },
+      "panel-office-image": {
+        "inputs": 2,
+        "automatic_checks": 8,
+        "counts": {
+          "mismatch": 3,
+          "pass": 5
+        },
+        "by_kind": {
+          "coverage": {},
+          "matrix": {},
+          "text": {
+            "pass": 3
+          },
+          "table": {},
+          "order": {
+            "pass": 1
+          },
+          "math": {
+            "mismatch": 3,
+            "pass": 1
+          }
+        },
+        "input_status": {
+          "ok": 2
+        }
+      }
+    },
+    "mineru-standard": {
+      "pdf": {
+        "inputs": 9,
+        "automatic_checks": 15,
+        "counts": {
+          "pass": 10,
+          "mismatch": 5
+        },
+        "by_kind": {
+          "coverage": {
+            "pass": 2
+          },
+          "matrix": {
+            "pass": 1
+          },
+          "text": {
+            "pass": 2,
+            "mismatch": 1
+          },
+          "table": {
+            "pass": 3,
+            "mismatch": 1
+          },
+          "order": {
+            "pass": 2
+          },
+          "math": {
+            "mismatch": 3
+          }
+        },
+        "input_status": {
+          "ok": 9
+        }
+      },
+      "office-image": {
+        "inputs": 2,
+        "automatic_checks": 8,
+        "counts": {
+          "pass": 5,
+          "mismatch": 3
+        },
+        "by_kind": {
+          "coverage": {},
+          "matrix": {},
+          "text": {
+            "pass": 3
+          },
+          "table": {},
+          "order": {
+            "pass": 1
+          },
+          "math": {
+            "pass": 1,
+            "mismatch": 3
+          }
+        },
+        "input_status": {
+          "ok": 2
+        }
+      },
+      "math-crop": {
+        "inputs": 0,
+        "automatic_checks": 0,
+        "counts": {},
+        "by_kind": {
+          "coverage": {},
+          "matrix": {},
+          "text": {},
+          "table": {},
+          "order": {},
+          "math": {}
+        },
+        "input_status": {}
+      },
+      "panel-pdf": {
+        "inputs": 9,
+        "automatic_checks": 15,
+        "counts": {
+          "pass": 10,
+          "mismatch": 5
+        },
+        "by_kind": {
+          "coverage": {
+            "pass": 2
+          },
+          "matrix": {
+            "pass": 1
+          },
+          "text": {
+            "pass": 2,
+            "mismatch": 1
+          },
+          "table": {
+            "pass": 3,
+            "mismatch": 1
+          },
+          "order": {
+            "pass": 2
+          },
+          "math": {
+            "mismatch": 3
+          }
+        },
+        "input_status": {
+          "ok": 9
+        }
+      },
+      "panel-office-image": {
+        "inputs": 2,
+        "automatic_checks": 8,
+        "counts": {
+          "pass": 5,
+          "mismatch": 3
+        },
+        "by_kind": {
+          "coverage": {},
+          "matrix": {},
+          "text": {
+            "pass": 3
+          },
+          "table": {},
+          "order": {
+            "pass": 1
+          },
+          "math": {
+            "pass": 1,
+            "mismatch": 3
+          }
+        },
+        "input_status": {
+          "ok": 2
+        }
+      }
+    },
+    "paddle-formula-plus-m-onnx": {
+      "pdf": {
+        "inputs": 0,
+        "automatic_checks": 0,
+        "counts": {},
+        "by_kind": {
+          "coverage": {},
+          "matrix": {},
+          "text": {},
+          "table": {},
+          "order": {},
+          "math": {}
+        },
+        "input_status": {}
+      },
+      "office-image": {
+        "inputs": 0,
+        "automatic_checks": 0,
+        "counts": {},
+        "by_kind": {
+          "coverage": {},
+          "matrix": {},
+          "text": {},
+          "table": {},
+          "order": {},
+          "math": {}
+        },
+        "input_status": {}
+      },
+      "math-crop": {
+        "inputs": 6,
+        "automatic_checks": 6,
+        "counts": {
+          "pass": 3,
+          "mismatch": 3
+        },
+        "by_kind": {
+          "coverage": {},
+          "matrix": {},
+          "text": {},
+          "table": {},
+          "order": {},
+          "math": {
+            "pass": 3,
+            "mismatch": 3
+          }
+        },
+        "input_status": {
+          "ok": 6
+        }
+      },
+      "panel-pdf": {
+        "inputs": 0,
+        "automatic_checks": 0,
+        "counts": {},
+        "by_kind": {
+          "coverage": {},
+          "matrix": {},
+          "text": {},
+          "table": {},
+          "order": {},
+          "math": {}
+        },
+        "input_status": {}
+      },
+      "panel-office-image": {
+        "inputs": 0,
+        "automatic_checks": 0,
+        "counts": {},
+        "by_kind": {
+          "coverage": {},
+          "matrix": {},
+          "text": {},
+          "table": {},
+          "order": {},
+          "math": {}
+        },
+        "input_status": {}
+      }
+    },
+    "paddle-formula-plus-s-noonednn": {
+      "pdf": {
+        "inputs": 0,
+        "automatic_checks": 0,
+        "counts": {},
+        "by_kind": {
+          "coverage": {},
+          "matrix": {},
+          "text": {},
+          "table": {},
+          "order": {},
+          "math": {}
+        },
+        "input_status": {}
+      },
+      "office-image": {
+        "inputs": 0,
+        "automatic_checks": 0,
+        "counts": {},
+        "by_kind": {
+          "coverage": {},
+          "matrix": {},
+          "text": {},
+          "table": {},
+          "order": {},
+          "math": {}
+        },
+        "input_status": {}
+      },
+      "math-crop": {
+        "inputs": 6,
+        "automatic_checks": 6,
+        "counts": {
+          "mismatch": 3,
+          "pass": 3
+        },
+        "by_kind": {
+          "coverage": {},
+          "matrix": {},
+          "text": {},
+          "table": {},
+          "order": {},
+          "math": {
+            "mismatch": 3,
+            "pass": 3
+          }
+        },
+        "input_status": {
+          "ok": 6
+        }
+      },
+      "panel-pdf": {
+        "inputs": 0,
+        "automatic_checks": 0,
+        "counts": {},
+        "by_kind": {
+          "coverage": {},
+          "matrix": {},
+          "text": {},
+          "table": {},
+          "order": {},
+          "math": {}
+        },
+        "input_status": {}
+      },
+      "panel-office-image": {
+        "inputs": 0,
+        "automatic_checks": 0,
+        "counts": {},
+        "by_kind": {
+          "coverage": {},
+          "matrix": {},
+          "text": {},
+          "table": {},
+          "order": {},
+          "math": {}
+        },
+        "input_status": {}
+      }
+    },
+    "paddle-ocr-v6-small-noonednn": {
+      "pdf": {
+        "inputs": 5,
+        "automatic_checks": 8,
+        "counts": {
+          "mismatch": 8
+        },
+        "by_kind": {
+          "coverage": {
+            "mismatch": 2
+          },
+          "matrix": {
+            "mismatch": 1
+          },
+          "text": {},
+          "table": {
+            "mismatch": 3
+          },
+          "order": {
+            "mismatch": 1
+          },
+          "math": {
+            "mismatch": 1
+          }
+        },
+        "input_status": {
+          "ok": 5
+        }
+      },
+      "office-image": {
+        "inputs": 1,
+        "automatic_checks": 5,
+        "counts": {
+          "pass": 4,
+          "mismatch": 1
+        },
+        "by_kind": {
+          "coverage": {},
+          "matrix": {},
+          "text": {
+            "pass": 3
+          },
+          "table": {},
+          "order": {
+            "pass": 1
+          },
+          "math": {
+            "mismatch": 1
+          }
+        },
+        "input_status": {
+          "ok": 1
+        }
+      },
+      "math-crop": {
+        "inputs": 0,
+        "automatic_checks": 0,
+        "counts": {},
+        "by_kind": {
+          "coverage": {},
+          "matrix": {},
+          "text": {},
+          "table": {},
+          "order": {},
+          "math": {}
+        },
+        "input_status": {}
+      },
+      "panel-pdf": {
+        "inputs": 5,
+        "automatic_checks": 8,
+        "counts": {
+          "mismatch": 8
+        },
+        "by_kind": {
+          "coverage": {
+            "mismatch": 2
+          },
+          "matrix": {
+            "mismatch": 1
+          },
+          "text": {},
+          "table": {
+            "mismatch": 3
+          },
+          "order": {
+            "mismatch": 1
+          },
+          "math": {
+            "mismatch": 1
+          }
+        },
+        "input_status": {
+          "ok": 5
+        }
+      },
+      "panel-office-image": {
+        "inputs": 1,
+        "automatic_checks": 5,
+        "counts": {
+          "pass": 4,
+          "mismatch": 1
+        },
+        "by_kind": {
+          "coverage": {},
+          "matrix": {},
+          "text": {
+            "pass": 3
+          },
+          "table": {},
+          "order": {
+            "pass": 1
+          },
+          "math": {
+            "mismatch": 1
+          }
+        },
+        "input_status": {
+          "ok": 1
+        }
+      }
+    },
+    "paddle-ocr-v6-small": {
+      "pdf": {
+        "inputs": 3,
+        "automatic_checks": 4,
+        "counts": {
+          "execution_error": 4
+        },
+        "by_kind": {
+          "coverage": {},
+          "matrix": {
+            "execution_error": 1
+          },
+          "text": {},
+          "table": {
+            "execution_error": 2
+          },
+          "order": {},
+          "math": {
+            "execution_error": 1
+          }
+        },
+        "input_status": {
+          "error": 3
+        }
+      },
+      "office-image": {
+        "inputs": 0,
+        "automatic_checks": 0,
+        "counts": {},
+        "by_kind": {
+          "coverage": {},
+          "matrix": {},
+          "text": {},
+          "table": {},
+          "order": {},
+          "math": {}
+        },
+        "input_status": {}
+      },
+      "math-crop": {
+        "inputs": 0,
+        "automatic_checks": 0,
+        "counts": {},
+        "by_kind": {
+          "coverage": {},
+          "matrix": {},
+          "text": {},
+          "table": {},
+          "order": {},
+          "math": {}
+        },
+        "input_status": {}
+      },
+      "panel-pdf": {
+        "inputs": 3,
+        "automatic_checks": 4,
+        "counts": {
+          "execution_error": 4
+        },
+        "by_kind": {
+          "coverage": {},
+          "matrix": {
+            "execution_error": 1
+          },
+          "text": {},
+          "table": {
+            "execution_error": 2
+          },
+          "order": {},
+          "math": {
+            "execution_error": 1
+          }
+        },
+        "input_status": {
+          "error": 3
+        }
+      },
+      "panel-office-image": {
+        "inputs": 0,
+        "automatic_checks": 0,
+        "counts": {},
+        "by_kind": {
+          "coverage": {},
+          "matrix": {},
+          "text": {},
+          "table": {},
+          "order": {},
+          "math": {}
+        },
+        "input_status": {}
+      }
+    },
+    "paddle-structure-v3-noonednn": {
+      "pdf": {
+        "inputs": 2,
+        "automatic_checks": 4,
+        "counts": {
+          "mismatch": 4
+        },
+        "by_kind": {
+          "coverage": {
+            "mismatch": 2
+          },
+          "matrix": {},
+          "text": {},
+          "table": {
+            "mismatch": 1
+          },
+          "order": {
+            "mismatch": 1
+          },
+          "math": {}
+        },
+        "input_status": {
+          "ok": 2
+        }
+      },
+      "office-image": {
+        "inputs": 1,
+        "automatic_checks": 5,
+        "counts": {
+          "pass": 5
+        },
+        "by_kind": {
+          "coverage": {},
+          "matrix": {},
+          "text": {
+            "pass": 3
+          },
+          "table": {},
+          "order": {
+            "pass": 1
+          },
+          "math": {
+            "pass": 1
+          }
+        },
+        "input_status": {
+          "ok": 1
+        }
+      },
+      "math-crop": {
+        "inputs": 0,
+        "automatic_checks": 0,
+        "counts": {},
+        "by_kind": {
+          "coverage": {},
+          "matrix": {},
+          "text": {},
+          "table": {},
+          "order": {},
+          "math": {}
+        },
+        "input_status": {}
+      },
+      "panel-pdf": {
+        "inputs": 2,
+        "automatic_checks": 4,
+        "counts": {
+          "mismatch": 4
+        },
+        "by_kind": {
+          "coverage": {
+            "mismatch": 2
+          },
+          "matrix": {},
+          "text": {},
+          "table": {
+            "mismatch": 1
+          },
+          "order": {
+            "mismatch": 1
+          },
+          "math": {}
+        },
+        "input_status": {
+          "ok": 2
+        }
+      },
+      "panel-office-image": {
+        "inputs": 1,
+        "automatic_checks": 5,
+        "counts": {
+          "pass": 5
+        },
+        "by_kind": {
+          "coverage": {},
+          "matrix": {},
+          "text": {
+            "pass": 3
+          },
+          "table": {},
+          "order": {
+            "pass": 1
+          },
+          "math": {
+            "pass": 1
+          }
+        },
+        "input_status": {
+          "ok": 1
+        }
+      }
+    }
+  },
+  "serial_warm_timing": {
+    "rapid": {
+      "median_seconds": 2.302075549998335,
+      "range_seconds": [
+        1.7552668999996968,
+        3.244490000000951
+      ],
+      "stable_pairs": 6,
+      "pairs": 6,
+      "load_seconds": 6.968930299997737
+    },
+    "plus-s": {
+      "median_seconds": 2.091666599997552,
+      "range_seconds": [
+        1.972006500000134,
+        2.7693126000012853
+      ],
+      "stable_pairs": 6,
+      "pairs": 6,
+      "load_seconds": 36.07038470000043
+    },
+    "plus-m": {
+      "median_seconds": 3.041788850001467,
+      "range_seconds": [
+        2.7969185000001744,
+        3.7371300000013434
+      ],
+      "stable_pairs": 6,
+      "pairs": 6,
+      "load_seconds": 17.138245900001493
+    }
+  },
+  "reviewed_math": {
+    "glm": {
+      "equivalent": 1,
+      "reviewed": 1
+    },
+    "granite": {
+      "equivalent": 6,
+      "reviewed": 6
+    },
+    "lighton": {
+      "equivalent": 6,
+      "reviewed": 6
+    },
+    "paddle-formula-plus-m-onnx": {
+      "equivalent": 5,
+      "reviewed": 6
+    },
+    "paddle-formula-plus-s-noonednn": {
+      "equivalent": 5,
+      "reviewed": 6
+    },
+    "pix": {
+      "equivalent": 4,
+      "reviewed": 6
+    },
+    "rapid": {
+      "equivalent": 4,
+      "reviewed": 6
+    }
+  },
+  "historical_compatibility_panel": {
+    "pass": 11,
+    "checks": 15,
+    "note": "2026-10-23 saved reference; not fresh model inference"
+  },
+  "historical_pdfium_panel": {
+    "pass": 6,
+    "checks": 15,
+    "note": "2026-10-23 saved reference; not fresh model inference"
+  }
+}

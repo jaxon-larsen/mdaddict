@@ -1,0 +1,644 @@
+{
+  "date": "2026-10-26",
+  "scope": "Offline CPU PDF converters on frozen 100 target cases / 101 processed pages. No hosted API competitor integration or cloud calls.",
+  "profiles": {
+    "mdaddict-installed": {
+      "execution": {
+        "ok": 100
+      },
+      "batch_wall_seconds": 23.909820626999135,
+      "adapter_initialization": {
+        "type": "ready",
+        "profile": "mdaddict-native",
+        "init_seconds": 0.08842502100014826
+      },
+      "primary_adapter_time": {
+        "count": 100,
+        "sum_seconds": 19.913510723006766,
+        "median_seconds": 0.1472807330010255,
+        "p95_seconds": 0.7581121309995069,
+        "max_seconds": 1.4380467659975693
+      },
+      "harness_transaction_time": {
+        "count": 100,
+        "sum_seconds": 22.378059813996515,
+        "median_seconds": 0.172692845999336,
+        "p95_seconds": 0.7868948609975632,
+        "max_seconds": 1.467532108999876
+      },
+      "peak_child_tree_rss_bytes": 158150656,
+      "peak_cgroup_memory_bytes": 141971456,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+      "actual_strategies": {
+        "PDFium + auto Tesseract": 100
+      },
+      "empty_exports": 0,
+      "checks": {
+        "shared_automatic_checks": 85,
+        "automatic_counts": {
+          "mismatch": 46,
+          "pass": 39
+        },
+        "by_kind": {
+          "coverage": {
+            "pass": 5,
+            "mismatch": 1
+          },
+          "math": {
+            "mismatch": 33
+          },
+          "matrix": {
+            "mismatch": 2
+          },
+          "order": {
+            "pass": 6
+          },
+          "table": {
+            "mismatch": 10
+          },
+          "text": {
+            "pass": 28
+          }
+        },
+        "by_cohort": {
+          "calibration": {
+            "mismatch": 28,
+            "pass": 26
+          },
+          "real_narrow_holdout": {
+            "mismatch": 8,
+            "pass": 12
+          },
+          "authored": {
+            "mismatch": 10,
+            "pass": 1
+          }
+        },
+        "manual_checks": 19,
+        "policy_not_applicable": 6
+      },
+      "unscoped_multi_page_exports": 0
+    },
+    "markitdown-offline": {
+      "execution": {
+        "ok": 100
+      },
+      "batch_wall_seconds": 73.71818020499995,
+      "adapter_initialization": {
+        "type": "ready",
+        "profile": "markitdown-offline",
+        "init_seconds": 1.0740430730002117
+      },
+      "primary_adapter_time": {
+        "count": 100,
+        "sum_seconds": 60.54651515001024,
+        "median_seconds": 0.5822325185017689,
+        "p95_seconds": 1.3334736229990085,
+        "max_seconds": 2.2480452039999363
+      },
+      "harness_transaction_time": {
+        "count": 100,
+        "sum_seconds": 67.58424541299973,
+        "median_seconds": 0.6451436824991106,
+        "p95_seconds": 1.3763614790004794,
+        "max_seconds": 2.283377882999048
+      },
+      "peak_child_tree_rss_bytes": 133533696,
+      "peak_cgroup_memory_bytes": 105492480,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+      "actual_strategies": {
+        "MarkItDown built-in offline PDF converter": 100
+      },
+      "empty_exports": 8,
+      "checks": {
+        "shared_automatic_checks": 85,
+        "automatic_counts": {
+          "mismatch": 63,
+          "pass": 22
+        },
+        "by_kind": {
+          "coverage": {
+            "mismatch": 1,
+            "pass": 5
+          },
+          "math": {
+            "mismatch": 33
+          },
+          "matrix": {
+            "mismatch": 2
+          },
+          "order": {
+            "mismatch": 5,
+            "pass": 1
+          },
+          "table": {
+            "mismatch": 7,
+            "pass": 3
+          },
+          "text": {
+            "mismatch": 15,
+            "pass": 13
+          }
+        },
+        "by_cohort": {
+          "calibration": {
+            "mismatch": 39,
+            "pass": 15
+          },
+          "real_narrow_holdout": {
+            "mismatch": 15,
+            "pass": 5
+          },
+          "authored": {
+            "mismatch": 9,
+            "pass": 2
+          }
+        },
+        "manual_checks": 19,
+        "policy_not_applicable": 6
+      },
+      "unscoped_multi_page_exports": 1
+    },
+    "unstructured-fast": {
+      "execution": {
+        "ok": 100
+      },
+      "batch_wall_seconds": 32.252832592999766,
+      "adapter_initialization": {
+        "type": "ready",
+        "profile": "unstructured-fast",
+        "init_seconds": 4.209511506000126
+      },
+      "primary_adapter_time": {
+        "count": 100,
+        "sum_seconds": 23.462365565985237,
+        "median_seconds": 0.19522377549947123,
+        "p95_seconds": 0.4882730380013527,
+        "max_seconds": 1.9715563489990018
+      },
+      "harness_transaction_time": {
+        "count": 100,
+        "sum_seconds": 26.208774460992572,
+        "median_seconds": 0.22738334450150433,
+        "p95_seconds": 0.523865946001024,
+        "max_seconds": 1.9957337689993437
+      },
+      "peak_child_tree_rss_bytes": 725807104,
+      "peak_cgroup_memory_bytes": 511389696,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+      "actual_strategies": {
+        "fast": 100
+      },
+      "empty_exports": 9,
+      "checks": {
+        "shared_automatic_checks": 85,
+        "automatic_counts": {
+          "mismatch": 52,
+          "pass": 33
+        },
+        "by_kind": {
+          "coverage": {
+            "mismatch": 2,
+            "pass": 4
+          },
+          "math": {
+            "mismatch": 33
+          },
+          "matrix": {
+            "mismatch": 2
+          },
+          "order": {
+            "mismatch": 2,
+            "pass": 4
+          },
+          "table": {
+            "mismatch": 10
+          },
+          "text": {
+            "mismatch": 3,
+            "pass": 25
+          }
+        },
+        "by_cohort": {
+          "calibration": {
+            "mismatch": 31,
+            "pass": 23
+          },
+          "real_narrow_holdout": {
+            "mismatch": 10,
+            "pass": 10
+          },
+          "authored": {
+            "mismatch": 11
+          }
+        },
+        "manual_checks": 19,
+        "policy_not_applicable": 6
+      },
+      "unscoped_multi_page_exports": 0
+    },
+    "unstructured-auto": {
+      "execution": {
+        "ok": 100
+      },
+      "batch_wall_seconds": 55.30528818699895,
+      "adapter_initialization": {
+        "type": "ready",
+        "profile": "unstructured-auto",
+        "init_seconds": 5.107785992997378
+      },
+      "primary_adapter_time": {
+        "count": 100,
+        "sum_seconds": 45.42982815298092,
+        "median_seconds": 0.27614057999926445,
+        "p95_seconds": 2.0590107859970885,
+        "max_seconds": 4.457330270000966
+      },
+      "harness_transaction_time": {
+        "count": 100,
+        "sum_seconds": 48.328237484991405,
+        "median_seconds": 0.3107521894999081,
+        "p95_seconds": 2.0825081799994223,
+        "max_seconds": 4.488909611001873
+      },
+      "peak_child_tree_rss_bytes": 1021710336,
+      "peak_cgroup_memory_bytes": 784035840,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+      "actual_strategies": {
+        "fast": 91,
+        "ocr_only": 9
+      },
+      "empty_exports": 1,
+      "checks": {
+        "shared_automatic_checks": 85,
+        "automatic_counts": {
+          "mismatch": 52,
+          "pass": 33
+        },
+        "by_kind": {
+          "coverage": {
+            "mismatch": 2,
+            "pass": 4
+          },
+          "math": {
+            "mismatch": 33
+          },
+          "matrix": {
+            "mismatch": 2
+          },
+          "order": {
+            "mismatch": 2,
+            "pass": 4
+          },
+          "table": {
+            "mismatch": 10
+          },
+          "text": {
+            "mismatch": 3,
+            "pass": 25
+          }
+        },
+        "by_cohort": {
+          "calibration": {
+            "mismatch": 31,
+            "pass": 23
+          },
+          "real_narrow_holdout": {
+            "mismatch": 10,
+            "pass": 10
+          },
+          "authored": {
+            "mismatch": 11
+          }
+        },
+        "manual_checks": 19,
+        "policy_not_applicable": 6
+      },
+      "unscoped_multi_page_exports": 0
+    },
+    "unstructured-ocr_only": {
+      "execution": {
+        "ok": 100
+      },
+      "batch_wall_seconds": 399.9951835599968,
+      "adapter_initialization": {
+        "type": "ready",
+        "profile": "unstructured-ocr_only",
+        "init_seconds": 4.350764408001851
+      },
+      "primary_adapter_time": {
+        "count": 100,
+        "sum_seconds": 391.4555886600174,
+        "median_seconds": 3.724205542001073,
+        "p95_seconds": 6.945240943001409,
+        "max_seconds": 8.763399609000771
+      },
+      "harness_transaction_time": {
+        "count": 100,
+        "sum_seconds": 393.94668345098034,
+        "median_seconds": 3.7533384334983566,
+        "p95_seconds": 6.970204211000237,
+        "max_seconds": 8.79611834699972
+      },
+      "peak_child_tree_rss_bytes": 962633728,
+      "peak_cgroup_memory_bytes": 758628352,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+      "actual_strategies": {
+        "ocr_only": 100
+      },
+      "empty_exports": 1,
+      "checks": {
+        "shared_automatic_checks": 85,
+        "automatic_counts": {
+          "mismatch": 50,
+          "pass": 35
+        },
+        "by_kind": {
+          "coverage": {
+            "mismatch": 2,
+            "pass": 4
+          },
+          "math": {
+            "mismatch": 33
+          },
+          "matrix": {
+            "mismatch": 2
+          },
+          "order": {
+            "pass": 5,
+            "mismatch": 1
+          },
+          "table": {
+            "mismatch": 10
+          },
+          "text": {
+            "mismatch": 2,
+            "pass": 26
+          }
+        },
+        "by_cohort": {
+          "calibration": {
+            "mismatch": 31,
+            "pass": 23
+          },
+          "real_narrow_holdout": {
+            "mismatch": 8,
+            "pass": 12
+          },
+          "authored": {
+            "mismatch": 11
+          }
+        },
+        "manual_checks": 19,
+        "policy_not_applicable": 6
+      },
+      "unscoped_multi_page_exports": 0
+    },
+    "unstructured-hi_res": {
+      "execution": {
+        "ok": 100
+      },
+      "batch_wall_seconds": 1170.147956263001,
+      "adapter_initialization": {
+        "type": "ready",
+        "profile": "unstructured-hi_res",
+        "init_seconds": 4.924816778002423
+      },
+      "primary_adapter_time": {
+        "count": 100,
+        "sum_seconds": 1160.9112160900331,
+        "median_seconds": 11.192737026998657,
+        "p95_seconds": 14.741772804001812,
+        "max_seconds": 22.99287325300247
+      },
+      "harness_transaction_time": {
+        "count": 100,
+        "sum_seconds": 1163.5485144189843,
+        "median_seconds": 11.219364185999439,
+        "p95_seconds": 14.769501175996993,
+        "max_seconds": 23.019382598002267
+      },
+      "peak_child_tree_rss_bytes": 3286638592,
+      "peak_cgroup_memory_bytes": 1690300416,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+      "actual_strategies": {
+        "hi_res": 100
+      },
+      "empty_exports": 1,
+      "checks": {
+        "shared_automatic_checks": 85,
+        "automatic_counts": {
+          "mismatch": 48,
+          "pass": 37
+        },
+        "by_kind": {
+          "coverage": {
+            "mismatch": 2,
+            "pass": 4
+          },
+          "math": {
+            "mismatch": 33
+          },
+          "matrix": {
+            "mismatch": 2
+          },
+          "order": {
+            "pass": 5,
+            "mismatch": 1
+          },
+          "table": {
+            "mismatch": 10
+          },
+          "text": {
+            "pass": 28
+          }
+        },
+        "by_cohort": {
+          "calibration": {
+            "mismatch": 29,
+            "pass": 25
+          },
+          "real_narrow_holdout": {
+            "mismatch": 8,
+            "pass": 12
+          },
+          "authored": {
+            "mismatch": 11
+          }
+        },
+        "manual_checks": 19,
+        "policy_not_applicable": 6
+      },
+      "unscoped_multi_page_exports": 0
+    },
+    "mdaddict-native": {
+      "execution": {
+        "ok": 100
+      },
+      "batch_wall_seconds": 63.491866148000554,
+      "adapter_initialization": {
+        "type": "ready",
+        "profile": "mdaddict-native",
+        "init_seconds": 0.46576442899822723
+      },
+      "primary_adapter_time": {
+        "count": 100,
+        "sum_seconds": 58.44184770600987,
+        "median_seconds": 0.5352370764994703,
+        "p95_seconds": 0.9409978580006282,
+        "max_seconds": 2.801384952999797
+      },
+      "harness_transaction_time": {
+        "count": 100,
+        "sum_seconds": 61.208456351003406,
+        "median_seconds": 0.5618691285017121,
+        "p95_seconds": 0.95832682100081,
+        "max_seconds": 2.842674729999999
+      },
+      "peak_child_tree_rss_bytes": 158285824,
+      "peak_cgroup_memory_bytes": 141651968,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+      "actual_strategies": {
+        "PDFium + auto Tesseract": 100
+      },
+      "empty_exports": 0,
+      "checks": {
+        "shared_automatic_checks": 85,
+        "automatic_counts": {
+          "mismatch": 46,
+          "pass": 39
+        },
+        "by_kind": {
+          "coverage": {
+            "pass": 5,
+            "mismatch": 1
+          },
+          "math": {
+            "mismatch": 33
+          },
+          "matrix": {
+            "mismatch": 2
+          },
+          "order": {
+            "pass": 6
+          },
+          "table": {
+            "mismatch": 10
+          },
+          "text": {
+            "pass": 28
+          }
+        },
+        "by_cohort": {
+          "calibration": {
+            "mismatch": 28,
+            "pass": 26
+          },
+          "real_narrow_holdout": {
+            "mismatch": 8,
+            "pass": 12
+          },
+          "authored": {
+            "mismatch": 10,
+            "pass": 1
+          }
+        },
+        "manual_checks": 19,
+        "policy_not_applicable": 6
+      },
+      "unscoped_multi_page_exports": 0
+    }
+  },
+  "installed_python_footprints": {
+    "native": {
+      "distributions_count": 6,
+      "logical_python_bytes": 45919992,
+      "note": "Logical per-distribution files including metadata; shared file attribution and base pip/psutil count retained. No system tools or external model assets in this sum."
+    },
+    "markitdown": {
+      "distributions_count": 28,
+      "logical_python_bytes": 253299585,
+      "note": "Logical per-distribution files including metadata; shared file attribution and base pip/psutil count retained. No system tools or external model assets in this sum."
+    },
+    "unstructured": {
+      "distributions_count": 126,
+      "logical_python_bytes": 2298475488,
+      "note": "Logical per-distribution files including metadata; shared file attribution and base pip/psutil count retained. No system tools or external model assets in this sum."
+    }
+  },
+  "external_unstructured_cache_bytes": 332144257,
+  "limits": {
+    "cpus": 4,
+    "memory_gib": 8,
+    "network": "none during inference",
+    "per_document_timeout_seconds": 120
+  },
+  "gold": {
+    "automatic_named_checks": 85,
+    "manual_checks": 19,
+    "quarantine_checks_not_comparable": 6,
+    "new_real_narrow_gold_pages": 6,
+    "real_throughput_only_pages": 54,
+    "exhaustive_real_page_gold": 0
+  },
+  "normalization": "Existing strict math/full-unit checks; text/order use visible cell text without table delimiters; lossless HTML/pipe/LaTeX table grids with explicit span checks. Raw exports retained. No automatic semantic math equivalence.",
+  "procedure_hashes": {
+    "plan.json": "37b423b9ed01aa6803895398eb639d76ea5efaadb7939b05e944c1efe9425350",
+    "worker.py": "b68b58594f0c134ac6bf7dd9efcc551ae239223b40d21d100db82ff3cfd498f5",
+    "run_profile.py": "b2779b74e56f79f04fdaee670a7382a2421983a2e4c405fea629ac49e3cd31a4",
+    "score.py": "792c6d55cf3b11c27678b8e7b9657272dfcc52ef949349c6f2e11e9045a06bfd",
+    "run_suite.ps1": "2dbddabf592d94b7b01231bd1bc3d86d48ffaefc5c657d7c55d2c313123f39a7",
+    "provision-receipt.json": "18e8899a1d75cbac8ae183a949f83eb964d8361e4cc1457ac2b406c423d113f6"
+  },
+  "scorer_amendment": {
+    "before_sha256": "792c6d55cf3b11c27678b8e7b9657272dfcc52ef949349c6f2e11e9045a06bfd",
+    "after_sha256": "1458554ba35a37480a1a6453c7d1c38b80fd4794e57df5d05bb5075708128065",
+    "reason": "Visible prose inside exported Markdown/HTML table cells must be eligible for text/order checks. Gold and all converter outputs unchanged; applied identically to every profile. Strict math and cell/span checks unchanged.",
+    "effect_observed_so_far": "MarkItDown 21 -> 22 shared checks; native/Unstructured fast/auto/OCR-only counts unchanged. Nine independent scorer controls pass."
+  },
+  "wheel_audit": {
+    "wheel_sha256": "077159972e1cb6f0aa7bea7074ec5ba1105917b1b042fabdfb5a418d454a3cc3",
+    "python_modules_compared": 28,
+    "changed": [],
+    "missing": []
+  },
+  "text_format_diagnostics": {
+    "markitdown-offline": {
+      "strict_text_mismatches": 15,
+      "present_ignoring_whitespace": 10
+    },
+    "mdaddict-installed": {
+      "strict_text_mismatches": 0,
+      "present_ignoring_whitespace": 0
+    },
+    "mdaddict-native": {
+      "strict_text_mismatches": 0,
+      "present_ignoring_whitespace": 0
+    },
+    "unstructured-auto": {
+      "strict_text_mismatches": 3,
+      "present_ignoring_whitespace": 3
+    },
+    "unstructured-fast": {
+      "strict_text_mismatches": 3,
+      "present_ignoring_whitespace": 3
+    },
+    "unstructured-hi_res": {
+      "strict_text_mismatches": 0,
+      "present_ignoring_whitespace": 0
+    },
+    "unstructured-ocr_only": {
+      "strict_text_mismatches": 2,
+      "present_ignoring_whitespace": 0
+    }
+  },
+  "limitations": [
+    "Strict expression formatting is not semantic equivalence; unsupported equations need source inspection.",
+    "Only PDF was measured here; earlier synthetic Office probes are separate.",
+    "No competitor API/review/publication adapters were fabricated. Package conversion scores do not certify application policy.",
+    "Shared corpus is small and previously explored; no general accuracy percentage or statistical speed confidence.",
+    "All converters use public supported paths; full Unstructured[pdf] extras were installed even for fast strategy.",
+    "Host-mounted source and installed native baselines are separate; installed baseline is primary for speed comparison.",
+    "Input byte verification and raw evidence writes add harness overhead; adapter-time and transaction/batch time are separate."
+  ]
+}

@@ -1,0 +1,49 @@
+name: mdaddict checks
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+  workflow_call:
+
+permissions:
+  contents: read
+
+jobs:
+  installed:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        python: ['3.12', '3.13']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v6
+        with:
+          python-version: ${{ matrix.python }}
+      - uses: r-lib/actions/setup-pandoc@v2
+        with:
+          pandoc-version: '3.10'
+      - name: Install local OCR (Linux)
+        if: runner.os == 'Linux'
+        run: sudo apt-get update && sudo apt-get install -y tesseract-ocr tesseract-ocr-eng
+      - name: Install local OCR (macOS)
+        if: runner.os == 'macOS'
+        run: brew install tesseract
+      - name: Install local OCR (Windows)
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          choco install tesseract --yes --no-progress --ignore-package-exit-codes
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          "$env:ProgramFiles\Tesseract-OCR" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+      - run: python -m pip install build twine
+      - name: Verify one frozen wheel and test snapshot
+        run: python tools/verify_distribution.py --profiles core pdf pdf-pymupdf office images html extended captions heif online all
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: mdaddict-verified-${{ matrix.os }}-${{ matrix.python }}
+          path: out/verification/
+          if-no-files-found: error

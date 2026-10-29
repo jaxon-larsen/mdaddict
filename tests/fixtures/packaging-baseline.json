@@ -1,0 +1,1395 @@
+[
+  {
+    "path": "conditions.pdf",
+    "suffix": ".pdf",
+    "input": null,
+    "result": {
+      "markdown": "<!-- page: 1 -->\n\n# **Measurement conditions**\n\nUse the recorded value only when the instrument is calibrated.\n\n\nKeep the original units.\n\n\nKeep the original units.\n\n\n<!-- page: 2 -->\n\n# **Comparison conditions**\n\nCompare two trials only if their temperatures match.\n\n\nA missing measurement is not a zero.\n\n\nThe order of the two trials matters.\n",
+      "blocks": [
+        {
+          "id": "page:1",
+          "kind": "page",
+          "source": {
+            "unit": "page",
+            "index": 1,
+            "element": ""
+          },
+          "start": 0,
+          "end": 165,
+          "method": "native"
+        },
+        {
+          "id": "page:2",
+          "kind": "page",
+          "source": {
+            "unit": "page",
+            "index": 2,
+            "element": ""
+          },
+          "start": 167,
+          "end": 345,
+          "method": "native"
+        }
+      ],
+      "issues": [],
+      "status": "success",
+      "review_status": "not_reviewed",
+      "pages": 2
+    }
+  },
+  {
+    "path": "procedures.pptx",
+    "suffix": ".pptx",
+    "input": null,
+    "result": {
+      "markdown": "<!-- slide: 1 -->\n\n- Measurement procedure\n\n<!-- fig: slide 1, shape 6: unresolved shape geometry -->\n\n- 1. Calibrate the instrument.\n\n<!-- fig: slide 1, shape 4: unresolved shape geometry -->\n\n- 2. Record the value.\n\n<!-- fig: slide 1, shape 5: unresolved shape geometry -->\n\n- 3. Keep the units.\n\n<!-- fig: slide 1, shape 2: unresolved shape geometry -->\n\n- 4. Report missing values.\n\n<!-- fig: slide 1, shape 3: unresolved shape geometry -->\n\n<!-- slide: 2 -->\n\n- Comparison procedure\n\n<!-- fig: slide 2, shape 6: unresolved shape geometry -->\n\n- 1. Check the temperature.\n\n<!-- fig: slide 2, shape 3: unresolved shape geometry -->\n\n- 2. Match the units.\n\n<!-- fig: slide 2, shape 2: unresolved shape geometry -->\n\n- 3. Compare the values.\n\n<!-- fig: slide 2, shape 5: unresolved shape geometry -->\n\n- 4. Preserve the order.\n\n<!-- fig: slide 2, shape 4: unresolved shape geometry -->\n",
+      "blocks": [
+        {
+          "id": "slide:1/shape:6/paragraph:1",
+          "kind": "list_item",
+          "source": {
+            "unit": "slide",
+            "index": 1,
+            "element": "shape:6/paragraph:1"
+          },
+          "start": 19,
+          "end": 42,
+          "method": "native"
+        },
+        {
+          "id": "slide:1/shape:6/visual",
+          "kind": "figure",
+          "source": {
+            "unit": "slide",
+            "index": 1,
+            "element": "shape:6"
+          },
+          "start": 44,
+          "end": 101,
+          "method": "native"
+        },
+        {
+          "id": "slide:1/shape:4/paragraph:1",
+          "kind": "list_item",
+          "source": {
+            "unit": "slide",
+            "index": 1,
+            "element": "shape:4/paragraph:1"
+          },
+          "start": 103,
+          "end": 133,
+          "method": "native"
+        },
+        {
+          "id": "slide:1/shape:4/visual",
+          "kind": "figure",
+          "source": {
+            "unit": "slide",
+            "index": 1,
+            "element": "shape:4"
+          },
+          "start": 135,
+          "end": 192,
+          "method": "native"
+        },
+        {
+          "id": "slide:1/shape:5/paragraph:1",
+          "kind": "list_item",
+          "source": {
+            "unit": "slide",
+            "index": 1,
+            "element": "shape:5/paragraph:1"
+          },
+          "start": 194,
+          "end": 216,
+          "method": "native"
+        },
+        {
+          "id": "slide:1/shape:5/visual",
+          "kind": "figure",
+          "source": {
+            "unit": "slide",
+            "index": 1,
+            "element": "shape:5"
+          },
+          "start": 218,
+          "end": 275,
+          "method": "native"
+        },
+        {
+          "id": "slide:1/shape:2/paragraph:1",
+          "kind": "list_item",
+          "source": {
+            "unit": "slide",
+            "index": 1,
+            "element": "shape:2/paragraph:1"
+          },
+          "start": 277,
+          "end": 297,
+          "method": "native"
+        },
+        {
+          "id": "slide:1/shape:2/visual",
+          "kind": "figure",
+          "source": {
+            "unit": "slide",
+            "index": 1,
+            "element": "shape:2"
+          },
+          "start": 299,
+          "end": 356,
+          "method": "native"
+        },
+        {
+          "id": "slide:1/shape:3/paragraph:1",
+          "kind": "list_item",
+          "source": {
+            "unit": "slide",
+            "index": 1,
+            "element": "shape:3/paragraph:1"
+          },
+          "start": 358,
+          "end": 385,
+          "method": "native"
+        },
+        {
+          "id": "slide:1/shape:3/visual",
+          "kind": "figure",
+          "source": {
+            "unit": "slide",
+            "index": 1,
+            "element": "shape:3"
+          },
+          "start": 387,
+          "end": 444,
+          "method": "native"
+        },
+        {
+          "id": "slide:2/shape:6/paragraph:1",
+          "kind": "list_item",
+          "source": {
+            "unit": "slide",
+            "index": 2,
+            "element": "shape:6/paragraph:1"
+          },
+          "start": 465,
+          "end": 487,
+          "method": "native"
+        },
+        {
+          "id": "slide:2/shape:6/visual",
+          "kind": "figure",
+          "source": {
+            "unit": "slide",
+            "index": 2,
+            "element": "shape:6"
+          },
+          "start": 489,
+          "end": 546,
+          "method": "native"
+        },
+        {
+          "id": "slide:2/shape:3/paragraph:1",
+          "kind": "list_item",
+          "source": {
+            "unit": "slide",
+            "index": 2,
+            "element": "shape:3/paragraph:1"
+          },
+          "start": 548,
+          "end": 575,
+          "method": "native"
+        },
+        {
+          "id": "slide:2/shape:3/visual",
+          "kind": "figure",
+          "source": {
+            "unit": "slide",
+            "index": 2,
+            "element": "shape:3"
+          },
+          "start": 577,
+          "end": 634,
+          "method": "native"
+        },
+        {
+          "id": "slide:2/shape:2/paragraph:1",
+          "kind": "list_item",
+          "source": {
+            "unit": "slide",
+            "index": 2,
+            "element": "shape:2/paragraph:1"
+          },
+          "start": 636,
+          "end": 657,
+          "method": "native"
+        },
+        {
+          "id": "slide:2/shape:2/visual",
+          "kind": "figure",
+          "source": {
+            "unit": "slide",
+            "index": 2,
+            "element": "shape:2"
+          },
+          "start": 659,
+          "end": 716,
+          "method": "native"
+        },
+        {
+          "id": "slide:2/shape:5/paragraph:1",
+          "kind": "list_item",
+          "source": {
+            "unit": "slide",
+            "index": 2,
+            "element": "shape:5/paragraph:1"
+          },
+          "start": 718,
+          "end": 742,
+          "method": "native"
+        },
+        {
+          "id": "slide:2/shape:5/visual",
+          "kind": "figure",
+          "source": {
+            "unit": "slide",
+            "index": 2,
+            "element": "shape:5"
+          },
+          "start": 744,
+          "end": 801,
+          "method": "native"
+        },
+        {
+          "id": "slide:2/shape:4/paragraph:1",
+          "kind": "list_item",
+          "source": {
+            "unit": "slide",
+            "index": 2,
+            "element": "shape:4/paragraph:1"
+          },
+          "start": 803,
+          "end": 827,
+          "method": "native"
+        },
+        {
+          "id": "slide:2/shape:4/visual",
+          "kind": "figure",
+          "source": {
+            "unit": "slide",
+            "index": 2,
+            "element": "shape:4"
+          },
+          "start": 829,
+          "end": 886,
+          "method": "native"
+        }
+      ],
+      "issues": [
+        {
+          "code": "shape_geometry_unresolved",
+          "message": "slide 1, shape 6: shape geometry requires rendered-slide review",
+          "source": {
+            "unit": "slide",
+            "index": 1,
+            "element": "shape:6"
+          },
+          "block_ids": [
+            "slide:1/shape:6/visual"
+          ],
+          "severity": "informational"
+        },
+        {
+          "code": "shape_geometry_unresolved",
+          "message": "slide 1, shape 4: shape geometry requires rendered-slide review",
+          "source": {
+            "unit": "slide",
+            "index": 1,
+            "element": "shape:4"
+          },
+          "block_ids": [
+            "slide:1/shape:4/visual"
+          ],
+          "severity": "informational"
+        },
+        {
+          "code": "shape_geometry_unresolved",
+          "message": "slide 1, shape 5: shape geometry requires rendered-slide review",
+          "source": {
+            "unit": "slide",
+            "index": 1,
+            "element": "shape:5"
+          },
+          "block_ids": [
+            "slide:1/shape:5/visual"
+          ],
+          "severity": "informational"
+        },
+        {
+          "code": "shape_geometry_unresolved",
+          "message": "slide 1, shape 2: shape geometry requires rendered-slide review",
+          "source": {
+            "unit": "slide",
+            "index": 1,
+            "element": "shape:2"
+          },
+          "block_ids": [
+            "slide:1/shape:2/visual"
+          ],
+          "severity": "informational"
+        },
+        {
+          "code": "shape_geometry_unresolved",
+          "message": "slide 1, shape 3: shape geometry requires rendered-slide review",
+          "source": {
+            "unit": "slide",
+            "index": 1,
+            "element": "shape:3"
+          },
+          "block_ids": [
+            "slide:1/shape:3/visual"
+          ],
+          "severity": "informational"
+        },
+        {
+          "code": "shape_geometry_unresolved",
+          "message": "slide 2, shape 6: shape geometry requires rendered-slide review",
+          "source": {
+            "unit": "slide",
+            "index": 2,
+            "element": "shape:6"
+          },
+          "block_ids": [
+            "slide:2/shape:6/visual"
+          ],
+          "severity": "informational"
+        },
+        {
+          "code": "shape_geometry_unresolved",
+          "message": "slide 2, shape 3: shape geometry requires rendered-slide review",
+          "source": {
+            "unit": "slide",
+            "index": 2,
+            "element": "shape:3"
+          },
+          "block_ids": [
+            "slide:2/shape:3/visual"
+          ],
+          "severity": "informational"
+        },
+        {
+          "code": "shape_geometry_unresolved",
+          "message": "slide 2, shape 2: shape geometry requires rendered-slide review",
+          "source": {
+            "unit": "slide",
+            "index": 2,
+            "element": "shape:2"
+          },
+          "block_ids": [
+            "slide:2/shape:2/visual"
+          ],
+          "severity": "informational"
+        },
+        {
+          "code": "shape_geometry_unresolved",
+          "message": "slide 2, shape 5: shape geometry requires rendered-slide review",
+          "source": {
+            "unit": "slide",
+            "index": 2,
+            "element": "shape:5"
+          },
+          "block_ids": [
+            "slide:2/shape:5/visual"
+          ],
+          "severity": "informational"
+        },
+        {
+          "code": "shape_geometry_unresolved",
+          "message": "slide 2, shape 4: shape geometry requires rendered-slide review",
+          "source": {
+            "unit": "slide",
+            "index": 2,
+            "element": "shape:4"
+          },
+          "block_ids": [
+            "slide:2/shape:4/visual"
+          ],
+          "severity": "informational"
+        }
+      ],
+      "status": "success",
+      "review_status": "not_reviewed",
+      "pages": 2
+    }
+  },
+  {
+    "path": "measurement.docx",
+    "suffix": ".docx",
+    "input": null,
+    "result": {
+      "markdown": "Measurement instructions\n\nRecord a measurement only after calibration.\n\nKeep the original units.\n\nKeep the original units.\n",
+      "blocks": [
+        {
+          "id": "docx:word/document.xml:/w:document/w:body/w:p[1]",
+          "kind": "paragraph",
+          "source": {
+            "unit": "document",
+            "index": 1,
+            "element": "word/document.xml:/w:document/w:body/w:p[1]"
+          },
+          "start": 0,
+          "end": 24,
+          "method": "native"
+        },
+        {
+          "id": "docx:word/document.xml:/w:document/w:body/w:p[2]",
+          "kind": "paragraph",
+          "source": {
+            "unit": "document",
+            "index": 1,
+            "element": "word/document.xml:/w:document/w:body/w:p[2]"
+          },
+          "start": 26,
+          "end": 70,
+          "method": "native"
+        },
+        {
+          "id": "docx:word/document.xml:/w:document/w:body/w:p[3]",
+          "kind": "paragraph",
+          "source": {
+            "unit": "document",
+            "index": 1,
+            "element": "word/document.xml:/w:document/w:body/w:p[3]"
+          },
+          "start": 72,
+          "end": 96,
+          "method": "native"
+        },
+        {
+          "id": "docx:word/document.xml:/w:document/w:body/w:p[4]",
+          "kind": "paragraph",
+          "source": {
+            "unit": "document",
+            "index": 1,
+            "element": "word/document.xml:/w:document/w:body/w:p[4]"
+          },
+          "start": 98,
+          "end": 122,
+          "method": "native"
+        }
+      ],
+      "issues": [],
+      "status": "success",
+      "review_status": "not_reviewed",
+      "pages": 1
+    }
+  },
+  {
+    "path": "algebra.pptx",
+    "suffix": ".pptx",
+    "input": null,
+    "result": {
+      "markdown": "<!-- slide: 1 -->\n\n- Conditions and native equations\n\n<!-- fig: slide 1, shape 5: unresolved shape geometry -->\n\n- Use this equation only when x is nonnegative.\n\n<!-- fig: slide 1, shape 2: unresolved shape geometry -->\n\n$$\ny = \\frac{x + 1}{2}\n$$\n\n<!-- fig: slide 1, shape 3: unresolved shape geometry -->\n\n- The numerator includes x plus 1.\n\n<!-- fig: slide 1, shape 4: unresolved shape geometry -->\n\n<!-- slide: 2 -->\n\n- Repeated content\n\n<!-- fig: slide 2, shape 5: unresolved shape geometry -->\n\n- Read each condition before substituting values.\n\n<!-- fig: slide 2, shape 2: unresolved shape geometry -->\n\n- Read each condition before substituting values.\n\n<!-- fig: slide 2, shape 3: unresolved shape geometry -->\n\n$$\nr = \\sqrt{x^{2} + 1}\n$$\n\n<!-- fig: slide 2, shape 4: unresolved shape geometry -->\n\n<!-- slide: 3 -->\n\n- Input and output values\n\n<!-- fig: slide 3, shape 4: unresolved shape geometry -->\n\n| Case | Input x | Output y |\n| --- | --- | --- |\n| A | 1 | 1 |\n| B | 3 | 2 |\n\n- Table 1 records invented values for the same equation.\n\n<!-- fig: slide 3, shape 3: unresolved shape geometry -->\n\n<!-- slide: 4 -->\n\n- Merged sample labels\n\n<!-- fig: slide 4, shape 4: unresolved shape geometry -->\n\n<table>\n<tr>\n<td>Sample</td>\n<td>Trial</td>\n<td>Value</td>\n</tr>\n<tr>\n<td rowspan=\"2\">Sample A</td>\n<td>1</td>\n<td>0.25</td>\n</tr>\n<tr>\n<td>2</td>\n<td>0.75</td>\n</tr>\n</table>\n\n- Sample A applies to both trials.\n\n<!-- fig: slide 4, shape 3: unresolved shape geometry -->\n\n<!-- slide: 5 -->\n\n- Ordered steps in columns\n\n<!-- fig: slide 5, shape 6: unresolved shape geometry -->\n\n- 1. Read the condition.\n\n<!-- fig: slide 5, shape 4: unresolved shape geometry -->\n\n- 2. Choose the equation.\n\n<!-- fig: slide 5, shape 5: unresolved shape geometry -->\n\n- 3. Substitute the value.\n\n<!-- fig: slide 5, shape 2: unresolved shape geometry -->\n\n- 4. Check the result.\n\n<!-- fig: slide 5, shape 3: unresolved shape geometry -->\n\n<!-- slide: 6 -->\n\n- Pictured equation and explanation\n\n<!-- fig: slide 6, shape 5: unresolved shape geometry -->\n\n<!-- fig: slide 6, shape 2: unresolved image -->\n\n- Figure 1 defines s using a minus b over 3.\n\n<!-- fig: slide 6, shape 3: unresolved shape geometry -->\n\n- Reversing a and b changes the sign of s.\n\n<!-- fig: slide 6, shape 4: unresolved shape geometry -->\n",
+      "blocks": [
+        {
+          "id": "slide:1/shape:5/paragraph:1",
+          "kind": "list_item",
+          "source": {
+            "unit": "slide",
+            "index": 1,
+            "element": "shape:5/paragraph:1"
+          },
+          "start": 19,
+          "end": 52,
+          "method": "native"
+        },
+        {
+          "id": "slide:1/shape:5/visual",
+          "kind": "figure",
+          "source": {
+            "unit": "slide",
+            "index": 1,
+            "element": "shape:5"
+          },
+          "start": 54,
+          "end": 111,
+          "method": "native"
+        },
+        {
+          "id": "slide:1/shape:2/paragraph:1",
+          "kind": "list_item",
+          "source": {
+            "unit": "slide",
+            "index": 1,
+            "element": "shape:2/paragraph:1"
+          },
+          "start": 113,
+          "end": 160,
+          "method": "native"
+        },
+        {
+          "id": "slide:1/shape:2/visual",
+          "kind": "figure",
+          "source": {
+            "unit": "slide",
+            "index": 1,
+            "element": "shape:2"
+          },
+          "start": 162,
+          "end": 219,
+          "method": "native"
+        },
+        {
+          "id": "slide:1/shape:3/paragraph:1",
+          "kind": "equation",
+          "source": {
+            "unit": "slide",
+            "index": 1,
+            "element": "shape:3/paragraph:1"
+          },
+          "start": 221,
+          "end": 246,
+          "method": "native"
+        },
+        {
+          "id": "slide:1/shape:3/visual",
+          "kind": "figure",
+          "source": {
+            "unit": "slide",
+            "index": 1,
+            "element": "shape:3"
+          },
+          "start": 248,
+          "end": 305,
+          "method": "native"
+        },
+        {
+          "id": "slide:1/shape:4/paragraph:1",
+          "kind": "list_item",
+          "source": {
+            "unit": "slide",
+            "index": 1,
+            "element": "shape:4/paragraph:1"
+          },
+          "start": 307,
+          "end": 341,
+          "method": "native"
+        },
+        {
+          "id": "slide:1/shape:4/visual",
+          "kind": "figure",
+          "source": {
+            "unit": "slide",
+            "index": 1,
+            "element": "shape:4"
+          },
+          "start": 343,
+          "end": 400,
+          "method": "native"
+        },
+        {
+          "id": "slide:2/shape:5/paragraph:1",
+          "kind": "list_item",
+          "source": {
+            "unit": "slide",
+            "index": 2,
+            "element": "shape:5/paragraph:1"
+          },
+          "start": 421,
+          "end": 439,
+          "method": "native"
+        },
+        {
+          "id": "slide:2/shape:5/visual",
+          "kind": "figure",
+          "source": {
+            "unit": "slide",
+            "index": 2,
+            "element": "shape:5"
+          },
+          "start": 441,
+          "end": 498,
+          "method": "native"
+        },
+        {
+          "id": "slide:2/shape:2/paragraph:1",
+          "kind": "list_item",
+          "source": {
+            "unit": "slide",
+            "index": 2,
+            "element": "shape:2/paragraph:1"
+          },
+          "start": 500,
+          "end": 549,
+          "method": "native"
+        },
+        {
+          "id": "slide:2/shape:2/visual",
+          "kind": "figure",
+          "source": {
+            "unit": "slide",
+            "index": 2,
+            "element": "shape:2"
+          },
+          "start": 551,
+          "end": 608,
+          "method": "native"
+        },
+        {
+          "id": "slide:2/shape:3/paragraph:1",
+          "kind": "list_item",
+          "source": {
+            "unit": "slide",
+            "index": 2,
+            "element": "shape:3/paragraph:1"
+          },
+          "start": 610,
+          "end": 659,
+          "method": "native"
+        },
+        {
+          "id": "slide:2/shape:3/visual",
+          "kind": "figure",
+          "source": {
+            "unit": "slide",
+            "index": 2,
+            "element": "shape:3"
+          },
+          "start": 661,
+          "end": 718,
+          "method": "native"
+        },
+        {
+          "id": "slide:2/shape:4/paragraph:1",
+          "kind": "equation",
+          "source": {
+            "unit": "slide",
+            "index": 2,
+            "element": "shape:4/paragraph:1"
+          },
+          "start": 720,
+          "end": 746,
+          "method": "native"
+        },
+        {
+          "id": "slide:2/shape:4/visual",
+          "kind": "figure",
+          "source": {
+            "unit": "slide",
+            "index": 2,
+            "element": "shape:4"
+          },
+          "start": 748,
+          "end": 805,
+          "method": "native"
+        },
+        {
+          "id": "slide:3/shape:4/paragraph:1",
+          "kind": "list_item",
+          "source": {
+            "unit": "slide",
+            "index": 3,
+            "element": "shape:4/paragraph:1"
+          },
+          "start": 826,
+          "end": 851,
+          "method": "native"
+        },
+        {
+          "id": "slide:3/shape:4/visual",
+          "kind": "figure",
+          "source": {
+            "unit": "slide",
+            "index": 3,
+            "element": "shape:4"
+          },
+          "start": 853,
+          "end": 910,
+          "method": "native"
+        },
+        {
+          "id": "slide:3/shape:2",
+          "kind": "table",
+          "source": {
+            "unit": "slide",
+            "index": 3,
+            "element": "shape:2"
+          },
+          "start": 912,
+          "end": 989,
+          "method": "native"
+        },
+        {
+          "id": "slide:3/shape:3/paragraph:1",
+          "kind": "list_item",
+          "source": {
+            "unit": "slide",
+            "index": 3,
+            "element": "shape:3/paragraph:1"
+          },
+          "start": 991,
+          "end": 1047,
+          "method": "native"
+        },
+        {
+          "id": "slide:3/shape:3/visual",
+          "kind": "figure",
+          "source": {
+            "unit": "slide",
+            "index": 3,
+            "element": "shape:3"
+          },
+          "start": 1049,
+          "end": 1106,
+          "method": "native"
+        },
+        {
+          "id": "slide:4/shape:4/paragraph:1",
+          "kind": "list_item",
+          "source": {
+            "unit": "slide",
+            "index": 4,
+            "element": "shape:4/paragraph:1"
+          },
+          "start": 1127,
+          "end": 1149,
+          "method": "native"
+        },
+        {
+          "id": "slide:4/shape:4/visual",
+          "kind": "figure",
+          "source": {
+            "unit": "slide",
+            "index": 4,
+            "element": "shape:4"
+          },
+          "start": 1151,
+          "end": 1208,
+          "method": "native"
+        },
+        {
+          "id": "slide:4/shape:2",
+          "kind": "table",
+          "source": {
+            "unit": "slide",
+            "index": 4,
+            "element": "shape:2"
+          },
+          "start": 1210,
+          "end": 1385,
+          "method": "native"
+        },
+        {
+          "id": "slide:4/shape:3/paragraph:1",
+          "kind": "list_item",
+          "source": {
+            "unit": "slide",
+            "index": 4,
+            "element": "shape:3/paragraph:1"
+          },
+          "start": 1387,
+          "end": 1421,
+          "method": "native"
+        },
+        {
+          "id": "slide:4/shape:3/visual",
+          "kind": "figure",
+          "source": {
+            "unit": "slide",
+            "index": 4,
+            "element": "shape:3"
+          },
+          "start": 1423,
+          "end": 1480,
+          "method": "native"
+        },
+        {
+          "id": "slide:5/shape:6/paragraph:1",
+          "kind": "list_item",
+          "source": {
+            "unit": "slide",
+            "index": 5,
+            "element": "shape:6/paragraph:1"
+          },
+          "start": 1501,
+          "end": 1527,
+          "method": "native"
+        },
+        {
+          "id": "slide:5/shape:6/visual",
+          "kind": "figure",
+          "source": {
+            "unit": "slide",
+            "index": 5,
+            "element": "shape:6"
+          },
+          "start": 1529,
+          "end": 1586,
+          "method": "native"
+        },
+        {
+          "id": "slide:5/shape:4/paragraph:1",
+          "kind": "list_item",
+          "source": {
+            "unit": "slide",
+            "index": 5,
+            "element": "shape:4/paragraph:1"
+          },
+          "start": 1588,
+          "end": 1612,
+          "method": "native"
+        },
+        {
+          "id": "slide:5/shape:4/visual",
+          "kind": "figure",
+          "source": {
+            "unit": "slide",
+            "index": 5,
+            "element": "shape:4"
+          },
+          "start": 1614,
+          "end": 1671,
+          "method": "native"
+        },
+        {
+          "id": "slide:5/shape:5/paragraph:1",
+          "kind": "list_item",
+          "source": {
+            "unit": "slide",
+            "index": 5,
+            "element": "shape:5/paragraph:1"
+          },
+          "start": 1673,
+          "end": 1698,
+          "method": "native"
+        },
+        {
+          "id": "slide:5/shape:5/visual",
+          "kind": "figure",
+          "source": {
+            "unit": "slide",
+            "index": 5,
+            "element": "shape:5"
+          },
+          "start": 1700,
+          "end": 1757,
+          "method": "native"
+        },
+        {
+          "id": "slide:5/shape:2/paragraph:1",
+          "kind": "list_item",
+          "source": {
+            "unit": "slide",
+            "index": 5,
+            "element": "shape:2/paragraph:1"
+          },
+          "start": 1759,
+          "end": 1785,
+          "method": "native"
+        },
+        {
+          "id": "slide:5/shape:2/visual",
+          "kind": "figure",
+          "source": {
+            "unit": "slide",
+            "index": 5,
+            "element": "shape:2"
+          },
+          "start": 1787,
+          "end": 1844,
+          "method": "native"
+        },
+        {
+          "id": "slide:5/shape:3/paragraph:1",
+          "kind": "list_item",
+          "source": {
+            "unit": "slide",
+            "index": 5,
+            "element": "shape:3/paragraph:1"
+          },
+          "start": 1846,
+          "end": 1868,
+          "method": "native"
+        },
+        {
+          "id": "slide:5/shape:3/visual",
+          "kind": "figure",
+          "source": {
+            "unit": "slide",
+            "index": 5,
+            "element": "shape:3"
+          },
+          "start": 1870,
+          "end": 1927,
+          "method": "native"
+        },
+        {
+          "id": "slide:6/shape:5/paragraph:1",
+          "kind": "list_item",
+          "source": {
+            "unit": "slide",
+            "index": 6,
+            "element": "shape:5/paragraph:1"
+          },
+          "start": 1948,
+          "end": 1983,
+          "method": "native"
+        },
+        {
+          "id": "slide:6/shape:5/visual",
+          "kind": "figure",
+          "source": {
+            "unit": "slide",
+            "index": 6,
+            "element": "shape:5"
+          },
+          "start": 1985,
+          "end": 2042,
+          "method": "native"
+        },
+        {
+          "id": "slide:6/shape:2",
+          "kind": "figure",
+          "source": {
+            "unit": "slide",
+            "index": 6,
+            "element": "shape:2"
+          },
+          "start": 2044,
+          "end": 2092,
+          "method": "native"
+        },
+        {
+          "id": "slide:6/shape:3/paragraph:1",
+          "kind": "list_item",
+          "source": {
+            "unit": "slide",
+            "index": 6,
+            "element": "shape:3/paragraph:1"
+          },
+          "start": 2094,
+          "end": 2138,
+          "method": "native"
+        },
+        {
+          "id": "slide:6/shape:3/visual",
+          "kind": "figure",
+          "source": {
+            "unit": "slide",
+            "index": 6,
+            "element": "shape:3"
+          },
+          "start": 2140,
+          "end": 2197,
+          "method": "native"
+        },
+        {
+          "id": "slide:6/shape:4/paragraph:1",
+          "kind": "list_item",
+          "source": {
+            "unit": "slide",
+            "index": 6,
+            "element": "shape:4/paragraph:1"
+          },
+          "start": 2199,
+          "end": 2241,
+          "method": "native"
+        },
+        {
+          "id": "slide:6/shape:4/visual",
+          "kind": "figure",
+          "source": {
+            "unit": "slide",
+            "index": 6,
+            "element": "shape:4"
+          },
+          "start": 2243,
+          "end": 2300,
+          "method": "native"
+        }
+      ],
+      "issues": [
+        {
+          "code": "shape_geometry_unresolved",
+          "message": "slide 1, shape 5: shape geometry requires rendered-slide review",
+          "source": {
+            "unit": "slide",
+            "index": 1,
+            "element": "shape:5"
+          },
+          "block_ids": [
+            "slide:1/shape:5/visual"
+          ],
+          "severity": "informational"
+        },
+        {
+          "code": "shape_geometry_unresolved",
+          "message": "slide 1, shape 2: shape geometry requires rendered-slide review",
+          "source": {
+            "unit": "slide",
+            "index": 1,
+            "element": "shape:2"
+          },
+          "block_ids": [
+            "slide:1/shape:2/visual"
+          ],
+          "severity": "informational"
+        },
+        {
+          "code": "shape_geometry_unresolved",
+          "message": "slide 1, shape 3: shape geometry requires rendered-slide review",
+          "source": {
+            "unit": "slide",
+            "index": 1,
+            "element": "shape:3"
+          },
+          "block_ids": [
+            "slide:1/shape:3/visual"
+          ],
+          "severity": "informational"
+        },
+        {
+          "code": "shape_geometry_unresolved",
+          "message": "slide 1, shape 4: shape geometry requires rendered-slide review",
+          "source": {
+            "unit": "slide",
+            "index": 1,
+            "element": "shape:4"
+          },
+          "block_ids": [
+            "slide:1/shape:4/visual"
+          ],
+          "severity": "informational"
+        },
+        {
+          "code": "shape_geometry_unresolved",
+          "message": "slide 2, shape 5: shape geometry requires rendered-slide review",
+          "source": {
+            "unit": "slide",
+            "index": 2,
+            "element": "shape:5"
+          },
+          "block_ids": [
+            "slide:2/shape:5/visual"
+          ],
+          "severity": "informational"
+        },
+        {
+          "code": "shape_geometry_unresolved",
+          "message": "slide 2, shape 2: shape geometry requires rendered-slide review",
+          "source": {
+            "unit": "slide",
+            "index": 2,
+            "element": "shape:2"
+          },
+          "block_ids": [
+            "slide:2/shape:2/visual"
+          ],
+          "severity": "informational"
+        },
+        {
+          "code": "shape_geometry_unresolved",
+          "message": "slide 2, shape 3: shape geometry requires rendered-slide review",
+          "source": {
+            "unit": "slide",
+            "index": 2,
+            "element": "shape:3"
+          },
+          "block_ids": [
+            "slide:2/shape:3/visual"
+          ],
+          "severity": "informational"
+        },
+        {
+          "code": "shape_geometry_unresolved",
+          "message": "slide 2, shape 4: shape geometry requires rendered-slide review",
+          "source": {
+            "unit": "slide",
+            "index": 2,
+            "element": "shape:4"
+          },
+          "block_ids": [
+            "slide:2/shape:4/visual"
+          ],
+          "severity": "informational"
+        },
+        {
+          "code": "shape_geometry_unresolved",
+          "message": "slide 3, shape 4: shape geometry requires rendered-slide review",
+          "source": {
+            "unit": "slide",
+            "index": 3,
+            "element": "shape:4"
+          },
+          "block_ids": [
+            "slide:3/shape:4/visual"
+          ],
+          "severity": "informational"
+        },
+        {
+          "code": "shape_geometry_unresolved",
+          "message": "slide 3, shape 3: shape geometry requires rendered-slide review",
+          "source": {
+            "unit": "slide",
+            "index": 3,
+            "element": "shape:3"
+          },
+          "block_ids": [
+            "slide:3/shape:3/visual"
+          ],
+          "severity": "informational"
+        },
+        {
+          "code": "shape_geometry_unresolved",
+          "message": "slide 4, shape 4: shape geometry requires rendered-slide review",
+          "source": {
+            "unit": "slide",
+            "index": 4,
+            "element": "shape:4"
+          },
+          "block_ids": [
+            "slide:4/shape:4/visual"
+          ],
+          "severity": "informational"
+        },
+        {
+          "code": "table_spans",
+          "message": "slide 4, shape 2: merged cell spans retained in HTML; grid requires review",
+          "source": {
+            "unit": "slide",
+            "index": 4,
+            "element": "shape:2"
+          },
+          "block_ids": [
+            "slide:4/shape:2"
+          ],
+          "severity": "review"
+        },
+        {
+          "code": "shape_geometry_unresolved",
+          "message": "slide 4, shape 3: shape geometry requires rendered-slide review",
+          "source": {
+            "unit": "slide",
+            "index": 4,
+            "element": "shape:3"
+          },
+          "block_ids": [
+            "slide:4/shape:3/visual"
+          ],
+          "severity": "informational"
+        },
+        {
+          "code": "shape_geometry_unresolved",
+          "message": "slide 5, shape 6: shape geometry requires rendered-slide review",
+          "source": {
+            "unit": "slide",
+            "index": 5,
+            "element": "shape:6"
+          },
+          "block_ids": [
+            "slide:5/shape:6/visual"
+          ],
+          "severity": "informational"
+        },
+        {
+          "code": "shape_geometry_unresolved",
+          "message": "slide 5, shape 4: shape geometry requires rendered-slide review",
+          "source": {
+            "unit": "slide",
+            "index": 5,
+            "element": "shape:4"
+          },
+          "block_ids": [
+            "slide:5/shape:4/visual"
+          ],
+          "severity": "informational"
+        },
+        {
+          "code": "shape_geometry_unresolved",
+          "message": "slide 5, shape 5: shape geometry requires rendered-slide review",
+          "source": {
+            "unit": "slide",
+            "index": 5,
+            "element": "shape:5"
+          },
+          "block_ids": [
+            "slide:5/shape:5/visual"
+          ],
+          "severity": "informational"
+        },
+        {
+          "code": "shape_geometry_unresolved",
+          "message": "slide 5, shape 2: shape geometry requires rendered-slide review",
+          "source": {
+            "unit": "slide",
+            "index": 5,
+            "element": "shape:2"
+          },
+          "block_ids": [
+            "slide:5/shape:2/visual"
+          ],
+          "severity": "informational"
+        },
+        {
+          "code": "shape_geometry_unresolved",
+          "message": "slide 5, shape 3: shape geometry requires rendered-slide review",
+          "source": {
+            "unit": "slide",
+            "index": 5,
+            "element": "shape:3"
+          },
+          "block_ids": [
+            "slide:5/shape:3/visual"
+          ],
+          "severity": "informational"
+        },
+        {
+          "code": "shape_geometry_unresolved",
+          "message": "slide 6, shape 5: shape geometry requires rendered-slide review",
+          "source": {
+            "unit": "slide",
+            "index": 6,
+            "element": "shape:5"
+          },
+          "block_ids": [
+            "slide:6/shape:5/visual"
+          ],
+          "severity": "informational"
+        },
+        {
+          "code": "equation_unresolved",
+          "message": "slide 6, shape 2: image retained as description/marker; visual content not transcribed",
+          "source": {
+            "unit": "slide",
+            "index": 6,
+            "element": "shape:2"
+          },
+          "block_ids": [
+            "slide:6/shape:2"
+          ],
+          "severity": "unresolved"
+        },
+        {
+          "code": "equation_unresolved",
+          "message": "slide 6, shape 2: pictured mathematics remains unverified",
+          "source": {
+            "unit": "slide",
+            "index": 6,
+            "element": "shape:2"
+          },
+          "block_ids": [
+            "slide:6/shape:2"
+          ],
+          "severity": "unresolved"
+        },
+        {
+          "code": "shape_geometry_unresolved",
+          "message": "slide 6, shape 3: shape geometry requires rendered-slide review",
+          "source": {
+            "unit": "slide",
+            "index": 6,
+            "element": "shape:3"
+          },
+          "block_ids": [
+            "slide:6/shape:3/visual"
+          ],
+          "severity": "informational"
+        },
+        {
+          "code": "shape_geometry_unresolved",
+          "message": "slide 6, shape 4: shape geometry requires rendered-slide review",
+          "source": {
+            "unit": "slide",
+            "index": 6,
+            "element": "shape:4"
+          },
+          "block_ids": [
+            "slide:6/shape:4/visual"
+          ],
+          "severity": "informational"
+        }
+      ],
+      "status": "partial",
+      "review_status": "needs_review",
+      "pages": 6
+    }
+  },
+  {
+    "path": null,
+    "suffix": ".md",
+    "input": "# Heading\n\nKeep $x^2$ and all text.\n",
+    "result": {
+      "markdown": "# Heading\n\nKeep $x^2$ and all text.\n",
+      "blocks": [
+        {
+          "id": "document",
+          "kind": "document",
+          "source": {
+            "unit": "document",
+            "index": 1,
+            "element": ""
+          },
+          "start": 0,
+          "end": 36,
+          "method": "mixed"
+        }
+      ],
+      "issues": [],
+      "status": "success",
+      "review_status": "not_reviewed",
+      "pages": 1
+    }
+  },
+  {
+    "path": null,
+    "suffix": ".csv",
+    "input": "A,B\n1,2\n",
+    "result": {
+      "markdown": "| A | B |\n| --- | --- |\n| 1 | 2 |\n",
+      "blocks": [
+        {
+          "id": "document",
+          "kind": "document",
+          "source": {
+            "unit": "document",
+            "index": 1,
+            "element": ""
+          },
+          "start": 0,
+          "end": 34,
+          "method": "mixed"
+        }
+      ],
+      "issues": [],
+      "status": "success",
+      "review_status": "not_reviewed",
+      "pages": 1
+    }
+  },
+  {
+    "path": null,
+    "suffix": ".html",
+    "input": "<h1>Title</h1><p>Keep <strong>bold</strong>.</p>",
+    "result": {
+      "markdown": "# Title\n\nKeep **bold**.\n",
+      "blocks": [
+        {
+          "id": "document",
+          "kind": "document",
+          "source": {
+            "unit": "document",
+            "index": 1,
+            "element": ""
+          },
+          "start": 0,
+          "end": 24,
+          "method": "mixed"
+        }
+      ],
+      "issues": [],
+      "status": "success",
+      "review_status": "not_reviewed",
+      "pages": 1
+    }
+  }
+]
