@@ -82,3 +82,78 @@ def test_nested_vendor_change_invalidates_cached_conversion(tmp_path, monkeypatc
     second = extract(source, out_dir=tmp_path / "out")
     assert not second.cache_hit and second.cache_key != first.cache_key
     assert second.markdown == first.markdown
+
+
+def test_asset_record_lifecycle_and_zero_bitmap_sidecars(tmp_path):
+    from mdaddict.strategy import AssetRecord, SourceBlock, SourceLocator, figure, load_extract, write_extract
+    from mdaddict.image_evidence import ImageEvidence
+    from mdaddict.extract_offline import OfflineExtractor
+
+    # 1. Figure helper formatting
+    assert figure("diagram without asset") == "<!-- fig: diagram without asset -->"
+    assert figure("system diagram", asset_id="ast_1234567890abcdef") == "![system diagram](asset:ast_1234567890abcdef)"
+
+    # 2. ImageEvidence deterministic asset creation
+    engine = OfflineExtractor(ExtractOptions(ocr="off"))
+    evidence = ImageEvidence()
+    locator = SourceLocator("slide", 1, "shape:2")
+    passage = evidence.describe(engine, b"fake-image-bytes-1", "A circuit", "slide 1, shape 2", locator, "slide:1/shape:2", crop=(0.0, 0.0, 0.0, 0.0))
+    assert passage.text
+    assert len(evidence.assets) == 1
+    asset = evidence.assets[0]
+    assert asset.asset_id.startswith("ast_")
+    assert asset.locator.unit == "slide" and asset.locator.index == 1
+    assert asset.crop == (0.0, 0.0, 0.0, 0.0)
+    assert asset.description == "A circuit"
+
+    # Determinism: same image produces same asset_id
+    evidence2 = ImageEvidence()
+    evidence2.describe(engine, b"fake-image-bytes-1", "A circuit", "slide 1, shape 2", locator, "slide:1/shape:2", crop=(0.0, 0.0, 0.0, 0.0))
+    assert evidence2.assets[0].asset_id == asset.asset_id
+
+    # 3. ExtractResult contract and roundtrip serialization
+    blocks = [SourceBlock("b1", "paragraph", locator, 0, 10)]
+    result = ExtractResult(
+        sha256="0" * 64,
+        markdown="Some text.\n",
+        source_name="test.pptx",
+        extractor="test",
+        blocks=blocks,
+        assets=[asset],
+    )
+    result.validate_contract()
+    assert result.metadata["assets"][0]["asset_id"] == asset.asset_id
+
+    out_file = write_extract(result, tmp_path)
+    loaded = load_extract(out_file, source_sha=result.sha256)
+    assert len(loaded.assets) == 1
+    assert loaded.assets[0].asset_id == asset.asset_id
+    assert loaded.assets[0].description == asset.description
+    assert loaded.assets[0].crop == (0.0, 0.0, 0.0, 0.0)
+
+    # 4. Absence of bitmap sidecars on disk
+    all_files = list(tmp_path.rglob("*"))
+    assert not any(f.suffix.lower() in {".png", ".jpg", ".jpeg", ".bmp", ".gif", ".webp"} for f in all_files)
+    assert all(f.is_dir() or f.suffix in {".md", ".json"} for f in all_files)
+
+    # 5. Contract validation rejects invalid assets
+    with pytest.raises(ValueError, match="Asset ID must be a non-empty string"):
+        ExtractResult(
+            sha256="0" * 64,
+            markdown="Some text.\n",
+            source_name="test.pptx",
+            extractor="test",
+            blocks=blocks,
+            assets=[AssetRecord("", locator, (0.0, 0.0, 0.0, 0.0), "hash", "desc")],
+        )
+
+    with pytest.raises(ValueError, match="Duplicate asset ID"):
+        ExtractResult(
+            sha256="0" * 64,
+            markdown="Some text.\n",
+            source_name="test.pptx",
+            extractor="test",
+            blocks=blocks,
+            assets=[asset, asset],
+        )
+

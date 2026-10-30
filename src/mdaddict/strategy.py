@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import math
 import os
 import tempfile
 from dataclasses import asdict, dataclass, field
@@ -91,6 +92,21 @@ class ExtractionIssue:
 
 
 @dataclass
+class AssetRecord:
+    asset_id: str
+    locator: SourceLocator
+    crop: tuple[float, float, float, float]
+    visual_hash: str
+    description: str
+
+    def __post_init__(self):
+        if isinstance(self.locator, dict):
+            self.locator = SourceLocator(**self.locator)
+        if isinstance(self.crop, list):
+            self.crop = tuple(self.crop)
+
+
+@dataclass
 class ExtractResult:
     sha256: str
     markdown: str
@@ -108,10 +124,17 @@ class ExtractResult:
     issues: list[ExtractionIssue] = field(default_factory=list)
     status: str = "success"
     review_status: str = "not_reviewed"
+    assets: list[AssetRecord] = field(default_factory=list)
 
     def __post_init__(self):
         self.blocks = [SourceBlock(**b) if isinstance(b, dict) else b for b in self.blocks]
         self.issues = [ExtractionIssue(**i) if isinstance(i, dict) else i for i in self.issues]
+        if not self.assets and self.metadata.get("assets"):
+            self.assets = [AssetRecord(**a) if isinstance(a, dict) else a for a in self.metadata["assets"]]
+        elif self.assets:
+            self.assets = [AssetRecord(**a) if isinstance(a, dict) else a for a in self.assets]
+        if self.assets:
+            self.metadata["assets"] = [{"asset_id": a.asset_id, "locator": asdict(a.locator), "crop": list(a.crop), "visual_hash": a.visual_hash, "description": a.description} for a in self.assets]
         self.validate_contract()
 
     def validate_contract(self):
@@ -135,6 +158,21 @@ class ExtractResult:
                 raise ValueError("Invalid issue severity/source")
             if not set(issue.block_ids) <= ids:
                 raise ValueError("Issue references unknown source blocks")
+        asset_ids = set()
+        for asset in self.assets:
+            if not isinstance(asset, AssetRecord):
+                raise ValueError("Assets must be AssetRecord instances")
+            if not isinstance(asset.asset_id, str) or not asset.asset_id:
+                raise ValueError("Asset ID must be a non-empty string")
+            if asset.asset_id in asset_ids:
+                raise ValueError(f"Duplicate asset ID: {asset.asset_id}")
+            asset_ids.add(asset.asset_id)
+            if not isinstance(asset.locator, SourceLocator) or not integer(asset.locator.index) or asset.locator.index < 1:
+                raise ValueError("Invalid asset locator")
+            if not isinstance(asset.crop, tuple) or len(asset.crop) != 4 or not all(isinstance(v, (int, float)) and math.isfinite(v) for v in asset.crop):
+                raise ValueError("Asset crop must be a 4-tuple of finite numbers")
+            if not isinstance(asset.visual_hash, str) or not isinstance(asset.description, str):
+                raise ValueError("Asset visual_hash and description must be strings")
         if self.status not in {"success", "partial", "failure"} or self.review_status not in {"not_reviewed", "needs_review", "reviewed"}:
             raise ValueError("Invalid extraction/review state")
 
@@ -162,7 +200,9 @@ def comment(value: str) -> str:
     return value.replace("--", "—").replace("\n", " ").replace("\r", " ")
 
 
-def figure(description: str = "unresolved image") -> str:
+def figure(description: str = "unresolved image", asset_id: str | None = None) -> str:
+    if asset_id:
+        return f"![{comment(description)}](asset:{asset_id})"
     return f"<!-- fig: {comment(description)} -->"
 
 

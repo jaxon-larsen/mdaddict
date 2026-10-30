@@ -101,10 +101,10 @@ class VisionExtractor(OfflineExtractor):
             "image", system=SYSTEM_PROMPT + "\nReturn Markdown only for this standalone image.")
         return strip_outer_markdown_fence(response.text)
 
-    def describe_image(self, data, alt, location):
+    def describe_image(self, data, alt, location, asset_id: str | None = None) -> str:
         if not data:
-            return super().describe_image(data, alt, location)
-        return figure(alt or location) + "\n\n" + self._transcribe_image(image_png(data), location)
+            return super().describe_image(data, alt, location, asset_id=asset_id)
+        return figure(alt or location, asset_id=asset_id) + "\n\n" + self._transcribe_image(image_png(data), location)
 
     def _image(self, path):
         if path.suffix.lower() in {".heic", ".heif"}:

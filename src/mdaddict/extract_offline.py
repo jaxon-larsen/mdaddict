@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import csv
 from collections import Counter
+from dataclasses import asdict
 from html.parser import HTMLParser
 import io
 import re
@@ -205,12 +206,12 @@ class OfflineExtractor:
         self.warn(f"{location}: OCR transcription; equations, table structure and diagrams require review")
         return text or figure(f"{location}: no text recognized")
 
-    def describe_image(self, data: bytes | None, alt: str, location: str) -> str:
+    def describe_image(self, data: bytes | None, alt: str, location: str, asset_id: str | None = None) -> str:
         # Embedded pictures may be illustrations rather than text. OCR only when explicitly forced.
         if data and self.options.ocr == "force":
             return self.ocr_image(image_png(data), location)
         self.warn(f"{location}: image retained as description/marker; visual content not transcribed")
-        return figure(alt or f"{location}: unresolved image")
+        return figure(alt or f"{location}: unresolved image", asset_id=asset_id)
 
     def _text(self, path: Path) -> str:
         try:
@@ -539,5 +540,8 @@ class OfflineExtractor:
         result.metadata["provenance_granularity"] = "paragraph_or_object" if suffix == ".pptx" else "xml_paragraph" if suffix == ".docx" else "page" if suffix == ".pdf" and self.source_blocks and self.source_blocks[0].source.unit == "page" else "document"
         if self.image_evidence.records:
             result.metadata.update(self.image_evidence.metadata())
+        if self.image_evidence.assets:
+            result.assets = list(self.image_evidence.assets)
+            result.metadata["assets"] = [{"asset_id": a.asset_id, "locator": asdict(a.locator), "crop": list(a.crop), "visual_hash": a.visual_hash, "description": a.description} for a in self.image_evidence.assets]
         result.refresh_status()
         return result

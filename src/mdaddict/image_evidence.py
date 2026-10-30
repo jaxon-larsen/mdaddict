@@ -7,7 +7,7 @@ import io
 import math
 import re
 
-from mdaddict.strategy import SourceLocator
+from mdaddict.strategy import AssetRecord, SourceLocator
 
 
 @dataclass
@@ -24,6 +24,7 @@ class ImageEvidence:
         self.ocr_text: dict[str, str] = {}
         self.ocr_runs = 0
         self.ocr_reuses = 0
+        self.assets: list[AssetRecord] = []
 
     @staticmethod
     def view(data: bytes, crop: tuple[float, float, float, float]) -> bytes:
@@ -86,18 +87,30 @@ class ImageEvidence:
             if pictured_math:
                 code = "equation_unresolved"
                 messages.append(f"{location}: pictured mathematics remains unverified")
+        asset_id = f"ast_{(view_hash or image_hash or hashlib.sha256(f'{source.unit}:{source.index}:{source.element}:{crop}'.encode()).hexdigest())[:16]}"
         record = self.records.setdefault(image_hash or f"missing:{source.unit}:{source.index}:{source.element}",
                                          {"image_sha256": image_hash, "occurrences": []})
         record["occurrences"].append({"source": asdict(source), "block_id": block_id,
                                       "alt": alt, "crop": list(crop), "view_sha256": view_hash,
                                       "method": method, "ocr_reused": reused,
+                                      "asset_id": asset_id,
                                       "semantic_status": "untranscribed" if method == "native" else "needs_review",
                                       "representation": "source_reference" if method == "native" else "unverified_text",
                                       "retention": "source_reference_only"})
+        asset_record = AssetRecord(
+            asset_id=asset_id,
+            locator=source,
+            crop=tuple(crop),
+            visual_hash=view_hash or image_hash or "",
+            description=alt or f"{location}: image",
+        )
+        if not any(a.asset_id == asset_id for a in self.assets):
+            self.assets.append(asset_record)
         return ImagePassage(text, method, code or ("figure_unresolved" if method == "native" else "figure_transcription_review"), messages)
 
     def metadata(self) -> dict:
         return {"images": list(self.records.values()),
+                "assets": [{"asset_id": a.asset_id, "locator": asdict(a.locator), "crop": list(a.crop), "visual_hash": a.visual_hash, "description": a.description} for a in self.assets],
                 "image_processing": {"unique_images": len(self.records),
                                      "occurrences": sum(len(row["occurrences"]) for row in self.records.values()),
                                      "ocr_runs": self.ocr_runs, "ocr_reuses": self.ocr_reuses}}
