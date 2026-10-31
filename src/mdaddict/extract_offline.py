@@ -448,6 +448,9 @@ class OfflineExtractor:
                 for region in analysis.regions:
                     issue("pdf_region_unresolved", region.reason, "unresolved",
                           "bbox:" + ",".join(f"{v:.2f}" for v in region.bbox))
+                if images:
+                    asset = self.image_evidence.register(render_page(page, 120), source, block_id, f"Page {idx} visual context")
+                    text += f"\n\n![{asset.description}](asset:{asset.asset_id})"
                 text += form_markdown(forms, idx)
                 chunk = normalize(f"<!-- page: {idx} -->\n\n{text.strip()}")
                 self.source_blocks.append(SourceBlock(block_id, "page", source, offset, offset + len(chunk), method))
@@ -477,9 +480,12 @@ class OfflineExtractor:
                     self.warn("Image content unresolved (--ocr off)")
                 else:
                     text = self.ocr_image(data, f"frame {idx+1}")
-                chunk = f"<!-- frame: {idx+1} -->\n\n{text}"
                 block_id = f"frame:{idx+1}"
                 locator = SourceLocator("frame", idx+1)
+                asset = self.image_evidence.register(data, locator, block_id, f"Image frame {idx+1}")
+                reference = f"![{asset.description}](asset:{asset.asset_id})"
+                text += "\n\n" + reference
+                chunk = f"<!-- frame: {idx+1} -->\n\n{text}"
                 self.source_blocks.append(SourceBlock(block_id, "image", locator, offset, offset + len(chunk), "ocr" if self.options.ocr != "off" else "native"))
                 unresolved = self.options.ocr == "off" or not text.strip() or text.lstrip().startswith("<!-- fig:")
                 self.issues.append(ExtractionIssue("image_text_unavailable" if unresolved else "image_transcription_review",
@@ -533,15 +539,18 @@ class OfflineExtractor:
         for warning in self.warnings:
             if warning not in recorded:
                 self.issues.append(ExtractionIssue("extraction_warning", warning))
+        assets = list(self.image_evidence.assets)
+        issues = list(self.issues)
+        for asset in assets:
+            issues.append(ExtractionIssue("asset_context_unresolved",
+                "Visual meaning requires comparison against the original before assessed practice",
+                asset.locator, asset.block_ids, "unresolved"))
         result = ExtractResult("", body, path.name, f"{self.name}:{backend}", self.pages,
-            list(self.warnings), blocks=self.source_blocks, issues=self.issues)
+            list(self.warnings), blocks=self.source_blocks, issues=issues, assets=assets)
         if self.pdf_forms is not None:
             result.metadata["pdf_forms"] = self.pdf_forms
         result.metadata["provenance_granularity"] = "paragraph_or_object" if suffix == ".pptx" else "xml_paragraph" if suffix == ".docx" else "page" if suffix == ".pdf" and self.source_blocks and self.source_blocks[0].source.unit == "page" else "document"
         if self.image_evidence.records:
             result.metadata.update(self.image_evidence.metadata())
-        if self.image_evidence.assets:
-            result.assets = list(self.image_evidence.assets)
-            result.metadata["assets"] = [{"asset_id": a.asset_id, "locator": asdict(a.locator), "crop": list(a.crop), "visual_hash": a.visual_hash, "description": a.description} for a in self.image_evidence.assets]
         result.refresh_status()
         return result

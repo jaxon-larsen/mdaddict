@@ -4,6 +4,7 @@ from __future__ import annotations
 import hashlib
 import json
 import math
+import re
 import os
 import tempfile
 from dataclasses import asdict, dataclass, field
@@ -61,6 +62,53 @@ class SourceLocator:
 
 
 @dataclass
+class AssetRecord:
+    """Text-first source occurrence. Crop is visible normalized bounds, not margins."""
+    asset_id: str
+    locator: SourceLocator
+    crop: tuple[float, float, float, float]
+    visual_hash: str
+    description: str
+    block_ids: list[str] = field(default_factory=list)
+
+    def __post_init__(self):
+        if not isinstance(self.asset_id, str) or not self.asset_id:
+            raise ValueError("Asset ID must be a non-empty string")
+        if isinstance(self.locator, dict):
+            self.locator = SourceLocator(**self.locator)
+        if not isinstance(self.crop, (list, tuple)) or len(self.crop) != 4:
+            raise ValueError("Asset crop must contain four normalized bounds")
+        self.crop = tuple(self.crop)
+        if any(isinstance(v, bool) or not isinstance(v, (int, float)) or not math.isfinite(v) for v in self.crop):
+            raise ValueError("Asset crop must be finite numbers")
+        left, top, right, bottom = self.crop
+        if not (0 <= left < right <= 1 and 0 <= top < bottom <= 1):
+            raise ValueError("Asset crop must be normalized visible bounds")
+        if not isinstance(self.visual_hash, str) or not re.fullmatch(r"[a-f0-9]{64}", self.visual_hash):
+            raise ValueError("Asset visual_hash must be SHA-256")
+        if not isinstance(self.description, str) or not self.description.strip():
+            raise ValueError("Asset description required")
+        if (not isinstance(self.locator, SourceLocator) or isinstance(self.locator.index, bool)
+                or not isinstance(self.locator.index, int) or self.locator.index < 1
+                or not isinstance(self.locator.unit, str) or not isinstance(self.locator.element, str)):
+            raise ValueError("Asset requires a valid source locator")
+        if (not isinstance(self.block_ids, list) or not all(isinstance(b, str) and b for b in self.block_ids)
+                or len(set(self.block_ids)) != len(self.block_ids)):
+            raise ValueError("Asset block_ids must be unique strings")
+        if self.asset_id != self.identity(self.locator, self.crop, self.visual_hash):
+            raise ValueError("Asset ID does not match occurrence identity")
+
+    @staticmethod
+    def identity(locator, crop, visual_hash):
+        value = {"locator": asdict(locator), "crop": [float(v) for v in crop], "visual_hash": visual_hash}
+        return "ast_" + hashlib.sha256(json.dumps(value, sort_keys=True, separators=(",", ":")).encode()).hexdigest()[:24]
+
+    @classmethod
+    def create(cls, locator, crop, visual_hash, description, block_ids):
+        return cls(cls.identity(locator, crop, visual_hash), locator, crop, visual_hash, description, block_ids)
+
+
+@dataclass
 class SourceBlock:
     id: str
     kind: str
@@ -91,19 +139,6 @@ class ExtractionIssue:
         self.severity = effective_severity(self)
 
 
-@dataclass
-class AssetRecord:
-    asset_id: str
-    locator: SourceLocator
-    crop: tuple[float, float, float, float]
-    visual_hash: str
-    description: str
-
-    def __post_init__(self):
-        if isinstance(self.locator, dict):
-            self.locator = SourceLocator(**self.locator)
-        if isinstance(self.crop, list):
-            self.crop = tuple(self.crop)
 
 
 @dataclass
@@ -131,7 +166,7 @@ class ExtractResult:
         self.issues = [ExtractionIssue(**i) if isinstance(i, dict) else i for i in self.issues]
         if not self.assets and self.metadata.get("assets"):
             self.assets = [AssetRecord(**a) if isinstance(a, dict) else a for a in self.metadata["assets"]]
-        elif self.assets:
+        else:
             self.assets = [AssetRecord(**a) if isinstance(a, dict) else a for a in self.assets]
         if self.assets:
             self.metadata["assets"] = [{"asset_id": a.asset_id, "locator": asdict(a.locator), "crop": list(a.crop), "visual_hash": a.visual_hash, "description": a.description} for a in self.assets]
@@ -153,6 +188,12 @@ class ExtractResult:
                 raise ValueError("Source block span outside Markdown")
             if not integer(block.source.index) or block.source.index < 1:
                 raise ValueError("Source indices are one-based")
+        if len({a.asset_id for a in self.assets}) != len(self.assets):
+            raise ValueError("Duplicate asset IDs")
+        for asset in self.assets:
+            asset.__post_init__()
+            if not set(asset.block_ids) <= ids:
+                raise ValueError("Asset references unknown source blocks")
         for issue in self.issues:
             if issue.severity not in {"review", "unresolved", "informational"} or not integer(issue.source.index) or issue.source.index < 1:
                 raise ValueError("Invalid issue severity/source")
@@ -179,6 +220,8 @@ class ExtractResult:
     def refresh_status(self):
         self.status = "partial" if any(i.severity == "unresolved" for i in self.issues) else "success"
         self.review_status = "needs_review" if any(i.severity != "informational" for i in self.issues) else "not_reviewed"
+        if self.assets:
+            self.metadata["assets"] = [{"asset_id": a.asset_id, "locator": asdict(a.locator), "crop": list(a.crop), "visual_hash": a.visual_hash, "description": a.description} for a in self.assets]
         self.validate_contract()
 
 

@@ -110,6 +110,9 @@ def convert_pdf(adapter, path: Path) -> str:
                 if pdf_math_present(text) or "^" in text or "_" in text:
                     issue("pdf_math_unresolved", "mathematical notation requires verification of formula relationships on the PDFium text path", "unresolved")
 
+                if images or structure or any(i.source.index == idx + 1 and i.severity == "unresolved" for i in adapter.issues):
+                    asset = adapter.image_evidence.register(_render_png(page, 120), source, block_id, f"Page {idx + 1} visual context")
+                    text += f"\n\n![{asset.description}](asset:{asset.asset_id})"
                 text += form_markdown(forms, idx + 1)
                 chunk = normalize(f"<!-- page: {idx + 1} -->\n\n{text.strip()}")
                 adapter.source_blocks.append(

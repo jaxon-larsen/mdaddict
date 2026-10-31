@@ -20,6 +20,8 @@ def test_installed_pandoc_readers(tmp_path, suffix, source):
     pandoc = shutil.which("pandoc")
     if pandoc is None:
         pytest.skip("Pandoc is absent")
+    if suffix == ".adoc" and "asciidoc" not in subprocess.run([pandoc, "--list-input-formats"], capture_output=True, text=True, check=True).stdout.split():
+        pytest.skip("Installed Pandoc has no asciidoc reader")
     path = tmp_path / ("source" + suffix)
     path.write_text(source, encoding="utf-8")
     result = extract(path, options=ExtractOptions(ocr="off"))

@@ -21,10 +21,21 @@ class ImagePassage:
 class ImageEvidence:
     def __init__(self):
         self.records: dict[str, dict] = {}
+        self.assets: list[AssetRecord] = []
         self.ocr_text: dict[str, str] = {}
         self.ocr_runs = 0
         self.ocr_reuses = 0
-        self.assets: list[AssetRecord] = []
+
+    def register(self, data: bytes, source: SourceLocator, block_id: str, description: str, crop=(0., 0., 1., 1.)) -> AssetRecord:
+        asset = AssetRecord.create(source, crop, hashlib.sha256(data).hexdigest(), description, [block_id])
+        for idx, existing in enumerate(self.assets):
+            if existing.asset_id == asset.asset_id:
+                if block_id not in existing.block_ids:
+                    merged = list(dict.fromkeys(existing.block_ids + [block_id]))
+                    self.assets[idx] = AssetRecord.create(existing.locator, existing.crop, existing.visual_hash, existing.description, merged)
+                return self.assets[idx]
+        self.assets.append(asset)
+        return asset
 
     @staticmethod
     def view(data: bytes, crop: tuple[float, float, float, float]) -> bytes:
@@ -97,15 +108,12 @@ class ImageEvidence:
                                       "semantic_status": "untranscribed" if method == "native" else "needs_review",
                                       "representation": "source_reference" if method == "native" else "unverified_text",
                                       "retention": "source_reference_only"})
-        asset_record = AssetRecord(
-            asset_id=asset_id,
-            locator=source,
-            crop=tuple(crop),
-            visual_hash=view_hash or image_hash or "",
-            description=alt or f"{location}: image",
-        )
-        if not any(a.asset_id == asset_id for a in self.assets):
-            self.assets.append(asset_record)
+        if data and block_id:
+            bounds = (max(0., crop[0]), max(0., crop[1]), min(1., 1-crop[2]), min(1., 1-crop[3]))
+            asset = self.register(data, source, block_id, alt or location, bounds)
+            reference = f"![{asset.description.replace(']', r'\]')}](asset:{asset.asset_id})"
+            # Compose before source offsets are computed by the adapter.
+            text = re.sub(r"<!-- fig:.*?-->", lambda _: reference, text, flags=re.S) if "<!-- fig:" in text else reference + "\n\n" + text
         return ImagePassage(text, method, code or ("figure_unresolved" if method == "native" else "figure_transcription_review"), messages)
 
     def metadata(self) -> dict:

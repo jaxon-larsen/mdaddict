@@ -3,7 +3,7 @@ from .extract import extract, to_markdown
 from .ingestion import ingest
 from .capabilities import Capability, capabilities, capability_for
 from .strategy import (
-    ExtractOptions, ExtractResult, ExtractionIssue, SourceBlock, SourceLocator,
+    AssetRecord, ExtractOptions, ExtractResult, ExtractionIssue, SourceBlock, SourceLocator,
     load_extract, write_extract,
 )
 from .dependencies import MissingDependencyError
@@ -11,7 +11,7 @@ from .ai import AIProvider, AIRequest, AIResponse, ProviderError, MediaAttachmen
 
 __version__ = "0.1.0"
 __all__ = [
-    "extract", "to_markdown", "ExtractOptions", "ExtractResult", "ExtractionIssue",
+    "AssetRecord", "extract", "to_markdown", "ExtractOptions", "ExtractResult", "ExtractionIssue",
     "SourceBlock", "SourceLocator", "load_extract", "write_extract", "MissingDependencyError",
     "AIProvider", "AIRequest", "AIResponse", "ProviderError", "MediaAttachment", "TranscriptSegment",
     "ingest", "Capability", "capabilities", "capability_for",

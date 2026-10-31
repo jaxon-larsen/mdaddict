@@ -7,6 +7,7 @@ VISUAL_ISSUE_CODES = frozenset({
     "docx_drawing_unresolved", "image_visual_not_transcribed",
 })
 CONTENT_ISSUE_CODES = frozenset({
+    "asset_context_unresolved",
     "equation_unresolved", "equation_placement_unresolved", "pdf_scan_unresolved",
     "pdf_region_unresolved", "pdf_glyph_unresolved", "vision_region_unresolved",
     "pdf_layout_unresolved", "pdf_math_unresolved", "pdf_numeric_unresolved", "pdf_reading_order_unresolved",

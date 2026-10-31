@@ -103,7 +103,7 @@ def test_asset_record_lifecycle_and_zero_bitmap_sidecars(tmp_path):
     asset = evidence.assets[0]
     assert asset.asset_id.startswith("ast_")
     assert asset.locator.unit == "slide" and asset.locator.index == 1
-    assert asset.crop == (0.0, 0.0, 0.0, 0.0)
+    assert asset.crop == (0.0, 0.0, 1.0, 1.0)
     assert asset.description == "A circuit"
 
     # Determinism: same image produces same asset_id
@@ -112,7 +112,7 @@ def test_asset_record_lifecycle_and_zero_bitmap_sidecars(tmp_path):
     assert evidence2.assets[0].asset_id == asset.asset_id
 
     # 3. ExtractResult contract and roundtrip serialization
-    blocks = [SourceBlock("b1", "paragraph", locator, 0, 10)]
+    blocks = [SourceBlock("slide:1/shape:2", "paragraph", locator, 0, 10)]
     result = ExtractResult(
         sha256="0" * 64,
         markdown="Some text.\n",
@@ -129,7 +129,7 @@ def test_asset_record_lifecycle_and_zero_bitmap_sidecars(tmp_path):
     assert len(loaded.assets) == 1
     assert loaded.assets[0].asset_id == asset.asset_id
     assert loaded.assets[0].description == asset.description
-    assert loaded.assets[0].crop == (0.0, 0.0, 0.0, 0.0)
+    assert loaded.assets[0].crop == (0.0, 0.0, 1.0, 1.0)
 
     # 4. Absence of bitmap sidecars on disk
     all_files = list(tmp_path.rglob("*"))
@@ -144,7 +144,7 @@ def test_asset_record_lifecycle_and_zero_bitmap_sidecars(tmp_path):
             source_name="test.pptx",
             extractor="test",
             blocks=blocks,
-            assets=[AssetRecord("", locator, (0.0, 0.0, 0.0, 0.0), "hash", "desc")],
+            assets=[AssetRecord("", locator, (0.0, 0.0, 1.0, 1.0), "0" * 64, "desc", ["slide:1/shape:2"])],
         )
 
     with pytest.raises(ValueError, match="Duplicate asset ID"):
