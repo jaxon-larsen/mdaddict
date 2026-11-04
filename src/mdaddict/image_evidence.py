@@ -21,10 +21,21 @@ class ImagePassage:
 class ImageEvidence:
     def __init__(self):
         self.records: dict[str, dict] = {}
+        self.assets: list[AssetRecord] = []
         self.ocr_text: dict[str, str] = {}
         self.ocr_runs = 0
         self.ocr_reuses = 0
-        self.assets: list[AssetRecord] = []
+
+    def register(self, data: bytes, source: SourceLocator, block_id: str, description: str, crop=(0., 0., 1., 1.)) -> AssetRecord:
+        asset = AssetRecord.create(source, crop, hashlib.sha256(data).hexdigest(), description, [block_id])
+        for idx, existing in enumerate(self.assets):
+            if existing.asset_id == asset.asset_id:
+                if block_id not in existing.block_ids:
+                    merged = list(dict.fromkeys(existing.block_ids + [block_id]))
+                    self.assets[idx] = AssetRecord.create(existing.locator, existing.crop, existing.visual_hash, existing.description, merged)
+                return self.assets[idx]
+        self.assets.append(asset)
+        return asset
 
     @staticmethod
     def view(data: bytes, crop: tuple[float, float, float, float]) -> bytes:
@@ -87,14 +98,7 @@ class ImageEvidence:
             if pictured_math:
                 code = "equation_unresolved"
                 messages.append(f"{location}: pictured mathematics remains unverified")
-        # Office crop input contains margins; the public asset uses visible bounds.
-        bounds = (max(0., crop[0]), max(0., crop[1]), 1 - max(0., crop[2]), 1 - max(0., crop[3]))
-        asset_record = AssetRecord.create(source, bounds, image_hash or hashlib.sha256(b"").hexdigest(),
-            alt or f"{location}: image", [block_id] if block_id else [])
-        asset_id = asset_record.asset_id
-        if method == "native" and text.startswith("<!-- fig:"):
-            from mdaddict.strategy import figure
-            text = figure(alt or location, asset_id=asset_id)
+        asset_id = f"ast_{(view_hash or image_hash or hashlib.sha256(f'{source.unit}:{source.index}:{source.element}:{crop}'.encode()).hexdigest())[:16]}"
         record = self.records.setdefault(image_hash or f"missing:{source.unit}:{source.index}:{source.element}",
                                          {"image_sha256": image_hash, "occurrences": []})
         record["occurrences"].append({"source": asdict(source), "block_id": block_id,
@@ -104,8 +108,12 @@ class ImageEvidence:
                                       "semantic_status": "untranscribed" if method == "native" else "needs_review",
                                       "representation": "source_reference" if method == "native" else "unverified_text",
                                       "retention": "source_reference_only"})
-        if not any(a.asset_id == asset_id for a in self.assets):
-            self.assets.append(asset_record)
+        if data and block_id:
+            bounds = (max(0., crop[0]), max(0., crop[1]), min(1., 1-crop[2]), min(1., 1-crop[3]))
+            asset = self.register(data, source, block_id, alt or location, bounds)
+            reference = f"![{asset.description.replace(']', r'\]')}](asset:{asset.asset_id})"
+            # Compose before source offsets are computed by the adapter.
+            text = re.sub(r"<!-- fig:.*?-->", lambda _: reference, text, flags=re.S) if "<!-- fig:" in text else reference + "\n\n" + text
         return ImagePassage(text, method, code or ("figure_unresolved" if method == "native" else "figure_transcription_review"), messages)
 
     def metadata(self) -> dict:

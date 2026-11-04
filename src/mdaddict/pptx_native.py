@@ -185,10 +185,12 @@ def convert_pptx(engine, path):
                 vector = shape.shape_type not in (MSO_SHAPE_TYPE.TEXT_BOX, MSO_SHAPE_TYPE.PLACEHOLDER)
                 if vector or (len(engine.source_blocks) == emitted_before and not shape.is_placeholder):
                     figure_id = block_id + "/visual"
-                    builder.add(figure(f"{location}: unresolved shape geometry"), figure_id, "figure", source)
+                    asset = engine.image_evidence.register(shape._element.xml.encode(), source, figure_id, f"{location}: shape geometry")
+                    builder.add(f"![{asset.description}](asset:{asset.asset_id})", figure_id, "figure", source)
                     issue(engine, "shape_geometry_unresolved", f"{location}: shape geometry requires rendered-slide review", source, figure_id)
             else:
-                builder.add(figure(f"{location}: unresolved object"), block_id, "figure", source)
+                asset = engine.image_evidence.register(shape._element.xml.encode(), source, block_id, f"{location}: visual object")
+                builder.add(f"![{asset.description}](asset:{asset.asset_id})", block_id, "figure", source)
                 issue(engine, "object_unresolved", f"{location}: chart/vector/embedded object needs rendered-slide review", source, block_id)
 
     for idx, slide in enumerate(deck.slides, 1):

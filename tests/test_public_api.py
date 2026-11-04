@@ -144,7 +144,7 @@ def test_asset_record_lifecycle_and_zero_bitmap_sidecars(tmp_path):
             source_name="test.pptx",
             extractor="test",
             blocks=blocks,
-            assets=[AssetRecord("", locator, (0.0, 0.0, 0.0, 0.0), "hash", "desc")],
+            assets=[AssetRecord("", locator, (0.0, 0.0, 1.0, 1.0), "0" * 64, "desc", ["slide:1/shape:2"])],
         )
 
     with pytest.raises(ValueError, match="Duplicate asset ID"):
