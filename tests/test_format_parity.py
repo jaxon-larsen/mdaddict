@@ -1,6 +1,5 @@
 """Packaging compatibility snapshots, not independent fidelity certification."""
 from dataclasses import asdict
-from copy import deepcopy
 from importlib.util import find_spec
 import json
 from pathlib import Path
@@ -16,7 +15,7 @@ CASES = json.loads((ROOT / "packaging-baseline.json").read_text(encoding="utf-8"
 
 
 @pytest.mark.parametrize("case", CASES, ids=lambda row: row["path"] or row["suffix"])
-def test_pre_migration_output_and_source_spans_with_reviewed_math_spacing(case, tmp_path):
+def test_packaged_output_and_source_spans(case, tmp_path):
     # The captured PDF baseline targets the legacy backend. PDFium's own source
     # controls in test_pdfium.py explicitly select it in a permissive-only install.
     required = {".pdf": "pymupdf4llm", ".pptx": "pptx", ".docx": "lxml"}.get(case["suffix"])
@@ -31,22 +30,7 @@ def test_pre_migration_output_and_source_spans_with_reviewed_math_spacing(case, 
         source = tmp_path / ("input" + case["suffix"])
         source.write_text(case["input"], encoding="utf-8")
     result = asdict(extract(source, options=ExtractOptions(ocr="off")))
-    expected = deepcopy(case["result"])
-    if case["path"] == "algebra.pptx":
-        # Reviewed backend change: only optional TeX spaces change. Retain the
-        # original snapshot and require every source locator, issue and other
-        # character to match, shifting spans by these two explicit edits only.
-        edits = [(r"y = \frac{x + 1}{2}", r"y=\frac{x+1}{2}"),
-                 (r"r = \sqrt{x^{2} + 1}", r"r=\sqrt{x^{2}+1}")]
-        original = expected["markdown"]
-        offsets = []
-        for before, after in edits:
-            assert original.count(before) == 1
-            offsets.append((original.index(before) + len(before), len(after) - len(before)))
-            expected["markdown"] = expected["markdown"].replace(before, after)
-        for block in expected["blocks"]:
-            for boundary in ("start", "end"):
-                block[boundary] += sum(delta for end, delta in offsets if end <= block[boundary])
+    expected = case["result"]
     assert {key: result[key] for key in expected} == expected
 
 

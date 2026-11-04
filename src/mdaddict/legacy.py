@@ -22,7 +22,7 @@ PANDOC_READERS = {".odt": "odt", ".rtf": "rtf", ".org": "org", ".adoc": "asciido
     ".fb2": "fb2", ".typ": "typst"}
 
 
-def _soffice():
+def find_soffice() -> str | None:
     executable = shutil.which("libreoffice") or shutil.which("soffice")
     if executable:
         return executable
@@ -30,6 +30,13 @@ def _soffice():
         candidate = Path(root) / "LibreOffice/program/soffice.exe"
         if root and candidate.is_file():
             return str(candidate)
+    return None
+
+
+def _soffice() -> str:
+    found = find_soffice()
+    if found:
+        return found
     raise MissingDependencyError("Install LibreOffice and place soffice/libreoffice on PATH to read legacy DOC/PPT files.")
 
 

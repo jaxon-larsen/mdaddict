@@ -87,7 +87,14 @@ class ImageEvidence:
             if pictured_math:
                 code = "equation_unresolved"
                 messages.append(f"{location}: pictured mathematics remains unverified")
-        asset_id = f"ast_{(view_hash or image_hash or hashlib.sha256(f'{source.unit}:{source.index}:{source.element}:{crop}'.encode()).hexdigest())[:16]}"
+        # Office crop input contains margins; the public asset uses visible bounds.
+        bounds = (max(0., crop[0]), max(0., crop[1]), 1 - max(0., crop[2]), 1 - max(0., crop[3]))
+        asset_record = AssetRecord.create(source, bounds, image_hash or hashlib.sha256(b"").hexdigest(),
+            alt or f"{location}: image", [block_id] if block_id else [])
+        asset_id = asset_record.asset_id
+        if method == "native" and text.startswith("<!-- fig:"):
+            from mdaddict.strategy import figure
+            text = figure(alt or location, asset_id=asset_id)
         record = self.records.setdefault(image_hash or f"missing:{source.unit}:{source.index}:{source.element}",
                                          {"image_sha256": image_hash, "occurrences": []})
         record["occurrences"].append({"source": asdict(source), "block_id": block_id,
@@ -97,20 +104,13 @@ class ImageEvidence:
                                       "semantic_status": "untranscribed" if method == "native" else "needs_review",
                                       "representation": "source_reference" if method == "native" else "unverified_text",
                                       "retention": "source_reference_only"})
-        asset_record = AssetRecord(
-            asset_id=asset_id,
-            locator=source,
-            crop=tuple(crop),
-            visual_hash=view_hash or image_hash or "",
-            description=alt or f"{location}: image",
-        )
         if not any(a.asset_id == asset_id for a in self.assets):
             self.assets.append(asset_record)
         return ImagePassage(text, method, code or ("figure_unresolved" if method == "native" else "figure_transcription_review"), messages)
 
     def metadata(self) -> dict:
         return {"images": list(self.records.values()),
-                "assets": [{"asset_id": a.asset_id, "locator": asdict(a.locator), "crop": list(a.crop), "visual_hash": a.visual_hash, "description": a.description} for a in self.assets],
+                "assets": [{**asdict(a), "crop": list(a.crop)} for a in self.assets],
                 "image_processing": {"unique_images": len(self.records),
                                      "occurrences": sum(len(row["occurrences"]) for row in self.records.values()),
                                      "ocr_runs": self.ocr_runs, "ocr_reuses": self.ocr_reuses}}

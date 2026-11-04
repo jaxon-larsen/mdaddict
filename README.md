@@ -6,6 +6,11 @@ locations, extraction issues, and explicitly enabled developer-supplied AI.
 This is an unreleased working package; licensing and PyPI publication remain
 pending.
 
+The direction is broad MarkItDown-like input coverage plus stronger instructional
+fidelity for AI/wiki ingestion. Main input families have routes, but full parity,
+app exposure, provider configuration and acceptance coverage remain incomplete.
+See the [coverage gaps and acceptance bar](docs/target-plan.md#input-coverage-and-parity).
+
 ## Install from source
 
 ```console
@@ -240,6 +245,16 @@ retains source locations, equation diagnostics and unresolved-content handling.
 This third-party license does not settle mdaddict's own pending project license.
 
 ## Distribution checks
+
+`AssetRecord` identifies an individual visual occurrence by source locator,
+normalized visible bounds `(left, top, right, bottom)`, and original image SHA-256.
+Use `AssetRecord.create(...)`; its `ast_` ID contains 24 hex characters and does
+not change when the description changes. Associated `block_ids` are preserved in
+the top-level asset catalog and cache roundtrips. Office crop margins are converted
+to visible bounds at ingestion. Newly captured Office images remain unresolved
+for visual meaning, including after AI transcription, until source review.
+No bitmap sidecars are persisted. Re-extract older asset-bearing caches under the
+new implementation revision; do not rewrite retained provenance in place.
 
 Build with `python -m build .` from the repository root. This builds the
 wheel from its source distribution. Validate metadata with

@@ -5,11 +5,12 @@ import hashlib
 import json
 import math
 import os
+import re
 import tempfile
 from dataclasses import asdict, dataclass, field
 from pathlib import Path
 
-ENGINE_REVISION = "mdaddict-7"
+ENGINE_REVISION = "mdaddict-8"
 
 
 @dataclass(frozen=True)
@@ -98,12 +99,39 @@ class AssetRecord:
     crop: tuple[float, float, float, float]
     visual_hash: str
     description: str
+    block_ids: list[str] = field(default_factory=list)
 
     def __post_init__(self):
         if isinstance(self.locator, dict):
             self.locator = SourceLocator(**self.locator)
         if isinstance(self.crop, list):
             self.crop = tuple(self.crop)
+        if not isinstance(self.asset_id, str) or not self.asset_id:
+            raise ValueError("Asset ID must be a non-empty string")
+        if (len(self.crop) != 4 or any(isinstance(v, bool) or not isinstance(v, (int, float)) or not math.isfinite(v) for v in self.crop)
+                or not 0 <= self.crop[0] < self.crop[2] <= 1 or not 0 <= self.crop[1] < self.crop[3] <= 1):
+            raise ValueError("Asset crop must contain normalized visible bounds")
+        self.crop = tuple(float(v) for v in self.crop)
+        if not isinstance(self.locator, SourceLocator) or isinstance(self.locator.index, bool) or not isinstance(self.locator.index, int) or self.locator.index < 1:
+            raise ValueError("Invalid asset locator")
+        if not isinstance(self.visual_hash, str) or not re.fullmatch(r"[a-f0-9]{64}", self.visual_hash):
+            raise ValueError("Asset visual_hash must be SHA-256")
+        if not isinstance(self.description, str) or not self.description.strip():
+            raise ValueError("Asset description must be nonempty")
+        if (not isinstance(self.block_ids, list) or any(not isinstance(b, str) or not b for b in self.block_ids)
+                or len(set(self.block_ids)) != len(self.block_ids)):
+            raise ValueError("Asset block_ids must be unique nonempty strings")
+        if self.asset_id != self.identity(self.locator, self.crop, self.visual_hash):
+            raise ValueError("Asset ID does not match its occurrence")
+
+    @staticmethod
+    def identity(locator: SourceLocator, crop: tuple, visual_hash: str) -> str:
+        payload = {"locator": asdict(locator), "crop": [float(v) for v in crop], "visual_hash": visual_hash}
+        return "ast_" + hashlib.sha256(json.dumps(payload, sort_keys=True, separators=(",", ":")).encode()).hexdigest()[:24]
+
+    @classmethod
+    def create(cls, locator: SourceLocator, crop: tuple, visual_hash: str, description: str, block_ids: list[str]) -> AssetRecord:
+        return cls(cls.identity(locator, crop, visual_hash), locator, crop, visual_hash, description, list(block_ids))
 
 
 @dataclass
@@ -134,7 +162,7 @@ class ExtractResult:
         elif self.assets:
             self.assets = [AssetRecord(**a) if isinstance(a, dict) else a for a in self.assets]
         if self.assets:
-            self.metadata["assets"] = [{"asset_id": a.asset_id, "locator": asdict(a.locator), "crop": list(a.crop), "visual_hash": a.visual_hash, "description": a.description} for a in self.assets]
+            self.metadata["assets"] = [{**asdict(a), "crop": list(a.crop)} for a in self.assets]
         self.validate_contract()
 
     def validate_contract(self):
@@ -167,6 +195,8 @@ class ExtractResult:
             if asset.asset_id in asset_ids:
                 raise ValueError(f"Duplicate asset ID: {asset.asset_id}")
             asset_ids.add(asset.asset_id)
+            if not set(asset.block_ids) <= ids:
+                raise ValueError("Asset references unknown source blocks")
             if not isinstance(asset.locator, SourceLocator) or not integer(asset.locator.index) or asset.locator.index < 1:
                 raise ValueError("Invalid asset locator")
             if not isinstance(asset.crop, tuple) or len(asset.crop) != 4 or not all(isinstance(v, (int, float)) and math.isfinite(v) for v in asset.crop):

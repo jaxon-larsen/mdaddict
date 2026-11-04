@@ -3,7 +3,6 @@ from __future__ import annotations
 
 import csv
 from collections import Counter
-from dataclasses import asdict
 from html.parser import HTMLParser
 import io
 import re
@@ -542,6 +541,10 @@ class OfflineExtractor:
             result.metadata.update(self.image_evidence.metadata())
         if self.image_evidence.assets:
             result.assets = list(self.image_evidence.assets)
-            result.metadata["assets"] = [{"asset_id": a.asset_id, "locator": asdict(a.locator), "crop": list(a.crop), "visual_hash": a.visual_hash, "description": a.description} for a in self.image_evidence.assets]
+            for asset in result.assets:
+                result.issues.append(ExtractionIssue("asset_context_unresolved",
+                    "Visual labels, relationships and qualifications require source review",
+                    asset.locator, list(asset.block_ids), "unresolved"))
+        result.validate_contract()
         result.refresh_status()
         return result

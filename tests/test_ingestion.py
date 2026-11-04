@@ -20,6 +20,110 @@ def zip_bytes(members):
     return stream.getvalue()
 
 
+def ole_bytes(streams: dict[str, bytes]) -> bytes:
+    import struct
+    dir_entries = []
+    root_name = "Root Entry\x00".encode("utf-16le")
+    dir_entries.append((root_name, len(root_name), 5, 0xffffffff, 0xffffffff, 1 if streams else 0xffffffff, 0, 0))
+    sids = list(streams.keys())
+    for i, (name, data) in enumerate(streams.items()):
+        name_utf16 = (name + "\x00").encode("utf-16le")
+        left = 0xffffffff
+        right = (i + 2) if (i + 1 < len(sids)) else 0xffffffff
+        child = 0xffffffff
+        dir_entries.append((name_utf16, len(name_utf16), 2, left, right, child, 0, len(data)))
+
+    num_dir_sectors = (len(dir_entries) * 128 + 511) // 512
+    curr_sector = 1 + num_dir_sectors
+    stream_sectors = {}
+    stream_bytes = []
+    for i, (name, data) in enumerate(streams.items()):
+        start_sec = curr_sector
+        padded_len = max(4096, ((len(data) + 511) // 512) * 512)
+        padded = data + b"\x00" * (padded_len - len(data))
+        stream_bytes.append(padded)
+        count = len(padded) // 512
+        stream_sectors[name] = (start_sec, count)
+        curr_sector += count
+
+    packed_dirs = []
+    for i, entry in enumerate(dir_entries):
+        name_bytes, name_len, obj_type, left, right, child, _, size = entry
+        if i > 0:
+            name = sids[i - 1]
+            start_sec = stream_sectors[name][0]
+            size = max(4096, size)
+        else:
+            start_sec = 0xfffffffe
+            size = 0
+        buf = bytearray(128)
+        buf[0:len(name_bytes)] = name_bytes
+        struct.pack_into("<H", buf, 0x40, name_len)
+        buf[0x42] = obj_type
+        buf[0x43] = 1
+        struct.pack_into("<III", buf, 0x44, left, right, child)
+        struct.pack_into("<I", buf, 0x74, start_sec)
+        struct.pack_into("<Q", buf, 0x78, size)
+        packed_dirs.append(bytes(buf))
+    dir_sector_bytes = b"".join(packed_dirs)
+    dir_sector_bytes += b"\x00" * (num_dir_sectors * 512 - len(dir_sector_bytes))
+
+    fat = [0xffffffff] * 128
+    fat[0] = 0xfffffffd
+    for d in range(num_dir_sectors):
+        fat[1 + d] = (1 + d + 1) if (d + 1 < num_dir_sectors) else 0xfffffffe
+    for name, (start, count) in stream_sectors.items():
+        for s in range(count):
+            fat[start + s] = (start + s + 1) if (s + 1 < count) else 0xfffffffe
+    fat_bytes = struct.pack("<128I", *fat)
+
+    header = bytearray(512)
+    header[0:8] = b"\xd0\xcf\x11\xe0\xa1\xb1\x1a\xe1"
+    struct.pack_into("<H", header, 0x18, 0x003e)
+    struct.pack_into("<H", header, 0x1a, 0x0003)
+    struct.pack_into("<H", header, 0x1c, 0xfffe)
+    struct.pack_into("<H", header, 0x1e, 9)
+    struct.pack_into("<H", header, 0x20, 6)
+    struct.pack_into("<I", header, 0x2c, 1)
+    struct.pack_into("<I", header, 0x30, 1)
+    struct.pack_into("<I", header, 0x38, 4096)
+    struct.pack_into("<I", header, 0x3c, 0xfffffffe)
+    struct.pack_into("<I", header, 0x44, 0xfffffffe)
+    struct.pack_into("<I", header, 0x4c, 0)
+    for d in range(1, 109):
+        struct.pack_into("<I", header, 0x4c + d * 4, 0xffffffff)
+
+    return bytes(header) + fat_bytes + dir_sector_bytes + b"".join(stream_bytes)
+
+
+def xls_bytes(sheet_name: str, rows: list[list[float | int]]) -> bytes:
+    import struct
+    def biff_record(rec_type: int, data: bytes) -> bytes:
+        return struct.pack("<HH", rec_type, len(data)) + data
+
+    bof_wb = biff_record(0x0809, struct.pack("<HHHHII", 0x0600, 0x0005, 0x0dbb, 0x0cc0, 0, 0))
+    name_data = struct.pack("<BB", len(sheet_name), 0) + sheet_name.encode("latin1")
+    eof = biff_record(0x000A, b"")
+    bof_ws = biff_record(0x0809, struct.pack("<HHHHII", 0x0600, 0x0010, 0x0dbb, 0x0cc0, 0, 0))
+
+    nrows = len(rows)
+    ncols = max((len(r) for r in rows), default=0)
+    dims = biff_record(0x0200, struct.pack("<IIHHH", 0, nrows, 0, ncols, 0))
+
+    cell_records = []
+    for r_idx, row in enumerate(rows):
+        for c_idx, val in enumerate(row):
+            cell_records.append(biff_record(0x0203, struct.pack("<HHHd", r_idx, c_idx, 0, float(val))))
+
+    globals_len_without_bs = len(bof_wb) + len(eof)
+    bs_len = len(biff_record(0x0085, struct.pack("<IH", 0, 0) + name_data))
+    sheet_offset = globals_len_without_bs + bs_len
+    boundsheet = biff_record(0x0085, struct.pack("<IH", sheet_offset, 0) + name_data)
+
+    wb_stream = bof_wb + boundsheet + eof + bof_ws + dims + b"".join(cell_records) + eof
+    return ole_bytes({"Workbook": wb_stream})
+
+
 def test_catalog_is_unique_and_does_not_import_readers_or_call_network(monkeypatch):
     monkeypatch.setattr(socket, "create_connection", lambda *a, **k: pytest.fail("network"))
     rows = capabilities()
@@ -233,3 +337,130 @@ def test_youtube_keeps_caption_times_and_holds_visuals(monkeypatch):
     artifact = result.metadata["acquisition"]["raw_artifact"]
     payload = json.loads(base64.b64decode(artifact["data"]))
     assert payload["snippets"][0]["start_seconds"] == 1.25
+
+
+def test_xls_meaningful_content_and_cache_limits(tmp_path):
+    pytest.importorskip("markitdown")
+    pytest.importorskip("xlrd")
+    path = tmp_path / "sheet.xls"
+    path.write_bytes(xls_bytes("AuthoredSheet", [[42.5, 100.0], [3.14, 0.0]]))
+    result = extract(path)
+    assert "AuthoredSheet" in result.markdown
+    assert "42.5" in result.markdown and "100.0" in result.markdown and "3.14" in result.markdown
+    assert result.status == "partial"
+    assert any(i.code == "xls_cached_values_unverified" for i in result.issues)
+
+    # Cell budget enforcement
+    with pytest.raises(ValueError, match="max_cells"):
+        extract(path, options=ExtractOptions(max_cells=2))
+
+    # Malformed XLS
+    malformed = tmp_path / "bad.xls"
+    malformed.write_bytes(b"\xd0\xcf\x11\xe0corrupt ole file")
+    with pytest.raises(Exception):
+        extract(malformed)
+
+
+def test_msg_binary_meaningful_content_and_omissions(tmp_path):
+    pytest.importorskip("markitdown")
+    pytest.importorskip("olefile")
+    msg_data = ole_bytes({
+        "__properties_version1.0": b"\x00" * 32,
+        "__recip_version1.0_#00000000": b"\x00",
+        "__substg1.0_0037001F": "Lab Progress Report".encode("utf-16le"),
+        "__substg1.0_0C1F001F": "researcher@example.com".encode("utf-16le"),
+        "__substg1.0_0E04001F": "team@example.com".encode("utf-16le"),
+        "__substg1.0_1000001F": "Qualified measurement: output is 42.5 W when input >= 10.0 V.".encode("utf-16le"),
+    })
+    path = tmp_path / "report.msg"
+    path.write_bytes(msg_data)
+    result = extract(path)
+    assert "Lab Progress Report" in result.markdown
+    assert "researcher@example.com" in result.markdown
+    assert "42.5 W" in result.markdown and "10.0 V" in result.markdown
+    assert result.status == "partial"
+    assert any(i.code == "mail_attachments_unconverted" for i in result.issues)
+    assert not any(i.code == "mail_body_unavailable" for i in result.issues)
+
+    # Empty body MSG reports mail_body_unavailable
+    empty_msg = ole_bytes({
+        "__properties_version1.0": b"\x00" * 32,
+        "__recip_version1.0_#00000000": b"\x00",
+        "__substg1.0_0037001F": "Headers Only".encode("utf-16le"),
+        "__substg1.0_0C1F001F": "a@example.com".encode("utf-16le"),
+    })
+    empty_path = tmp_path / "empty.msg"
+    empty_path.write_bytes(empty_msg)
+    res_empty = extract(empty_path)
+    assert any(i.code == "mail_body_unavailable" for i in res_empty.issues)
+    assert any(i.code == "mail_attachments_unconverted" for i in res_empty.issues)
+
+
+def test_atom_feed_meaningful_content(tmp_path):
+    pytest.importorskip("markitdown")
+    atom_xml = """<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Physics News</title>
+  <entry>
+    <title>Quantum Discovery</title>
+    <summary>Qualified result: efficiency reached 98.5% under pressure = 2.0 atm.</summary>
+  </entry>
+</feed>"""
+    path = tmp_path / "feed.atom"
+    path.write_text(atom_xml, encoding="utf-8")
+    result = extract(path)
+    assert "Physics News" in result.markdown or "Quantum Discovery" in result.markdown
+    assert "98.5%" in result.markdown
+    result.validate_contract()
+
+
+def test_capabilities_reflect_options_and_markitdown_version(monkeypatch):
+    from importlib import metadata
+    from mdaddict import MissingDependencyError
+    from mdaddict.delegated import _markitdown_reader
+
+    # options.ocr == "off" does not require tesseract for image
+    caps_off = capabilities(options=ExtractOptions(ocr="off"))
+    img_cap_off = next(c for c in caps_off if c.id == "image")
+    assert "tool:tesseract" not in img_cap_off.missing
+    assert img_cap_off.availability == "ready"
+
+    # options.ocr == "auto" or "force" checks tesseract
+    monkeypatch.setattr("shutil.which", lambda tool: None if tool == "tesseract" else "/bin/" + tool)
+    caps_auto = capabilities(options=ExtractOptions(ocr="auto"))
+    img_cap_auto = next(c for c in caps_auto if c.id == "image")
+    assert "tool:tesseract" in img_cap_auto.missing
+    assert img_cap_auto.availability == "missing_dependency"
+
+    # options.pdf_backend selection
+    caps_pdfium = capabilities(options=ExtractOptions(pdf_backend="pdfium"))
+    assert next(c for c in caps_pdfium if c.id == "pdf").availability in {"ready", "missing_dependency"}
+
+    # Wrong markitdown version reporting
+    monkeypatch.setattr(metadata, "version", lambda pkg: "0.2.0" if pkg == "markitdown" else "1.0.0")
+    caps_ver = capabilities()
+    xls_cap = next(c for c in caps_ver if c.id == "xls")
+    assert "module:markitdown==0.1.9" in xls_cap.missing
+    assert xls_cap.availability == "missing_dependency"
+
+    # Reader raises MissingDependencyError on wrong version
+    with pytest.raises(MissingDependencyError, match="0.1.9"):
+        _markitdown_reader(".xls")
+
+
+def test_soffice_discovery_and_aliases(monkeypatch):
+    from mdaddict.legacy import find_soffice
+    # Neither libreoffice nor soffice
+    monkeypatch.setattr("shutil.which", lambda name: None)
+    monkeypatch.setenv("PROGRAMFILES", "")
+    monkeypatch.setenv("PROGRAMFILES(X86)", "")
+    assert find_soffice() is None
+
+    # libreoffice on PATH
+    monkeypatch.setattr("shutil.which", lambda name: "/usr/bin/libreoffice" if name == "libreoffice" else None)
+    assert find_soffice() == "/usr/bin/libreoffice"
+
+    # soffice on PATH
+    monkeypatch.setattr("shutil.which", lambda name: "/usr/bin/soffice" if name == "soffice" else None)
+    assert find_soffice() == "/usr/bin/soffice"
+

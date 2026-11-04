@@ -15,6 +15,7 @@
     "review_status": {"enum": ["not_reviewed", "needs_review", "reviewed"]},
     "blocks": {"type": "array", "items": {"$ref": "#/$defs/block"}},
     "issues": {"type": "array", "items": {"$ref": "#/$defs/issue"}},
+    "assets": {"type": "array", "items": {"$ref": "#/$defs/asset"}},
     "warnings": {"type": "array", "items": {"type": "string"}},
     "metadata": {"type": "object"},
     "usage": {"type": "object"},
@@ -55,6 +56,19 @@
         "source": {"$ref": "#/$defs/source"},
         "block_ids": {"type": "array", "items": {"type": "string"}},
         "severity": {"enum": ["review", "unresolved", "informational"]}
+      },
+      "additionalProperties": false
+    },
+    "asset": {
+      "type": "object",
+      "required": ["asset_id", "locator", "crop", "visual_hash", "description", "block_ids"],
+      "properties": {
+        "asset_id": {"type": "string", "pattern": "^ast_[a-f0-9]{24}$"},
+        "locator": {"$ref": "#/$defs/source"},
+        "crop": {"type": "array", "minItems": 4, "maxItems": 4, "items": {"type": "number", "minimum": 0, "maximum": 1}},
+        "visual_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "description": {"type": "string", "minLength": 1},
+        "block_ids": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}}
       },
       "additionalProperties": false
     }
