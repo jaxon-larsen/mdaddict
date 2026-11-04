@@ -171,6 +171,49 @@ def test_recursive_archive_uses_global_budget_and_depth(tmp_path):
         extract(many, options=ExtractOptions(max_archive_members=1))
 
 
+@pytest.mark.parametrize("container_kind", ["zip", "nested_zip", "mail"])
+def test_container_preserves_office_asset_occurrences_and_spans(tmp_path, container_kind):
+    import re
+    from dataclasses import asdict
+    from mdaddict.strategy import AssetRecord
+    pptx = pytest.importorskip("pptx")
+    image = pytest.importorskip("PIL.Image")
+    picture = BytesIO()
+    image.new("RGB", (8, 8), "blue").save(picture, format="PNG")
+    deck = pptx.Presentation()
+    slide = deck.slides.add_slide(deck.slide_layouts[6])
+    slide.shapes.add_textbox(0, 0, 1000000, 400000).text = "α: diagram context"
+    slide.shapes.add_picture(BytesIO(picture.getvalue()), 0, 500000)
+    office = BytesIO()
+    deck.save(office)
+    members = {"first.pptx": office.getvalue(), "second.pptx": office.getvalue()}
+    if container_kind == "mail":
+        mail = EmailMessage()
+        mail.set_content("α: attachments")
+        for name, data in members.items():
+            mail.add_attachment(data, maintype="application", subtype="octet-stream", filename=name)
+        path = tmp_path / "pictures.eml"
+        path.write_bytes(mail.as_bytes())
+    else:
+        path = tmp_path / "pictures.zip"
+        raw = zip_bytes(members)
+        path.write_bytes(zip_bytes({"inner.zip": raw}) if container_kind == "nested_zip" else raw)
+    options = ExtractOptions(ocr="off")
+    result = extract(path, options=options, out_dir=tmp_path / "cache")
+    assert len(result.assets) == 2
+    assert len({asset.asset_id for asset in result.assets}) == 2
+    assert set(re.findall(r"asset:(ast_[a-f0-9]{24})", result.markdown)) == {a.asset_id for a in result.assets}
+    blocks = {block.id: block for block in result.blocks}
+    for asset in result.assets:
+        assert asset.locator.unit == "member"
+        assert AssetRecord(**asdict(asset)) == asset
+        assert asset.block_ids
+        assert any(f"asset:{asset.asset_id}" in result.markdown[blocks[b].start:blocks[b].end] for b in asset.block_ids)
+    replay = extract(path, options=options, out_dir=tmp_path / "cache")
+    assert replay.cache_hit and replay.assets == result.assets
+    result.validate_contract()
+
+
 def test_email_keeps_body_attachment_manifest_and_source_holds(tmp_path):
     mail = EmailMessage()
     mail["Subject"] = "Authored message"
@@ -416,6 +459,7 @@ def test_atom_feed_meaningful_content(tmp_path):
 
 def test_capabilities_reflect_options_and_markitdown_version(monkeypatch):
     from importlib import metadata
+    from importlib.util import find_spec
     from mdaddict import MissingDependencyError
     from mdaddict.delegated import _markitdown_reader
 
@@ -423,7 +467,7 @@ def test_capabilities_reflect_options_and_markitdown_version(monkeypatch):
     caps_off = capabilities(options=ExtractOptions(ocr="off"))
     img_cap_off = next(c for c in caps_off if c.id == "image")
     assert "tool:tesseract" not in img_cap_off.missing
-    assert img_cap_off.availability == "ready"
+    assert img_cap_off.availability == ("ready" if find_spec("PIL") is not None else "missing_dependency")
 
     # options.ocr == "auto" or "force" checks tesseract
     monkeypatch.setattr("shutil.which", lambda tool: None if tool == "tesseract" else "/bin/" + tool)
@@ -436,16 +480,32 @@ def test_capabilities_reflect_options_and_markitdown_version(monkeypatch):
     caps_pdfium = capabilities(options=ExtractOptions(pdf_backend="pdfium"))
     assert next(c for c in caps_pdfium if c.id == "pdf").availability in {"ready", "missing_dependency"}
 
-    # Wrong markitdown version reporting
-    monkeypatch.setattr(metadata, "version", lambda pkg: "0.2.0" if pkg == "markitdown" else "1.0.0")
-    caps_ver = capabilities()
-    xls_cap = next(c for c in caps_ver if c.id == "xls")
-    assert "module:markitdown==0.1.9" in xls_cap.missing
-    assert xls_cap.availability == "missing_dependency"
+    if find_spec("markitdown") is not None:
+        # Wrong markitdown version reporting
+        monkeypatch.setattr(metadata, "version", lambda pkg: "0.2.0" if pkg == "markitdown" else "1.0.0")
+        caps_ver = capabilities()
+        xls_cap = next(c for c in caps_ver if c.id == "xls")
+        assert "module:markitdown==0.1.9" in xls_cap.missing
+        assert xls_cap.availability == "missing_dependency"
 
-    # Reader raises MissingDependencyError on wrong version
-    with pytest.raises(MissingDependencyError, match="0.1.9"):
-        _markitdown_reader(".xls")
+        # Reader raises MissingDependencyError on wrong version
+        with pytest.raises(MissingDependencyError, match="0.1.9"):
+            _markitdown_reader(".xls")
+    else:
+        caps_ver = capabilities()
+        xls_cap = next(c for c in caps_ver if c.id == "xls")
+        assert "module:markitdown" in xls_cap.missing
+        assert xls_cap.availability == "missing_dependency"
+
+
+@pytest.mark.parametrize("ocr", ["off", "auto", "force"])
+def test_office_and_pdf_capabilities_account_for_forced_ocr(monkeypatch, ocr):
+    monkeypatch.setattr("shutil.which", lambda name: None if name == "tesseract" else "/bin/" + name)
+    rows = {row.id: row for row in capabilities(options=ExtractOptions(ocr=ocr))}
+    for family in ("pdf", "docx", "pptx", "legacy-office"):
+        assert ("tool:tesseract" in rows[family].missing) == (ocr == "force")
+        if ocr == "force":
+            assert rows[family].availability == "missing_dependency"
 
 
 def test_soffice_discovery_and_aliases(monkeypatch):

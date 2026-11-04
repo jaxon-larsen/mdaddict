@@ -106,6 +106,9 @@ excluded from `all` pending a suitable decoder-build/license decision. See the
 prerequisites. `ready` means configured prerequisites were found; each row's
 `verification` field separately records acceptance status. It does not certify
 content fidelity or guarantee that a particular codec/provider can read an input.
+Pass `options=ExtractOptions(...)` to inspect the intended configuration. Forced
+OCR requires Tesseract for PDF and Office readers as well as standalone images;
+the education API passes its server OCR setting before upload admission.
 `mdaddict URL --kind url --allow-network` and `--kind youtube` explicitly enable
 acquisition. No remote fetching occurs for ordinary file conversion.
 
@@ -244,7 +247,7 @@ license and [release hashes](src/mdaddict/_vendor/README.md). Its integration
 retains source locations, equation diagnostics and unresolved-content handling.
 This third-party license does not settle mdaddict's own pending project license.
 
-## Distribution checks
+## Visual occurrences
 
 `AssetRecord` identifies an individual visual occurrence by source locator,
 normalized visible bounds `(left, top, right, bottom)`, and original image SHA-256.
@@ -253,8 +256,14 @@ not change when the description changes. Associated `block_ids` are preserved in
 the top-level asset catalog and cache roundtrips. Office crop margins are converted
 to visible bounds at ingestion. Newly captured Office images remain unresolved
 for visual meaning, including after AI transcription, until source review.
+ZIP/mail extraction exposes member assets in the parent catalog with member
+locators, rebased block IDs and matching Markdown references, including nested
+containers. The member manifest retains original child metadata. Reference
+rewrites preserve Unicode spans and distinct occurrences of identical images.
 No bitmap sidecars are persisted. Re-extract older asset-bearing caches under the
-new implementation revision; do not rewrite retained provenance in place.
+`mdaddict-9` implementation revision; do not rewrite retained provenance in place.
+
+## Distribution checks
 
 Build with `python -m build .` from the repository root. This builds the
 wheel from its source distribution. Validate metadata with

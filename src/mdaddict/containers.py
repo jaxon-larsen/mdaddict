@@ -19,7 +19,7 @@ import stat
 import tempfile
 import zipfile
 
-from .strategy import (ExtractOptions, ExtractResult, ExtractionIssue, SourceBlock,
+from .strategy import (AssetRecord, ExtractOptions, ExtractResult, ExtractionIssue, SourceBlock,
                        SourceLocator, normalize, sha256_file)
 
 
@@ -83,6 +83,7 @@ class _Assembly:
     def __init__(self, path, kind):
         self.path, self.kind = path, kind
         self.parts, self.blocks, self.issues, self.members = [], [], [], []
+        self.assets = []
         self.length = 0
 
     def append(self, text):
@@ -111,8 +112,20 @@ class _Assembly:
                 review_status=result.review_status, source_blocks=[asdict(b) for b in result.blocks],
                 issues=[asdict(i) for i in result.issues], metadata=result.metadata)
             self.append(f"\n\n### {self.kind.capitalize()} member {index}\n\n")
-            offset = self.append(result.markdown)
             mapping = {b.id: f"member-{index}:{b.id}" for b in result.blocks}
+            asset_mapping = {}
+            for asset in result.assets:
+                locator = SourceLocator("member", index, json.dumps(
+                    {"path": record["path"], "source": asdict(asset.locator)}, ensure_ascii=False, sort_keys=True))
+                parent_asset = AssetRecord.create(locator, asset.crop, asset.visual_hash,
+                    asset.description, [mapping[b] for b in asset.block_ids])
+                asset_mapping[asset.asset_id] = parent_asset.asset_id
+                self.assets.append(parent_asset)
+            # Occurrence IDs have a fixed width, so destination rewrites preserve
+            # the child's exact Unicode block spans, including nested containers.
+            markdown = re.sub(r"(?<=\]\()asset:(ast_[a-f0-9]{24})(?=\))",
+                lambda match: "asset:" + asset_mapping.get(match[1], match[1]), result.markdown)
+            offset = self.append(markdown)
             for block in result.blocks:
                 locator = SourceLocator("member", index, json.dumps(
                     {"path": record["path"], "source": asdict(block.source)}, ensure_ascii=False, sort_keys=True))
@@ -134,8 +147,8 @@ class _Assembly:
         if not self.members:
             self.issue("container_no_members", "The container has no converted member body content.")
         result = ExtractResult(sha256_file(self.path), "".join(self.parts), self.path.name,
-            "offline-" + self.kind, pages=1, blocks=self.blocks, issues=self.issues,
-            usage={"requests": 0}, metadata={"container": {"revision": 1, "kind": self.kind,
+            "offline-" + self.kind, pages=1, blocks=self.blocks, issues=self.issues, assets=self.assets,
+            usage={"requests": 0}, metadata={"container": {"revision": 2, "kind": self.kind,
                 "members": self.members, "member_count_used": budget.members,
                 "expanded_bytes_used": budget.expanded_bytes, "root_depth": 1,
                 "provenance": "original container hash, member path/hash and original child locators"}})

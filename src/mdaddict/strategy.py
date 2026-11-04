@@ -11,7 +11,7 @@ import tempfile
 from dataclasses import asdict, dataclass, field
 from pathlib import Path
 
-ENGINE_REVISION = "mdaddict-8"
+ENGINE_REVISION = "mdaddict-9"
 
 
 @dataclass(frozen=True)
@@ -224,7 +224,7 @@ class ExtractResult:
         self.status = "partial" if any(i.severity == "unresolved" for i in self.issues) else "success"
         self.review_status = "needs_review" if any(i.severity != "informational" for i in self.issues) else "not_reviewed"
         if self.assets:
-            self.metadata["assets"] = [{"asset_id": a.asset_id, "locator": asdict(a.locator), "crop": list(a.crop), "visual_hash": a.visual_hash, "description": a.description} for a in self.assets]
+            self.metadata["assets"] = [{**asdict(a), "crop": list(a.crop)} for a in self.assets]
         self.validate_contract()
 
 

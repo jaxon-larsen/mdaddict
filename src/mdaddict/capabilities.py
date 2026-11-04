@@ -126,9 +126,10 @@ def capabilities(*, allow_network: bool = False, ai_provider=None, options=None)
                 missing.append("module:pypdfium2")
         if capability.id == "html" and find_spec("markdownify") is None and shutil.which("pandoc") is None:
             missing.append("module:markdownify or tool:pandoc")
-        if capability.id in {"image", "heif"}:
-            if ocr_mode != "off" and shutil.which("tesseract") is None:
-                missing.append("tool:tesseract")
+        needs_ocr = (capability.id in {"image", "heif"} and ocr_mode != "off") or (
+            capability.id in {"pdf", "docx", "pptx", "legacy-office"} and ocr_mode == "force")
+        if needs_ocr and shutil.which("tesseract") is None:
+            missing.append("tool:tesseract")
         if capability.requires_network and not allow_network:
             state = "network_disabled"
         elif capability.modality and capability.modality not in modalities:

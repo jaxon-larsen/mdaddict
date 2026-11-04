@@ -489,7 +489,7 @@
     "suffix": ".pptx",
     "input": null,
     "result": {
-      "markdown": "<!-- slide: 1 -->\n\n- Conditions and native equations\n\n<!-- fig: slide 1, shape 5: unresolved shape geometry -->\n\n- Use this equation only when x is nonnegative.\n\n<!-- fig: slide 1, shape 2: unresolved shape geometry -->\n\n$$\ny=\\frac{x+1}{2}\n$$\n\n<!-- fig: slide 1, shape 3: unresolved shape geometry -->\n\n- The numerator includes x plus 1.\n\n<!-- fig: slide 1, shape 4: unresolved shape geometry -->\n\n<!-- slide: 2 -->\n\n- Repeated content\n\n<!-- fig: slide 2, shape 5: unresolved shape geometry -->\n\n- Read each condition before substituting values.\n\n<!-- fig: slide 2, shape 2: unresolved shape geometry -->\n\n- Read each condition before substituting values.\n\n<!-- fig: slide 2, shape 3: unresolved shape geometry -->\n\n$$\nr=\\sqrt{x^{2}+1}\n$$\n\n<!-- fig: slide 2, shape 4: unresolved shape geometry -->\n\n<!-- slide: 3 -->\n\n- Input and output values\n\n<!-- fig: slide 3, shape 4: unresolved shape geometry -->\n\n| Case | Input x | Output y |\n| --- | --- | --- |\n| A | 1 | 1 |\n| B | 3 | 2 |\n\n- Table 1 records invented values for the same equation.\n\n<!-- fig: slide 3, shape 3: unresolved shape geometry -->\n\n<!-- slide: 4 -->\n\n- Merged sample labels\n\n<!-- fig: slide 4, shape 4: unresolved shape geometry -->\n\n<table>\n<tr>\n<td>Sample</td>\n<td>Trial</td>\n<td>Value</td>\n</tr>\n<tr>\n<td rowspan=\"2\">Sample A</td>\n<td>1</td>\n<td>0.25</td>\n</tr>\n<tr>\n<td>2</td>\n<td>0.75</td>\n</tr>\n</table>\n\n- Sample A applies to both trials.\n\n<!-- fig: slide 4, shape 3: unresolved shape geometry -->\n\n<!-- slide: 5 -->\n\n- Ordered steps in columns\n\n<!-- fig: slide 5, shape 6: unresolved shape geometry -->\n\n- 1. Read the condition.\n\n<!-- fig: slide 5, shape 4: unresolved shape geometry -->\n\n- 2. Choose the equation.\n\n<!-- fig: slide 5, shape 5: unresolved shape geometry -->\n\n- 3. Substitute the value.\n\n<!-- fig: slide 5, shape 2: unresolved shape geometry -->\n\n- 4. Check the result.\n\n<!-- fig: slide 5, shape 3: unresolved shape geometry -->\n\n<!-- slide: 6 -->\n\n- Pictured equation and explanation\n\n<!-- fig: slide 6, shape 5: unresolved shape geometry -->\n\n![slide 6, shape 2](asset:ast_7b73798d926205cad3d32c0f)\n\n- Figure 1 defines s using a minus b over 3.\n\n<!-- fig: slide 6, shape 3: unresolved shape geometry -->\n\n- Reversing a and b changes the sign of s.\n\n<!-- fig: slide 6, shape 4: unresolved shape geometry -->\n",
+      "markdown": "<!-- slide: 1 -->\n\n- Conditions and native equations\n\n<!-- fig: slide 1, shape 5: unresolved shape geometry -->\n\n- Use this equation only when x is nonnegative.\n\n<!-- fig: slide 1, shape 2: unresolved shape geometry -->\n\n$$\ny = \\frac{x + 1}{2}\n$$\n\n<!-- fig: slide 1, shape 3: unresolved shape geometry -->\n\n- The numerator includes x plus 1.\n\n<!-- fig: slide 1, shape 4: unresolved shape geometry -->\n\n<!-- slide: 2 -->\n\n- Repeated content\n\n<!-- fig: slide 2, shape 5: unresolved shape geometry -->\n\n- Read each condition before substituting values.\n\n<!-- fig: slide 2, shape 2: unresolved shape geometry -->\n\n- Read each condition before substituting values.\n\n<!-- fig: slide 2, shape 3: unresolved shape geometry -->\n\n$$\nr = \\sqrt{x^{2} + 1}\n$$\n\n<!-- fig: slide 2, shape 4: unresolved shape geometry -->\n\n<!-- slide: 3 -->\n\n- Input and output values\n\n<!-- fig: slide 3, shape 4: unresolved shape geometry -->\n\n| Case | Input x | Output y |\n| --- | --- | --- |\n| A | 1 | 1 |\n| B | 3 | 2 |\n\n- Table 1 records invented values for the same equation.\n\n<!-- fig: slide 3, shape 3: unresolved shape geometry -->\n\n<!-- slide: 4 -->\n\n- Merged sample labels\n\n<!-- fig: slide 4, shape 4: unresolved shape geometry -->\n\n<table>\n<tr>\n<td>Sample</td>\n<td>Trial</td>\n<td>Value</td>\n</tr>\n<tr>\n<td rowspan=\"2\">Sample A</td>\n<td>1</td>\n<td>0.25</td>\n</tr>\n<tr>\n<td>2</td>\n<td>0.75</td>\n</tr>\n</table>\n\n- Sample A applies to both trials.\n\n<!-- fig: slide 4, shape 3: unresolved shape geometry -->\n\n<!-- slide: 5 -->\n\n- Ordered steps in columns\n\n<!-- fig: slide 5, shape 6: unresolved shape geometry -->\n\n- 1. Read the condition.\n\n<!-- fig: slide 5, shape 4: unresolved shape geometry -->\n\n- 2. Choose the equation.\n\n<!-- fig: slide 5, shape 5: unresolved shape geometry -->\n\n- 3. Substitute the value.\n\n<!-- fig: slide 5, shape 2: unresolved shape geometry -->\n\n- 4. Check the result.\n\n<!-- fig: slide 5, shape 3: unresolved shape geometry -->\n\n<!-- slide: 6 -->\n\n- Pictured equation and explanation\n\n<!-- fig: slide 6, shape 5: unresolved shape geometry -->\n\n<!-- fig: slide 6, shape 2: unresolved image -->\n\n- Figure 1 defines s using a minus b over 3.\n\n<!-- fig: slide 6, shape 3: unresolved shape geometry -->\n\n- Reversing a and b changes the sign of s.\n\n<!-- fig: slide 6, shape 4: unresolved shape geometry -->\n",
       "blocks": [
         {
           "id": "slide:1/shape:5/paragraph:1",
@@ -548,7 +548,7 @@
             "element": "shape:3/paragraph:1"
           },
           "start": 221,
-          "end": 242,
+          "end": 246,
           "method": "native"
         },
         {
@@ -559,8 +559,8 @@
             "index": 1,
             "element": "shape:3"
           },
-          "start": 244,
-          "end": 301,
+          "start": 248,
+          "end": 305,
           "method": "native"
         },
         {
@@ -571,8 +571,8 @@
             "index": 1,
             "element": "shape:4/paragraph:1"
           },
-          "start": 303,
-          "end": 337,
+          "start": 307,
+          "end": 341,
           "method": "native"
         },
         {
@@ -583,8 +583,8 @@
             "index": 1,
             "element": "shape:4"
           },
-          "start": 339,
-          "end": 396,
+          "start": 343,
+          "end": 400,
           "method": "native"
         },
         {
@@ -595,8 +595,8 @@
             "index": 2,
             "element": "shape:5/paragraph:1"
           },
-          "start": 417,
-          "end": 435,
+          "start": 421,
+          "end": 439,
           "method": "native"
         },
         {
@@ -607,8 +607,8 @@
             "index": 2,
             "element": "shape:5"
           },
-          "start": 437,
-          "end": 494,
+          "start": 441,
+          "end": 498,
           "method": "native"
         },
         {
@@ -619,8 +619,8 @@
             "index": 2,
             "element": "shape:2/paragraph:1"
           },
-          "start": 496,
-          "end": 545,
+          "start": 500,
+          "end": 549,
           "method": "native"
         },
         {
@@ -631,8 +631,8 @@
             "index": 2,
             "element": "shape:2"
           },
-          "start": 547,
-          "end": 604,
+          "start": 551,
+          "end": 608,
           "method": "native"
         },
         {
@@ -643,8 +643,8 @@
             "index": 2,
             "element": "shape:3/paragraph:1"
           },
-          "start": 606,
-          "end": 655,
+          "start": 610,
+          "end": 659,
           "method": "native"
         },
         {
@@ -655,8 +655,8 @@
             "index": 2,
             "element": "shape:3"
           },
-          "start": 657,
-          "end": 714,
+          "start": 661,
+          "end": 718,
           "method": "native"
         },
         {
@@ -667,8 +667,8 @@
             "index": 2,
             "element": "shape:4/paragraph:1"
           },
-          "start": 716,
-          "end": 738,
+          "start": 720,
+          "end": 746,
           "method": "native"
         },
         {
@@ -679,8 +679,8 @@
             "index": 2,
             "element": "shape:4"
           },
-          "start": 740,
-          "end": 797,
+          "start": 748,
+          "end": 805,
           "method": "native"
         },
         {
@@ -691,8 +691,8 @@
             "index": 3,
             "element": "shape:4/paragraph:1"
           },
-          "start": 818,
-          "end": 843,
+          "start": 826,
+          "end": 851,
           "method": "native"
         },
         {
@@ -703,8 +703,8 @@
             "index": 3,
             "element": "shape:4"
           },
-          "start": 845,
-          "end": 902,
+          "start": 853,
+          "end": 910,
           "method": "native"
         },
         {
@@ -715,8 +715,8 @@
             "index": 3,
             "element": "shape:2"
           },
-          "start": 904,
-          "end": 981,
+          "start": 912,
+          "end": 989,
           "method": "native"
         },
         {
@@ -727,8 +727,8 @@
             "index": 3,
             "element": "shape:3/paragraph:1"
           },
-          "start": 983,
-          "end": 1039,
+          "start": 991,
+          "end": 1047,
           "method": "native"
         },
         {
@@ -739,8 +739,8 @@
             "index": 3,
             "element": "shape:3"
           },
-          "start": 1041,
-          "end": 1098,
+          "start": 1049,
+          "end": 1106,
           "method": "native"
         },
         {
@@ -751,8 +751,8 @@
             "index": 4,
             "element": "shape:4/paragraph:1"
           },
-          "start": 1119,
-          "end": 1141,
+          "start": 1127,
+          "end": 1149,
           "method": "native"
         },
         {
@@ -763,8 +763,8 @@
             "index": 4,
             "element": "shape:4"
           },
-          "start": 1143,
-          "end": 1200,
+          "start": 1151,
+          "end": 1208,
           "method": "native"
         },
         {
@@ -775,8 +775,8 @@
             "index": 4,
             "element": "shape:2"
           },
-          "start": 1202,
-          "end": 1377,
+          "start": 1210,
+          "end": 1385,
           "method": "native"
         },
         {
@@ -787,8 +787,8 @@
             "index": 4,
             "element": "shape:3/paragraph:1"
           },
-          "start": 1379,
-          "end": 1413,
+          "start": 1387,
+          "end": 1421,
           "method": "native"
         },
         {
@@ -799,8 +799,8 @@
             "index": 4,
             "element": "shape:3"
           },
-          "start": 1415,
-          "end": 1472,
+          "start": 1423,
+          "end": 1480,
           "method": "native"
         },
         {
@@ -811,8 +811,8 @@
             "index": 5,
             "element": "shape:6/paragraph:1"
           },
-          "start": 1493,
-          "end": 1519,
+          "start": 1501,
+          "end": 1527,
           "method": "native"
         },
         {
@@ -823,8 +823,8 @@
             "index": 5,
             "element": "shape:6"
           },
-          "start": 1521,
-          "end": 1578,
+          "start": 1529,
+          "end": 1586,
           "method": "native"
         },
         {
@@ -835,8 +835,8 @@
             "index": 5,
             "element": "shape:4/paragraph:1"
           },
-          "start": 1580,
-          "end": 1604,
+          "start": 1588,
+          "end": 1612,
           "method": "native"
         },
         {
@@ -847,8 +847,8 @@
             "index": 5,
             "element": "shape:4"
           },
-          "start": 1606,
-          "end": 1663,
+          "start": 1614,
+          "end": 1671,
           "method": "native"
         },
         {
@@ -859,8 +859,8 @@
             "index": 5,
             "element": "shape:5/paragraph:1"
           },
-          "start": 1665,
-          "end": 1690,
+          "start": 1673,
+          "end": 1698,
           "method": "native"
         },
         {
@@ -871,8 +871,8 @@
             "index": 5,
             "element": "shape:5"
           },
-          "start": 1692,
-          "end": 1749,
+          "start": 1700,
+          "end": 1757,
           "method": "native"
         },
         {
@@ -883,8 +883,8 @@
             "index": 5,
             "element": "shape:2/paragraph:1"
           },
-          "start": 1751,
-          "end": 1777,
+          "start": 1759,
+          "end": 1785,
           "method": "native"
         },
         {
@@ -895,8 +895,8 @@
             "index": 5,
             "element": "shape:2"
           },
-          "start": 1779,
-          "end": 1836,
+          "start": 1787,
+          "end": 1844,
           "method": "native"
         },
         {
@@ -907,8 +907,8 @@
             "index": 5,
             "element": "shape:3/paragraph:1"
           },
-          "start": 1838,
-          "end": 1860,
+          "start": 1846,
+          "end": 1868,
           "method": "native"
         },
         {
@@ -919,8 +919,8 @@
             "index": 5,
             "element": "shape:3"
           },
-          "start": 1862,
-          "end": 1919,
+          "start": 1870,
+          "end": 1927,
           "method": "native"
         },
         {
@@ -931,8 +931,8 @@
             "index": 6,
             "element": "shape:5/paragraph:1"
           },
-          "start": 1940,
-          "end": 1975,
+          "start": 1948,
+          "end": 1983,
           "method": "native"
         },
         {
@@ -943,8 +943,8 @@
             "index": 6,
             "element": "shape:5"
           },
-          "start": 1977,
-          "end": 2034,
+          "start": 1985,
+          "end": 2042,
           "method": "native"
         },
         {
@@ -955,8 +955,8 @@
             "index": 6,
             "element": "shape:2"
           },
-          "start": 2036,
-          "end": 2091,
+          "start": 2044,
+          "end": 2092,
           "method": "native"
         },
         {
@@ -967,8 +967,8 @@
             "index": 6,
             "element": "shape:3/paragraph:1"
           },
-          "start": 2093,
-          "end": 2137,
+          "start": 2094,
+          "end": 2138,
           "method": "native"
         },
         {
@@ -979,8 +979,8 @@
             "index": 6,
             "element": "shape:3"
           },
-          "start": 2139,
-          "end": 2196,
+          "start": 2140,
+          "end": 2197,
           "method": "native"
         },
         {
@@ -991,8 +991,8 @@
             "index": 6,
             "element": "shape:4/paragraph:1"
           },
-          "start": 2198,
-          "end": 2240,
+          "start": 2199,
+          "end": 2241,
           "method": "native"
         },
         {
@@ -1003,8 +1003,8 @@
             "index": 6,
             "element": "shape:4"
           },
-          "start": 2242,
-          "end": 2299,
+          "start": 2243,
+          "end": 2300,
           "method": "native"
         }
       ],
@@ -1307,19 +1307,6 @@
             "slide:6/shape:4/visual"
           ],
           "severity": "informational"
-        },
-        {
-          "code": "asset_context_unresolved",
-          "message": "Visual labels, relationships and qualifications require source review",
-          "source": {
-            "unit": "slide",
-            "index": 6,
-            "element": "shape:2"
-          },
-          "block_ids": [
-            "slide:6/shape:2"
-          ],
-          "severity": "unresolved"
         }
       ],
       "status": "partial",

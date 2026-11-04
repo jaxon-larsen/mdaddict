@@ -76,23 +76,23 @@ enrichment are separate scopes that must be identified before comparing results.
 | Delimited Tables | .csv, .tsv, .tab | CsvConverter | Native stdlib csv parser | Python stdlib | Existing test_ingestion, test_format_parity | Upload dropzone & file picker | Tabular structure preserved; formulas not evaluated |
 | HTML / Web | .html, .htm, .xhtml | HtmlConverter | Markdownify / Pandoc bridge | markdownify or Pandoc | Existing test_html_backend | Upload dropzone & file picker | External resources and dynamic scripts not fetched |
 | PDF Documents | .pdf | PdfConverter | pdfium / pypdfium2 / PyMuPDF | pypdfium2 (or PyMuPDF stack) | Existing test_pdfium, test_pdf_order, test_pdf_numeric | Upload dropzone & file picker | 2-D math and scanned vectors require review |
-| Word Documents | .docx | DocxConverter | Native Pandoc bridge | python-docx / lxml, Pandoc fallback | Existing test_synthetic_office, packaging baseline | Upload dropzone & file picker | Visuals unresolved; macros/drawings not certified |
-| Presentations | .pptx | PptxConverter | python-pptx native reader | python-pptx, lxml, PIL | Existing test_synthetic_office, procedures.pptx | Upload dropzone & file picker | Shapes/visuals require source review; no bitmap sidecars |
+| Word Documents | .docx | DocxConverter | XML-anchored Pandoc bridge | lxml, PIL, Pandoc | test_format_parity, packaging baseline | Upload dropzone & file picker | Visuals unresolved; macros/drawings not certified |
+| Presentations | .pptx | PptxConverter | python-pptx native reader | python-pptx, lxml, PIL | test_format_parity, procedures.pptx | Upload dropzone & file picker | Shapes/visuals require source review; no bitmap sidecars |
 | Modern Spreadsheets | .xlsx | XlsxConverter | openpyxl native reader | openpyxl | Existing test_ingestion | Upload dropzone & file picker | Formulas as expressions; styling/charts omitted |
 | Legacy Spreadsheets | .xls | XlsConverter | Delegated MarkItDown XlsConverter | markitdown==0.1.9, pandas, xlrd | test_xls_meaningful_content (synthetic BIFF8) | Capability-driven upload | Cached cell values only; formulas and drawings omitted |
 | Electronic Books | .epub | EpubConverter | Delegated MarkItDown EpubConverter | markitdown==0.1.9 | test_epub_spine_content_is_retained | Capability-driven upload | Spine text only; embedded visual/media omitted |
 | Notebooks | .ipynb | IpynbConverter | Delegated MarkItDown IpynbConverter | markitdown==0.1.9 | test_notebook_delegates_code_language | Capability-driven upload | Code/markdown cells only; outputs/attachments omitted |
 | Outlook Mail | .msg | OutlookMsgConverter | Delegated MarkItDown OutlookMsgConverter | markitdown==0.1.9, olefile | test_msg_meaningful_content (synthetic OLE) | Capability-driven upload | Plain text body only; attachments not extracted |
-| MIME Mail & Signatures | .eml, .p7s | None (mdaddict native) | Bounded container mail parser | Python stdlib email | test_email_keeps_body, test_detached_binary_signature | Capability-driven upload | Plain/HTML body only; signature verification omitted |
+| MIME Mail & Signatures | .eml, .p7s | None (mdaddict native) | Bounded container mail parser | Python stdlib email; selected HTML/attachment reader prerequisites | test_email_keeps_body, test_detached_binary_signature, container asset controls | Capability-driven upload | Selected body and supported attachments; alternative bodies/signatures unverified; detached binary signatures contain no body |
 | RSS / Atom Feeds | .rss, .atom | RssConverter | Delegated MarkItDown RssConverter | markitdown==0.1.9 | test_feed_uses_maintained_reader | Capability-driven upload | Feed item body/titles only; dynamic links not fetched |
 | Container Archives | .zip | ZipConverter | Bounded member dispatcher | Python stdlib zipfile | test_archive_rebases_spans, recursive budget tests | Capability-driven upload | Supported members only; recursive budget limits apply |
 | Subtitles / Captions | .srt, .vtt | None (mdaddict native) | Local subtitle reader | pysubs2 | test_local_captions_have_exact_times | Capability-driven upload | Transcript text and segment timing only |
 | Images (Raster) | .png, .jpg, .jpeg, .tiff, .bmp, .webp, etc. | ImageConverter | Pillow / Tesseract | PIL, optional Tesseract | Existing test_ingestion, test_ocr_benchmark | Upload dropzone & file picker | OCR review needed; diagrams/spatial context uncertified |
-| HEIF Images | .heic, .heif | None | Pillow / pillow-heif | pillow_heif, PIL | test_heif_codec_is_explicit | Capability-driven upload | Codec requires pillow-heif; OCR needed for text |
+| HEIF Images | .heic, .heif | None | Pillow / pillow-heif | pillow_heif, PIL | Optional structural control; skipped without codec; fidelity acceptance pending | Capability-driven upload when installed | Codec requires pillow-heif; outside all; OCR needed for text |
 | Legacy Office | .doc, .ppt | None | LibreOffice headless bridge | LibreOffice (soffice/libreoffice) | test_legacy_readers | Capability-driven upload (disabled if missing) | Intermediate conversion; requires external LibreOffice |
 | Extended Readers | .odt, .rtf, .org, .adoc, .tex, etc. | None | Pandoc CLI bridge | Pandoc | test_legacy_readers | Capability-driven upload (disabled if missing) | Requires Pandoc; format-specific parser behavior |
-| Audio Files | .wav, .mp3, .flac, .ogg, etc. | AudioConverter | Explicit audio provider adapter | Explicit provider with 'audio' modality | test_media_requires_explicit_modality | Unavailable (no app audio provider configured) | Speech transcript only; requires configured audio provider |
-| Video Containers | .mp4, .mov, .webm, etc. | None | ffmpeg audio demux + audio provider | ffmpeg, audio provider | test_media_requires_explicit_modality | Unavailable (no app audio provider configured) | Audio track only; video frames/visuals not extracted |
+| Audio Files | .wav, .mp3, .flac, .ogg, etc. | AudioConverter | Explicit audio provider adapter | Explicit provider with 'audio' modality | Protocol doubles; real codec/speech acceptance pending | Unavailable (no app audio provider configured) | Speech transcript only; requires configured audio provider |
+| Video Containers | .mp4, .mov, .webm, etc. | None | ffmpeg audio demux + audio provider | ffmpeg, audio provider | Provider prerequisites; real codec/transcript acceptance pending | Unavailable (no app audio provider configured) | Audio track only; video frames/visuals not extracted |
 | Web URLs | None (HTTP) | Wikipedia/Bing converters | Bounded HTTP acquisition | Python urllib, network permitted | test_url_retains_exact_bytes | Remote import view | Static artifact only; dynamic/linked content omitted |
 | YouTube URLs | None (URL) | YouTubeConverter | youtube-transcript-api | youtube_transcript_api, network permitted | test_youtube_keeps_caption_times | Remote import view | Captions only; video visuals/audio track not analyzed |
 | Streams, Stdin & Raw Bytes | None | Supported in MarkItDown | None (deferred gap) | None | None | None | Public API is path-based; streams/stdin deferred |
@@ -103,6 +103,9 @@ The education upload control is capability-driven, exposing configured local for
 are installed. Audio and video remain unavailable until an application audio provider
 is configured. The application's capability endpoint represents both installed dependencies
 and actually wired providers, driving truthful upload choices and admission gating.
+Inspection accepts extraction options; forced OCR adds the Tesseract requirement
+to PDF/Office readiness. Container controls cover parent asset catalogs and links
+for ZIP, nested ZIP and mail; they do not certify visual meaning.
 
 For each family and input method, record separately: implemented route,
 configured prerequisites/provider, accepted fixture coverage, app exposure, and
@@ -116,13 +119,15 @@ offline/provider settings. Preserve errors and holds in the denominator. A forma
 with incomplete acceptance remains explicitly pending; a successful small control
 does not certify every codec, document variant or source page.
 
-Sequence: freeze the parity inventory; complete missing family/variant fixtures
-and useful maintained-reader integrations; connect actual app capabilities to
-upload/import choices; resolve input-method/detection gaps; then deepen the
-instructional-fidelity improvements below. Critical source-corruption defects
-remain eligible for immediate fixes throughout. Local AI is unavailable; source,
-adapter and deterministic verification work can proceed, while inference and
-live media quality require separate execution instructions and recorded results.
+The pinned inventory, selected local-reader controls and application admission
+are implemented. Next, resolve bounded bytes/stream/stdin intake and content
+detection (education backlog IC-4), settling ownership, encoding, limits, identity
+and cleanup before implementation. HEIF/media codec acceptance, app audio-provider
+selection and live quality remain pending and do not block that offline phase.
+Then deepen the instructional-fidelity improvements below. Critical
+source-corruption defects remain eligible for immediate fixes throughout. Local
+AI is unavailable; inference and live media quality require separate execution
+instructions and recorded results.
 
 ## Quality bar for downstream AI use
 
@@ -153,7 +158,7 @@ Phase “good enough to pause mdaddict work”:
 | `[pdf]` | **pypdfium2 + pypdf + Pillow** — default PDF |
 | `[pdf-pymupdf]` | Optional PyMuPDF / PyMuPDF4LLM for hard layout/math/render until removed |
 | `[office]` | python-pptx, openpyxl, lxml; equations via focused OMML (vendored/copied parsers) |
-| `[html]` | markdownify; Pandoc remains for complex HTML and DOCX fallback |
+| `[html]` | markdownify; external Pandoc handles complex HTML and is required by the DOCX bridge |
 | `[images]` | Pillow; system Tesseract for OCR |
 | `[extended]` | Pinned MarkItDown readers for XLS/EPUB/IPYNB/MSG/feeds |
 | `[captions]` | Local SRT/WebVTT parsing |
