@@ -29,8 +29,8 @@ layout recovery or compatibility with every third-party plugin/cloud service.
 
 ### Own permanently
 
-- Simple conversion API; path input exists, while bytes/stream and CLI stdin
-  handling are explicit input-parity gaps to resolve.
+- Simple conversion API with bounded path/bytes/binary-stream intake, CLI stdin,
+  conservative content detection, and explicit encoding recovery.
 - Consistent result: Markdown, source locations / character spans, extraction
   methods, actionable issues, content hashes, cache identity.
 - Offline defaults and optional format extras.
@@ -95,8 +95,8 @@ enrichment are separate scopes that must be identified before comparing results.
 | Video Containers | .mp4, .mov, .webm, etc. | None | ffmpeg audio demux + audio provider | ffmpeg, audio provider | Provider prerequisites; real codec/transcript acceptance pending | Unavailable (no app audio provider configured) | Audio track only; video frames/visuals not extracted |
 | Web URLs | None (HTTP) | Wikipedia/Bing converters | Bounded HTTP acquisition | Python urllib, network permitted | test_url_retains_exact_bytes | Remote import view | Static artifact only; dynamic/linked content omitted |
 | YouTube URLs | None (URL) | YouTubeConverter | youtube-transcript-api | youtube_transcript_api, network permitted | test_youtube_keeps_caption_times | Remote import view | Captions only; video visuals/audio track not analyzed |
-| Streams, Stdin & Raw Bytes | None | Supported in MarkItDown | None (deferred gap) | None | None | None | Public API is path-based; streams/stdin deferred |
-| Content / MIME Detection | None | Supported in MarkItDown | None (deferred gap) | None | None | None | Extensionless / unfamiliar-suffix detection deferred |
+| Streams, Stdin & Raw Bytes | None | Supported in MarkItDown | Shared bounded intake; public APIs and CLI `-` | stdlib | tests/test_intake.py | Engine adapter; API upload and UI | Current cursor consumed; caller retains stream; blocking reads need process isolation |
+| Content / MIME Detection | None | Supported in MarkItDown | Shared signatures, bounded container members, strict Unicode decoding | stdlib plus resolved reader prerequisites | tests/test_intake.py; education API tests/test_input_detection.py | Capability checks on detected format; visible warnings | Conservative detectors; ambiguous OLE needs a hint; arbitrary formats/codecs still need representative acceptance |
 
 The education upload control is capability-driven, exposing configured local formats
 (including ZIP, EPUB, XLS, IPYNB, MSG, and subtitles) dynamically when their prerequisites
@@ -120,9 +120,10 @@ with incomplete acceptance remains explicitly pending; a successful small contro
 does not certify every codec, document variant or source page.
 
 The pinned inventory, selected local-reader controls and application admission
-are implemented. Next, resolve bounded bytes/stream/stdin intake and content
-detection (education backlog IC-4), settling ownership, encoding, limits, identity
-and cleanup before implementation. HEIF/media codec acceptance, app audio-provider
+are implemented. Bounded bytes/stream/stdin intake and conservative content
+detection (education backlog IC-4) now share ownership, encoding, limits, identity
+and cleanup contracts across the package and application. See README input-method
+details and the education acceptance commands for the bounded verified corpus. HEIF/media codec acceptance, app audio-provider
 selection and live quality remain pending and do not block that offline phase.
 Then deepen the instructional-fidelity improvements below. Critical
 source-corruption defects remain eligible for immediate fixes throughout. Local

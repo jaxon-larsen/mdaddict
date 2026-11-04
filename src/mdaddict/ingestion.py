@@ -8,6 +8,7 @@ from dataclasses import asdict
 from pathlib import Path
 
 from .capabilities import CATALOG_REVISION, capability_for
+from .intake import InputSource
 from .strategy import ExtractOptions, ExtractResult, write_extract
 
 
@@ -26,9 +27,9 @@ def describe_result(result: ExtractResult, *, kind: str, path=None):
     return result
 
 
-def ingest(source: str | os.PathLike[str], *, kind: str = "file", allow_network: bool = False,
+def ingest(source: InputSource, *, kind: str = "file", allow_network: bool = False,
            options: ExtractOptions | None = None, ai_provider=None, out_dir=None,
-           force: bool = False) -> ExtractResult:
+           force: bool = False, name: str | None = None, content_type: str | None = None) -> ExtractResult:
     """Convert a file, snapshot a public URL, or acquire existing YouTube captions.
 
     Remote snapshots are fetched afresh; conversion caches are content-bound.
@@ -37,7 +38,7 @@ def ingest(source: str | os.PathLike[str], *, kind: str = "file", allow_network:
     """
     if kind == "file":
         from .extract import extract
-        return extract(source, options=options, ai_provider=ai_provider, out_dir=out_dir, force=force)
+        return extract(source, options=options, ai_provider=ai_provider, out_dir=out_dir, force=force, name=name, content_type=content_type)
     if kind not in {"url", "youtube"}:
         raise ValueError("kind must be 'file', 'url', or 'youtube'")
     from .acquisition import acquire

@@ -13,6 +13,7 @@ from dataclasses import asdict
 from functools import lru_cache
 from pathlib import Path
 from mdaddict.ai import AIProvider
+from mdaddict.intake import InputSource
 
 from mdaddict.strategy import ENGINE_REVISION, ExtractOptions, ExtractResult, filesystem_path, load_extract, normalize, sha256_file, write_extract
 
@@ -83,7 +84,7 @@ def implementation_identity(extra="") -> str:
     return hashlib.sha256(b"".join(p.read_bytes() for p in sorted(Path(__file__).parent.rglob("*.py"))) + extra.encode()).hexdigest()
 
 
-def run_extraction(path, strategy, *, options, engine_factory, provider_settings=None,
+def _run_extraction(path, strategy, *, options, engine_factory, provider_settings=None,
                    implementation_extra="", out_dir=None, force=False) -> ExtractResult:
     """Shared cache/integrity boundary, also used by application compatibility adapters."""
     started = time.perf_counter()
@@ -135,7 +136,30 @@ def run_extraction(path, strategy, *, options, engine_factory, provider_settings
     return result
 
 
-def extract(path: str | os.PathLike[str], *, options: ExtractOptions | None = None,
+def finish_input(result, display, detection, out_dir):
+    previous = result.metadata.pop("input_detection", {})
+    old_warnings = previous.get("warnings", [])
+    result.warnings = [w for w in result.warnings if w not in old_warnings]
+    result.warnings.extend(detection.warnings)
+    result.metadata["input_detection"] = detection.metadata()
+    result.source_name = display
+    if out_dir is not None:
+        write_extract(result, Path(out_dir))
+    return result
+
+
+def run_extraction(path, strategy, *, options, engine_factory, provider_settings=None,
+                   implementation_extra="", out_dir=None, force=False, name=None,
+                   content_type=None):
+    from .intake import normalized_input
+    with normalized_input(path, options=options, name=name, content_type=content_type) as (resolved, display, detection, effective):
+        result = _run_extraction(resolved, strategy, options=effective, engine_factory=engine_factory,
+            provider_settings=provider_settings, implementation_extra=implementation_extra,
+            out_dir=out_dir, force=force)
+        return finish_input(result, display, detection, out_dir)
+
+
+def _extract_resolved(path, *, options: ExtractOptions | None = None,
             ai_provider: AIProvider | None = None, out_dir: str | os.PathLike[str] | None = None,
             force: bool = False) -> ExtractResult:
     """Extract a local file; only an explicit provider enables AI assistance."""
@@ -165,13 +189,22 @@ def extract(path: str | os.PathLike[str], *, options: ExtractOptions | None = No
             raise ValueError("File AI assistance requires the 'vision' modality")
         factory = lambda _name, opts: VisionExtractor(opts, provider=ai_provider)
         strategy = "vision"
-    return run_extraction(path, strategy, options=options, engine_factory=factory,
+    return _run_extraction(path, strategy, options=options, engine_factory=factory,
                           provider_settings=settings, out_dir=out_dir, force=force)
 
 
-def to_markdown(path: str | os.PathLike[str], *, options: ExtractOptions | None = None,
+def extract(path: InputSource, *, options: ExtractOptions | None = None, ai_provider: AIProvider | None = None,
+            out_dir=None, force=False, name: str | None = None, content_type: str | None = None) -> ExtractResult:
+    """Extract paths, bytes or binary streams; only explicit adapters enable AI."""
+    from .intake import normalized_input
+    with normalized_input(path, options=options or ExtractOptions(), name=name, content_type=content_type) as (resolved, display, detection, effective):
+        result = _extract_resolved(resolved, options=effective, ai_provider=ai_provider, out_dir=out_dir, force=force)
+        return finish_input(result, display, detection, out_dir)
+
+
+def to_markdown(path: InputSource, *, options: ExtractOptions | None = None,
                 ai_provider: AIProvider | None = None, out_dir: str | os.PathLike[str] | None = None,
-                force: bool = False) -> str:
+                force: bool = False, name: str | None = None, content_type: str | None = None) -> str:
     """Convert a local file to Markdown with the same options as extract()."""
     return extract(path, options=options, ai_provider=ai_provider,
-                   out_dir=out_dir, force=force).markdown
+                   out_dir=out_dir, force=force, name=name, content_type=content_type).markdown

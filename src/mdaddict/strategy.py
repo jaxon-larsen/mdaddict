@@ -16,7 +16,7 @@ ENGINE_REVISION = "mdaddict-9"
 
 @dataclass(frozen=True)
 class ExtractOptions:
-    encoding: str = "utf-8-sig"
+    encoding: str = "auto"
     ocr: str = "auto"
     language: str = "eng"
     ai_mode: str = "auto"

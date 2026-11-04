@@ -212,15 +212,20 @@ class OfflineExtractor:
         self.warn(f"{location}: image retained as description/marker; visual content not transcribed")
         return figure(alt or f"{location}: unresolved image", asset_id=asset_id)
 
+    def _encoding(self, path: Path) -> str:
+        from .intake import _encoding
+        with path.open("rb") as stream:
+            return _encoding(stream.read(4), self.options.encoding)
+
     def _text(self, path: Path) -> str:
         try:
-            return path.read_text(encoding=self.options.encoding)
+            return path.read_text(encoding=self._encoding(path))
         except UnicodeDecodeError as error:
             raise ValueError("Cannot decode text; set --encoding explicitly (no replacement characters inserted)") from error
 
     def _csv(self, path: Path) -> str:
         rows = []
-        with path.open(encoding=self.options.encoding, newline="") as stream:
+        with path.open(encoding=self._encoding(path), newline="") as stream:
             for row in csv.reader(stream, delimiter="\t" if path.suffix.lower() in {".tsv", ".tab"} else ","):
                 self.check_cells(len(row))
                 rows.append(row)

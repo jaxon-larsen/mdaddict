@@ -144,7 +144,7 @@ def test_remote_opt_in_precedes_dns(monkeypatch):
 
 def test_archive_rebases_spans_and_records_failed_members(tmp_path):
     path = tmp_path / "authored.zip"
-    path.write_bytes(zip_bytes({"../../outside.txt": "α\n", "nested/data.tab": "A\tB\n1\t2\n", "unknown.bin": b"???"}))
+    path.write_bytes(zip_bytes({"../../outside.txt": "α\n", "nested/data.tab": "A\tB\n1\t2\n", "unknown.bin": b"\x00???"}))
     result = extract(path, out_dir=tmp_path / "out")
     assert result.status == "partial"
     assert not (tmp_path.parent / "outside.txt").exists()
@@ -219,7 +219,7 @@ def test_email_keeps_body_attachment_manifest_and_source_holds(tmp_path):
     mail["Subject"] = "Authored message"
     mail.set_content("Qualified body: only when x > 0.")
     mail.add_attachment(b"value\n", maintype="text", subtype="plain", filename="attachment.txt")
-    mail.add_attachment(b"unknown", maintype="application", subtype="octet-stream", filename="object.bin")
+    mail.add_attachment(b"\x00unknown", maintype="application", subtype="octet-stream", filename="object.bin")
     path = tmp_path / "mail.eml"
     path.write_bytes(mail.as_bytes())
     result = extract(path)

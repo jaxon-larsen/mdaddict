@@ -28,7 +28,9 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--output", type=Path, help="Optional Markdown export filename")
     parser.add_argument("--json", action="store_true", help="Print the complete structured result")
     parser.add_argument("--force", action="store_true", help="Ignore cached conversion")
-    parser.add_argument("--encoding", default="utf-8-sig")
+    parser.add_argument("--encoding", default="auto")
+    parser.add_argument("--name", help="Display filename/reader hint for anonymous input")
+    parser.add_argument("--content-type", help="Optional MIME hint")
     parser.add_argument("--ocr", choices=["auto", "off", "force"], default="auto")
     parser.add_argument("--pdf-backend", choices=["auto", "pdfium", "pymupdf"], default="auto",
                         dest="pdf_backend")
@@ -51,8 +53,8 @@ def main(argv: list[str] | None = None) -> int:
             "encoding", "ocr", "pdf_backend", "language", "max_pages", "max_mb", "max_cells",
             "workers", "dpi", "timeout", "max_archive_members", "max_archive_depth", "max_expanded_mb")})
         with redirect_stdout(sys.stderr):
-            result = ingest(args.path, kind=args.kind, allow_network=args.allow_network,
-                            options=options, out_dir=args.out, force=args.force)
+            result = ingest(sys.stdin.buffer if args.path == "-" and args.kind == "file" else args.path, kind=args.kind, allow_network=args.allow_network,
+                            options=options, out_dir=args.out, force=args.force, name=args.name, content_type=args.content_type)
         if args.output is not None:
             atomic_write(args.output, result.markdown)
         if args.json:

@@ -49,6 +49,13 @@ Pandoc is a separate requirement for DOCX, complex HTML (math, merged/nested
 tables and certain code cases), and unsupported PowerPoint equation structures.
 Existing installations with Pandoc can still convert HTML without the HTML extra.
 Tesseract and language data are separate requirements for offline OCR.
+On Fedora, install the CLI and English data with
+`sudo dnf install tesseract tesseract-langpack-eng tesseract-osd`.
+Check `tesseract --version` and `tesseract --list-langs`; `eng` must be listed
+for the default language. A user-local installation also works when its executable
+is on PATH. For language data outside the executable's compiled default, set
+`TESSDATA_PREFIX` to the directory containing the `.traineddata` files. The Python
+`all` extra does not install system tools or language data.
 OCR defaults to `auto`; `ExtractOptions(ocr="off")` retains current unresolved
 markers instead of performing OCR. Nothing downloads tools or models.
 
@@ -275,3 +282,44 @@ the `all` check requires Pandoc and Tesseract on PATH. The CI matrix covers
 Windows/Linux/macOS with Python 3.12/3.13. Declared support and configured CI are
 distinct from recorded results. See [release setup](RELEASING.md) for publishing
 configuration and remaining release prerequisites.
+
+## Bytes, streams, stdin and detected formats
+
+```python
+import io
+from mdaddict import extract, to_markdown, ExtractOptions, detect_input
+
+text = to_markdown(b"Source condition: x > 0.\n", name="notes.md")
+result = extract(io.BytesIO(b"Source condition: x > 0.\n"))
+legacy_text = to_markdown(b"caf\xe9", options=ExtractOptions(encoding="cp1252"))
+```
+
+`extract`, `to_markdown` and file-mode `ingest` accept paths, bytes or binary
+readable streams. Streams start at the current cursor, advance, and remain open
+on success or failure. `name` and `content_type` provide optional format hints;
+anonymous decoded text defaults to `.txt`. Both the standalone and application
+CLIs accept `- --name notes.md` for binary stdin. Use `--encoding` for known legacy
+text and `--content-type` for a MIME hint.
+
+Shared detection recognizes PDF/common raster signatures, Office ZIP members,
+EPUB/ODT mimetypes, RTF, RIFF media, HTML/WebVTT headers and small notebook JSON.
+Strong evidence overrides mismatched suffix/MIME hints, with request-specific
+warnings in `result.metadata["input_detection"]`. OLE and other signatureless
+formats still need a disambiguating supported hint; this is not universal format
+identification. Ambiguous containers, unknown binary content and empty inputs
+fail clearly. Native readers still validate selected content.
+
+Encoding `auto` detects Unicode BOMs then uses strict UTF-8. Explicit overrides
+must be valid and compatible with a present Unicode BOM. No legacy guessing or
+replacement characters are inserted. Hashes always describe original consumed
+bytes before decoding. Identical bytes with the same resolved suffix/options
+share cache entries across input methods; names and detection warnings refresh
+on every request. Text-first outputs preserve existing source spans and issues.
+
+Reads are bounded by `max_mb`; expanded containers are bounded separately.
+Temporary path-backed reader inputs are removed on normal completion/errors.
+Deadlines are checked between reads, but an arbitrary blocking stream read or
+stdin cannot be forcibly interrupted in-process. Callers requiring hard deadlines
+must isolate execution; the education worker owns child scratch directories so
+process termination also cleans temporary originals. No provider or acquisition
+is enabled by detection.
