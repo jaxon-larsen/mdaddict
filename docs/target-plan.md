@@ -239,17 +239,36 @@ backend switch and does not establish improved real-source table accuracy.
 Reproduction and limits live in the education testing guide; portable controls
 are in `tests/test_pdf_tables.py` and `tests/fixtures/table-controls.*`.
 
-**Next bounded work:** first make the application's existing fidelity checker
-score HTML spans alongside GFM/LaTeX using its existing structural parser. Freeze
-whether each check covers a complete table or a uniquely identified, source-bound
-subgrid; matching cell words is insufficient. Then target Demšar page 11, Table 4,
-the remaining compatibility mismatch among the six existing table/matrix checks.
-The native API currently packs its 3×3 numeric body into one cell of an outer 2×2
-grid and loses decimal placement in the interval labels. Review full method/row/
-column labels and caption against the source before changing extraction or gold.
-Evaluate maintained native APIs within automatically discovered bounds before
-writing a new recognizer; runtime code must not receive gold coordinates, counts
-or source-specific separators. Retain the mismatch/holds if ownership is ambiguous.
+Structural acceptance is now implemented in the application: HTML/GFM/LaTeX
+checks distinguish exact whole tables from uniquely labelled subgrids. Existing
+gold remains unchanged. Native cell-text ordering (`pdf_cell_text.py`, revision
+`mdaddict-12`) now uses source baselines within proven cells, repairing decimals,
+comparison signs and citation punctuation on Demšar and DARTH page 11. Authored
+variations cover scale, translation, negatives, percentages and uncertainty.
+No source-specific values, coordinates, dimensions or separators enter runtime.
+
+Source-proven word boundaries also survive: encoded spaces restore joined
+descriptions such as DARTH's `Image and Text Embeddings`; physically contiguous
+glyphs in the same source line can remove false within-word gaps. Independent
+drawing runs and large geometric gaps alone cannot authorize a rewrite. Font,
+size, Unicode, numeric-grouping and cache/isolated-ingestion controls exercise the
+generic rule. Existing scores, issues and holds remain unchanged. See
+[word-boundary verification](../../education/docs/testing.md#pdf-cell-word-boundaries).
+
+Full reconstruction remains open: Demšar Table 4 still packs a 3×3 body into one
+cell of an outer 2×2 grid. Maintained native text/mixed/refinement/union APIs do
+not prove complete method/header/body ownership. Parallel multiline cells and
+aligned internal columns retain text with `pdf_table_structure_unresolved`;
+repairing punctuation cannot clear that uncertainty. DARTH's packed observations
+also remain held. Other page content and existing target/control outcomes are
+unchanged; source/gold hashes stay fixed. See the application's
+[cell-text evidence and stop condition](../../education/docs/testing.md#native-pdf-cell-text-and-unresolved-subgrids).
+
+**Next bounded work:** resume full subgrid recovery only with a maintained
+representation that preserves complete labels/spans across varied source-backed
+controls, after independent full-gold review. Until then, prioritize another
+demonstrated fidelity defect; do not add a custom splitter or repeat native
+parameter sweeps to force this target to pass.
 
 After that measured repair, qualify a separate optional PDFium ruled-table
 adapter against the same controls and prior library candidates. Promotion needs
@@ -259,8 +278,8 @@ No default dependency/backend change is implied. Other matrix/math/visual work
 follows source-backed cases; media/provider and live quality gates stay pending.
 The application [implementation sequence](../../education/docs/technical.md#next-fidelity-implementation)
 and [acceptance contract](../../education/docs/testing.md#next-table-fidelity-pass)
-record the concrete seams and stop conditions. This is planned work, not a new
-fidelity result or authorization for model calls or a different quarantine policy.
+record the concrete seams and stop conditions. Deferred work does not authorize
+model calls or a different quarantine policy.
 
 The [existing-corpus comparison](pdf-corpus-2026-10-23.md) now measures 29 reviewed
 pages from 16 PDFs. PDFium matches the text/order sentinels but misses the 21
@@ -317,9 +336,9 @@ wholesale replacement. Competitor API integration remains unmeasured.
    controls green; finish the explicitly deferred codec/provider acceptance
    separately. Intake, detection and application exposure are implemented within
    their declared bounds, not the next unstarted milestone.
-2. Execute the bounded fidelity sequence above: HTML-aware structural acceptance,
-   then the source-bound Demšar table repair, followed by conditional optional
-   PDFium table qualification. Other equation/matrix, reading-order and qualifier
+2. Keep structural acceptance and native cell-text recovery green; resume full
+   source-bound subgrid recovery when a maintained candidate qualifies. Optional
+   PDFium table qualification remains conditional. Other equation/matrix, reading-order and qualifier
    repairs require their own demonstrated source cases; uncertainty stays explicit.
 3. Improve provenance and issue locality so verified surrounding content remains
    useful without clearing unresolved regions or dependent content.

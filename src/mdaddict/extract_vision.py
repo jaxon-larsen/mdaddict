@@ -159,7 +159,7 @@ class VisionExtractor(OfflineExtractor):
                         except (AttributeError, ValueError, RuntimeError):
                             found_tables_cache["v"] = None
                     return found_tables_cache["v"]
-                native = native_tables(native, self.check_cells, table_warnings.append, get_found_tables)
+                native = native_tables(native, self.check_cells, table_warnings.append, get_found_tables, page)
                 native = native or page.get_text()
                 analysis = analyze_page(page, native, get_found_tables)
                 # Missing content or an ambiguous table cannot be treated as clean.

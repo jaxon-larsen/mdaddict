@@ -10,6 +10,7 @@ import pytest
 
 from mdaddict import ExtractOptions, ExtractResult, extract
 from mdaddict.extract_offline import missing_source_blocks, native_tables
+from unittest.mock import patch
 
 
 FIXTURES = Path(__file__).parent / "fixtures"
@@ -90,8 +91,11 @@ MARKDOWN = "Before\n\n| header |  |\n|---|---|\n|  | 0 |\n\nAfter"
 
 def render(table):
     warnings = []
-    text = native_tables(MARKDOWN, lambda count: None, warnings.append,
-                         lambda: SimpleNamespace(tables=[table]))
+    # These unit controls isolate geometry/serialization. Actual source glyph
+    # ownership is covered by test_pdf_cell_text and the source-bound PDF above.
+    with patch("mdaddict.pdf_cell_text.native_cell_rows", return_value=(table.extract(), False)):
+        text = native_tables(MARKDOWN, lambda count: None, warnings.append,
+                             lambda: SimpleNamespace(tables=[table]), SimpleNamespace(get_text=lambda _: {}))
     return text, warnings
 
 
@@ -137,7 +141,7 @@ def test_cell_budget_failure_is_not_treated_as_ambiguous_geometry():
 
     with pytest.raises(ValueError, match="cell budget"):
         native_tables(MARKDOWN, limited, lambda message: pytest.fail(message),
-                      lambda: SimpleNamespace(tables=[merged_table()]))
+                      lambda: SimpleNamespace(tables=[merged_table()]), SimpleNamespace())
 
 
 @pytest.mark.parametrize("damage", ["unowned", "overlap", "covered_text", "nonfinite", "missing_geometry"])
@@ -166,10 +170,10 @@ def test_geometry_ambiguity_is_a_scoped_publication_hold(tmp_path, monkeypatch):
         path = tmp_path / "merged.pdf"
         doc.save(path)
     from mdaddict.extract_offline import OfflineExtractor
-    def ambiguous(markdown, check_cells, report, get_found_tables):
+    def ambiguous(markdown, check_cells, report, get_found_tables, page):
         # Keep the real converter's table discovery; inject uncertainty only at
         # mdaddict's geometry-to-Markdown boundary.
-        return native_tables(markdown, check_cells, report, lambda: SimpleNamespace(tables=[]))
+        return native_tables(markdown, check_cells, report, lambda: SimpleNamespace(tables=[]), page)
 
     monkeypatch.setattr("mdaddict.extract_offline.native_tables", ambiguous)
     result = OfflineExtractor(ExtractOptions(pdf_backend="pymupdf", ocr="off")).extract(path)

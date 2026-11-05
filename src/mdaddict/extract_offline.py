@@ -141,7 +141,7 @@ def native_code(page, markdown: str, recovered=None) -> str:
     return output
 
 
-def native_tables(markdown: str, check_cells, report_ambiguity, get_found_tables) -> str:
+def native_tables(markdown: str, check_cells, report_ambiguity, get_found_tables, page) -> str:
     """Use actual table cell geometry instead of fill-forward of merged cells.
 
     get_found_tables is a lazy, memoized find_tables() call shared with
@@ -161,11 +161,19 @@ def native_tables(markdown: str, check_cells, report_ambiguity, get_found_tables
         return markdown
     replacements = []
     from mdaddict.pdf_tables import AmbiguousTable, native_table_markdown
+    from mdaddict.pdf_cell_text import native_cell_rows
+    raw = None
     for block, table in zip(blocks, tables):
         rows = table.extract()
         check_cells(sum(map(len, rows)))
         try:
+            native_table_markdown(table, rows)  # Validate ownership before assigning glyphs.
+            if raw is None:
+                raw = page.get_text("rawdict")
+            rows, packed = native_cell_rows(table, rows, raw)
             replacements.append(native_table_markdown(table, rows))
+            if packed:
+                report_ambiguity("PDF cells contain unresolved aligned internal rows/columns; text retained without inferring a grid")
         except AmbiguousTable as error:
             report_ambiguity(f"PDF table geometry ambiguous ({error}); native Markdown table retained for review")
             replacements.append(block.group())
@@ -401,7 +409,7 @@ class OfflineExtractor:
                                 show_progress=False, write_images=False, embed_images=False, force_text=True)
                             text = native_tables(text, self.check_cells,
                                 lambda message: issue("pdf_table_structure_unresolved", message, "unresolved"),
-                                get_found_tables)
+                                get_found_tables, page)
                             if not text.strip() and raw.strip():
                                 text = conversion_page.get_text()
                                 issue("pdf_plain_text_recovery", "Markdown extraction empty; preserved plain text")
