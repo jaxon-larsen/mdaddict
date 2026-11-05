@@ -11,6 +11,7 @@ CONTENT_ISSUE_CODES = frozenset({
     "equation_unresolved", "equation_placement_unresolved", "pdf_scan_unresolved",
     "pdf_region_unresolved", "pdf_glyph_unresolved", "vision_region_unresolved",
     "pdf_layout_unresolved", "pdf_math_unresolved", "pdf_numeric_unresolved", "pdf_reading_order_unresolved",
+    "pdf_table_structure_unresolved",
     "ai_page_budget_deferred",
     "pdf_form_conflict", "pdf_form_orphan", "pdf_form_structure_unresolved",
     "pdf_form_appearance_mismatch", "pdf_form_unlocated", "pdf_form_unsupported",

@@ -242,6 +242,15 @@ vectors may also be held. Text-only extraction does not prove row/column or
 formula relationships, and these checks are not a complete ambiguity detector.
 OCR rendering is capped at a 2,400-pixel longest side.
 
+The optional PyMuPDF path preserves proven ruled-table row/column spans as HTML
+`rowspan`/`colspan`; ordinary rectangular tables remain GFM pipe tables. It reuses
+the existing native cell API and requires a complete, nonoverlapping grid.
+Ambiguous geometry or table mapping retains the original Markdown with a scoped
+`pdf_table_structure_unresolved` hold. External merged headers and borderless
+table discovery remain outside this correction. PDFium behavior and backend
+defaults are unchanged. Implementation revision `mdaddict-10` prevents old
+conversion caches from hiding the correction; retained source versions stay immutable.
+
 PDF AI repair currently requires both `[pdf-pymupdf]` and
 `ExtractOptions(pdf_backend="pymupdf")`. Supplying an AI adapter on the PDFium
 path raises an actionable `MissingDependencyError` before conversion or model
@@ -268,7 +277,7 @@ locators, rebased block IDs and matching Markdown references, including nested
 containers. The member manifest retains original child metadata. Reference
 rewrites preserve Unicode spans and distinct occurrences of identical images.
 No bitmap sidecars are persisted. Re-extract older asset-bearing caches under the
-`mdaddict-9` implementation revision; do not rewrite retained provenance in place.
+`mdaddict-10` implementation revision; do not rewrite retained provenance in place.
 
 ## Distribution checks
 

@@ -18,7 +18,7 @@ def main(argv: list[str] | None = None) -> int:
     # Markdown/JSON pipes have a fixed UTF-8 contract, including without PYTHONUTF8.
     for stream in (sys.stdout, sys.stderr):
         if hasattr(stream, "reconfigure"):
-            stream.reconfigure(encoding="utf-8")
+            stream.reconfigure(encoding="utf-8", newline="\n")
     parser = argparse.ArgumentParser(prog="mdaddict", description="Convert files to Markdown; remote sources require explicit opt-in")
     parser.add_argument("path", nargs="?")
     parser.add_argument("--capabilities", action="store_true", help="Print the input catalog and installed feature availability as JSON")

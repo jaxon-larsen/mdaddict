@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import csv
 from collections import Counter
+from html import unescape
 from html.parser import HTMLParser
 import io
 import re
@@ -39,6 +40,10 @@ def missing_source_blocks(page, markdown: str) -> list[str]:
     """Detect dropped native glyphs without pretending to reconstruct 2-D math."""
     def significant(char):
         return char.isalnum() or unicodedata.category(char) == "Sm"
+    # Generated span attributes are layout, not recovered source characters.
+    # Decode cell entities only after removing tags so literal source '<' stays.
+    markdown = re.sub(r"<table>.*?</table>",
+        lambda match: unescape(re.sub(r"<[^>]*>", " ", match.group())), markdown, flags=re.S)
     available = Counter(char for char in markdown if significant(char))
     missing = []
     for block in page.get_text("blocks", sort=True):
@@ -136,7 +141,7 @@ def native_code(page, markdown: str, recovered=None) -> str:
     return output
 
 
-def native_tables(markdown: str, check_cells, warn, get_found_tables) -> str:
+def native_tables(markdown: str, check_cells, report_ambiguity, get_found_tables) -> str:
     """Use actual table cell geometry instead of fill-forward of merged cells.
 
     get_found_tables is a lazy, memoized find_tables() call shared with
@@ -148,21 +153,22 @@ def native_tables(markdown: str, check_cells, warn, get_found_tables) -> str:
         return markdown
     found_tables = get_found_tables()
     if found_tables is None:
-        warn("PDF table mapping ambiguous; native Markdown table retained for review")
+        report_ambiguity("PDF table mapping ambiguous; native Markdown table retained for review")
         return markdown
     tables = sorted(found_tables.tables, key=lambda table: (table.bbox[1], table.bbox[0]))
     if len(tables) != len(blocks):
-        warn("PDF table mapping ambiguous; native Markdown table retained for review")
+        report_ambiguity("PDF table mapping ambiguous; native Markdown table retained for review")
         return markdown
     replacements = []
-    for table in tables:
+    from mdaddict.pdf_tables import AmbiguousTable, native_table_markdown
+    for block, table in zip(blocks, tables):
         rows = table.extract()
         check_cells(sum(map(len, rows)))
-        if table.header.external:
-            rows.insert(0, table.header.names)
-        if any(value is None for row in rows for value in row):
-            warn("PDF merged/empty cells preserved as blank grid positions; Markdown cannot encode spans")
-        replacements.append(table_markdown([["" if value is None else value for value in row] for row in rows]))
+        try:
+            replacements.append(native_table_markdown(table, rows))
+        except AmbiguousTable as error:
+            report_ambiguity(f"PDF table geometry ambiguous ({error}); native Markdown table retained for review")
+            replacements.append(block.group())
     for block, replacement in reversed(list(zip(blocks, replacements))):
         markdown = markdown[:block.start()] + replacement + markdown[block.end():]
     return markdown
@@ -393,7 +399,9 @@ class OfflineExtractor:
                             text = pymupdf4llm.to_markdown(prepared.doc if prepared else doc,
                                 pages=[0 if prepared else idx-1], hdr_info=headers,
                                 show_progress=False, write_images=False, embed_images=False, force_text=True)
-                            text = native_tables(text, self.check_cells, self.warn, get_found_tables)
+                            text = native_tables(text, self.check_cells,
+                                lambda message: issue("pdf_table_structure_unresolved", message, "unresolved"),
+                                get_found_tables)
                             if not text.strip() and raw.strip():
                                 text = conversion_page.get_text()
                                 issue("pdf_plain_text_recovery", "Markdown extraction empty; preserved plain text")

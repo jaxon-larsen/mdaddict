@@ -11,7 +11,7 @@ import tempfile
 from dataclasses import asdict, dataclass, field
 from pathlib import Path
 
-ENGINE_REVISION = "mdaddict-9"
+ENGINE_REVISION = "mdaddict-10"
 
 
 @dataclass(frozen=True)

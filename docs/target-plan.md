@@ -227,6 +227,41 @@ pull an LLM into mdaddict’s default conversion.
 
 ## Implementation sequence (remaining)
 
+The first IC-5 correction preserves native ruled-table spans on the existing
+optional PyMuPDF path. The authored merged-header control previously flattened
+one colspan and one rowspan into blank cells; it now retains both in HTML while
+keeping the genuine empty cell and recorded zero distinct. Native table mapping
+or geometry uncertainty stays held under `pdf_table_structure_unresolved`.
+The fixed comparison retains 5/6 existing table/matrix matches on compatibility
+and 0/6 on PDFium; only the authored merged-header page changes. Other page
+content and existing hold outcomes are unchanged. This adds no dependency or
+backend switch and does not establish improved real-source table accuracy.
+Reproduction and limits live in the education testing guide; portable controls
+are in `tests/test_pdf_tables.py` and `tests/fixtures/table-controls.*`.
+
+**Next bounded work:** first make the application's existing fidelity checker
+score HTML spans alongside GFM/LaTeX using its existing structural parser. Freeze
+whether each check covers a complete table or a uniquely identified, source-bound
+subgrid; matching cell words is insufficient. Then target Demšar page 11, Table 4,
+the remaining compatibility mismatch among the six existing table/matrix checks.
+The native API currently packs its 3×3 numeric body into one cell of an outer 2×2
+grid and loses decimal placement in the interval labels. Review full method/row/
+column labels and caption against the source before changing extraction or gold.
+Evaluate maintained native APIs within automatically discovered bounds before
+writing a new recognizer; runtime code must not receive gold coordinates, counts
+or source-specific separators. Retain the mismatch/holds if ownership is ambiguous.
+
+After that measured repair, qualify a separate optional PDFium ruled-table
+adapter against the same controls and prior library candidates. Promotion needs
+useful structural recovery, no introduced false tables/critical content errors,
+preserved neighboring content/provenance and justified latency/dependency cost.
+No default dependency/backend change is implied. Other matrix/math/visual work
+follows source-backed cases; media/provider and live quality gates stay pending.
+The application [implementation sequence](../../education/docs/technical.md#next-fidelity-implementation)
+and [acceptance contract](../../education/docs/testing.md#next-table-fidelity-pass)
+record the concrete seams and stop conditions. This is planned work, not a new
+fidelity result or authorization for model calls or a different quarantine policy.
+
 The [existing-corpus comparison](pdf-corpus-2026-10-23.md) now measures 29 reviewed
 pages from 16 PDFs. PDFium matches the text/order sentinels but misses the 21
 structured equation targets and six table/matrix targets. Keep the compatibility
@@ -278,12 +313,14 @@ targets. Keep the conversion shell and pursue bounded table-library reuse;
 these results do not establish automatic mathematical fidelity or justify a
 wholesale replacement. Competitor API integration remains unmeasured.
 
-1. Close the [input coverage and parity](#input-coverage-and-parity) gaps first:
-   record a pinned baseline, accept representative variants, expose package
-   capabilities in the app, and resolve input-method/detection gaps.
-2. Deepen instructional fidelity on demonstrated source defects: default PDF
-   equations, table/matrix relationships, reading order, and code/qualifier
-   preservation. Reuse established APIs; keep uncertainty explicit.
+1. Keep the implemented [input coverage and parity](#input-coverage-and-parity)
+   controls green; finish the explicitly deferred codec/provider acceptance
+   separately. Intake, detection and application exposure are implemented within
+   their declared bounds, not the next unstarted milestone.
+2. Execute the bounded fidelity sequence above: HTML-aware structural acceptance,
+   then the source-bound Demšar table repair, followed by conditional optional
+   PDFium table qualification. Other equation/matrix, reading-order and qualifier
+   repairs require their own demonstrated source cases; uncertainty stays explicit.
 3. Improve provenance and issue locality so verified surrounding content remains
    useful without clearing unresolved regions or dependent content.
 4. Account for native slide shapes/PDF vector diagrams and figure-caption links,

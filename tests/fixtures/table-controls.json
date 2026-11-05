@@ -1,0 +1,122 @@
+{
+  "scope": "Invented independent controls; not a real-source accuracy estimate",
+  "cases": [
+    {
+      "id": "ruled-empty-repetition",
+      "index": 1,
+      "rows": [
+        [
+          "Case",
+          "Value",
+          "Count"
+        ],
+        [
+          "A",
+          "ready",
+          "1"
+        ],
+        [
+          "B",
+          "",
+          "0"
+        ],
+        [
+          "C",
+          "ready",
+          "1"
+        ],
+        [
+          "C",
+          "ready",
+          "1"
+        ]
+      ],
+      "spans": []
+    },
+    {
+      "id": "borderless-empty-repetition",
+      "index": 2,
+      "rows": [
+        [
+          "Case",
+          "Value",
+          "Count"
+        ],
+        [
+          "A",
+          "ready",
+          "1"
+        ],
+        [
+          "B",
+          "",
+          "0"
+        ],
+        [
+          "C",
+          "ready",
+          "1"
+        ],
+        [
+          "C",
+          "ready",
+          "1"
+        ]
+      ],
+      "spans": []
+    },
+    {
+      "id": "merged-header",
+      "index": 3,
+      "rows": [
+        [
+          "Readings",
+          null,
+          "Status"
+        ],
+        [
+          "Trial A",
+          "Trial B",
+          null
+        ],
+        [
+          "7",
+          "0",
+          "Pass"
+        ],
+        [
+          "",
+          "5",
+          "Hold"
+        ]
+      ],
+      "spans": [
+        {
+          "row": 0,
+          "col": 0,
+          "rowspan": 1,
+          "colspan": 2
+        },
+        {
+          "row": 0,
+          "col": 2,
+          "rowspan": 2,
+          "colspan": 1
+        }
+      ]
+    },
+    {
+      "id": "aligned-prose",
+      "index": 4,
+      "rows": null,
+      "spans": []
+    },
+    {
+      "id": "ordinary-prose",
+      "index": 5,
+      "rows": null,
+      "spans": []
+    }
+  ],
+  "source_sha256": "d7cf7dc1c9d8b2757878c0711c2e9ab82fbe1b1c22776b06d3179f0d59e30a9c"
+}
