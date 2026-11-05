@@ -1,3 +1,18 @@
 # Preserve exact upstream bytes so the provenance hashes are portable.
 src/mdaddict/_vendor/omml2latex.py -text
 src/mdaddict/_vendor/licenses/omml2latex-LICENSE -text
+
+# Document formats and test fixtures must preserve exact byte hashes across platforms.
+*.pdf -text
+*.docx -text
+*.pptx -text
+*.xlsx -text
+*.epub -text
+*.msg -text
+*.zip -text
+*.png -text
+*.jpg -text
+*.jpeg -text
+*.heic -text
+*.heif -text
+
