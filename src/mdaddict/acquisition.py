@@ -209,6 +209,13 @@ def _youtube(source, options, out_dir):
     return result
 
 
+def download_url(source: str, *, allow_network: bool = False, options: ExtractOptions | None = None):
+    """Return bytes, final URL, headers, and redirects without parsing or saving the artifact."""
+    if not allow_network:
+        raise ValueError("Remote acquisition requires allow_network=True")
+    return _download(source, options=options or ExtractOptions())
+
+
 def acquire(source: str, *, kind: str, allow_network: bool, options: ExtractOptions,
             ai_provider=None, out_dir=None, force=False) -> ExtractResult:
     """Fetch only after explicit opt-in; URLs are artifact snapshots, not crawls."""
@@ -218,7 +225,7 @@ def acquire(source: str, *, kind: str, allow_network: bool, options: ExtractOpti
         raise ValueError("Remote acquisition requires allow_network=True")
     if kind == "youtube":
         return _youtube(source, options, out_dir)
-    raw, final_url, headers, redirects = _download(source, options=options)
+    raw, final_url, headers, redirects = download_url(source, allow_network=allow_network, options=options)
     name = re.sub(r"[^A-Za-z0-9._-]", "_", Path(unquote(urlsplit(final_url).path)).name).strip(".") or "download"
     content_type = headers.get("content-type", "").split(";", 1)[0].strip().lower()
     suffixes = {"text/html": ".html", "application/xhtml+xml": ".html", "text/plain": ".txt", "application/pdf": ".pdf"}

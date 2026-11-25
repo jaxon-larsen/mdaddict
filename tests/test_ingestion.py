@@ -9,7 +9,7 @@ import zipfile
 import pytest
 
 from mdaddict import (AIResponse, ExtractOptions, MediaAttachment, TranscriptSegment,
-                      capabilities, extract, ingest, load_extract)
+                      capabilities, download_url, extract, ingest, load_extract)
 
 
 def zip_bytes(members):
@@ -364,6 +364,40 @@ def test_dns_and_redirects_reject_private_targets(monkeypatch):
         acquisition._download("https://example.com", options=ExtractOptions())
     with pytest.raises(ValueError, match="http"):
         acquisition._public_endpoint("file:///tmp/source")
+
+
+def test_download_only_requires_opt_in_and_returns_unmodified_bytes(monkeypatch):
+    import mdaddict.acquisition as acquisition
+    result = (b"Source bytes\r\n", "https://example.org/final", {"content-type": "text/plain"}, ["https://example.org/"])
+    calls = []
+
+    def transport(source, *, options):
+        calls.append((source, options.max_mb))
+        return result
+
+    monkeypatch.setattr(acquisition, "_download", transport)
+    with pytest.raises(ValueError, match="allow_network=True"):
+        download_url("https://example.org/")
+    assert calls == []
+    assert download_url("https://example.org/", allow_network=True, options=ExtractOptions(max_mb=3)) == result
+    assert calls == [("https://example.org/", 3)]
+
+
+def test_download_revalidates_each_redirect_before_request(monkeypatch):
+    import mdaddict.acquisition as acquisition
+    addresses = {"example.org": "93.184.216.34", "example.test": "127.0.0.1"}
+    monkeypatch.setattr(socket, "getaddrinfo", lambda host, port, **kwargs: [
+        (socket.AF_INET, socket.SOCK_STREAM, 6, "", (addresses[host], port))])
+    calls = []
+
+    def redirect(url, endpoint, **kwargs):
+        calls.append((url, endpoint[-1]))
+        return 302, {"Location": "https://example.test/"}, b""
+
+    monkeypatch.setattr(acquisition, "_request_once", redirect)
+    with pytest.raises(ValueError, match="Private/local"):
+        download_url("https://example.org/", allow_network=True)
+    assert calls == [("https://example.org/", "93.184.216.34")]
 
 
 def test_youtube_keeps_caption_times_and_holds_visuals(monkeypatch):

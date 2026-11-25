@@ -2,6 +2,7 @@
 from .extract import extract, to_markdown
 from .intake import Detection, detect_input
 from .ingestion import ingest
+from .acquisition import download_url
 from .capabilities import Capability, capabilities, capability_for
 from .strategy import (
     AssetRecord, ExtractOptions, ExtractResult, ExtractionIssue, SourceBlock, SourceLocator,
@@ -15,5 +16,5 @@ __all__ = [
     "AssetRecord", "extract", "to_markdown", "ExtractOptions", "ExtractResult", "ExtractionIssue",
     "SourceBlock", "SourceLocator", "load_extract", "write_extract", "MissingDependencyError",
     "AIProvider", "AIRequest", "AIResponse", "ProviderError", "MediaAttachment", "TranscriptSegment",
-    "Detection", "detect_input", "ingest", "Capability", "capabilities", "capability_for",
+    "Detection", "detect_input", "ingest", "download_url", "Capability", "capabilities", "capability_for",
 ]
